@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { CognitoUser } from 'amazon-cognito-identity-js';
-import UserPool from '../UserPool';
+import UserPool from './AWS/UserPool';
 import { UserContext } from '../contexts/UserContext';
 
 const Verification = () => {

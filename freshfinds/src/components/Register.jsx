@@ -1,5 +1,5 @@
 import { useState } from "react";
-import UserPool from "../UserPool";
+import UserPool from "./AWS/UserPool";
 import { useUser } from '../hooks/useUser';
 import "../index.css";
 
