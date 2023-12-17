@@ -1,8 +1,8 @@
 const ButtonBar = () => {
   return (
-    <div className=" space-x-4 flex justify-center">
+    <div className="space-x-3 flex">
       <button
-        className="text-white px-4 py-2 flex-auto text-center rounded-md"
+        className="text-white px-4 py-2 text-center rounded-sm"
         style={{
           backgroundColor: "#3D3D3D",
         }}
@@ -10,7 +10,7 @@ const ButtonBar = () => {
         Sign Up
       </button>
       <button
-        className="text-white px-6 py-2 flex-auto text-center rounded-md"
+        className="text-white px-6 py-2 text-center rounded-sm"
         style={{
           backgroundColor: "#FF542F",
         }}

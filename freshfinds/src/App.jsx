@@ -1,7 +1,6 @@
-import Register from "./components/Register"
-import Verification from "./components/Verification"
 import { UserProvider } from "./contexts/UserContext"
 import Home from "./pages/Home"
+import "./index.css"
 
 function App() {
 
