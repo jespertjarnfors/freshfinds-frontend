@@ -4,7 +4,7 @@ const HeroText = () => {
         <h1 className="text-xs sm:text-sm md:text-lg lg:text-4xl xl:text-5xl font-semibold text-gray-800 mb-4" style={{
             fontFamily: 'General Sans, sans-serif'
         }}>Ecological Produce</h1>
-        <div className="text-xs sm:text-sm md:text-lg lg:text-2xl xl:text-3xl font-thin text-gray-500 p-1 mb-8" style={{
+        <div className="text-xs sm:text-sm md:text-lg lg:text-2xl xl:text-3xl font-thin text-gray-500 p-1 mb-6" style={{
             fontFamily: 'Satoshi, sans-serif'
         }}>
           <h1>Imagine a Farmers Market,<br /> accessible from your home.</h1>

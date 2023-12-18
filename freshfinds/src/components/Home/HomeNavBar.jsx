@@ -64,7 +64,7 @@ const HomeNavBar = () => {
                 isOpen ? "translate-x-0 opacity-100" : "opacity-0 -translate-x-full"
               }`}
             >
-              <div className="flex flex-col -mx-6 lg:flex-row lg:items-center lg:mx-8">
+              <div className="flex flex-col mx-2 lg:flex-row lg:items-center lg:mx-2 font-semibold">
              
                 <a href="#" className="px-3 py-2 mx-3 mt-2 text-gray-800 transition-colors duration-300 transform rounded-md lg:mt-0 hover:bg-gray-100">
                   Home
