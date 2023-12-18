@@ -1,16 +1,21 @@
 import { UserProvider } from "./contexts/UserContext"
+import Home from "./pages/Home"
 import Register from "./components/Register"
 import Verification from "./components/Verification"
-import "./index.css"
+import Map from "./components/Map/Map"
+import PlacesAutoComplete from "./components/Map/PlacesAutoComplete"
+import "./App.css"
 
 function App() {
 
   return (
     <>
     <UserProvider>
-    {/* <Home /> */}
+      {/* <Map></Map>
+      <PlacesAutoComplete></PlacesAutoComplete>
+    <Home /> */}
       <Register />
-      <Verification />
+      <Verification /> 
       </UserProvider>
     </>
   )

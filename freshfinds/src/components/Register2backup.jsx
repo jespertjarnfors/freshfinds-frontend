@@ -2,7 +2,6 @@ import { useState } from "react";
 import UserPool from "./AWS/UserPool";
 import { useUser } from '../hooks/useUser';
 import "../index.css";
-import PlacesAutocomplete from "./Map/PlacesAutoComplete";
 
 const Register = () => {
   const { signUp } = useUser();
@@ -12,23 +11,14 @@ const Register = () => {
   const [givenName, setGivenName] = useState("");
   const [familyName, setFamilyName] = useState("");
   const [address, setAddress] = useState("");
-  const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (coordinates.lat === null || coordinates.lng === null) {
-      console.error('Please select an address.');
-      return;
-    }
-
     UserPool.signUp(username, password, [
       { Name: 'email', Value: email },
       { Name: 'given_name', Value: givenName },
       { Name: 'family_name', Value: familyName },
       { Name: 'address', Value: address },
-      { Name: 'custom:latitude', Value: coordinates.lat.toFixed(6) },
-      { Name: 'custom:longitude', Value: coordinates.lng.toFixed(6) },
     ], null, (err, data) => {
       if (err) console.error(err);
       console.log(data);
@@ -66,10 +56,11 @@ const Register = () => {
           onChange={(e) => setFamilyName(e.target.value)}
         ></input>
         <label htmlFor="address">Address</label>
-        <PlacesAutocomplete
-          onAddressChange={setAddress}
-          onSelect={setCoordinates}
-        />
+        <input
+          className="bg-slate-100"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+        ></input>
         <label htmlFor="password">Password</label>
         <input
           className="bg-slate-100"
