@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Logo from "../../assets/LogoMedium.png";
 import Tomato from "../../assets/Tomato.png";
+import './HomeNavBar.css';
 
 const HomeNavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -61,18 +62,28 @@ const HomeNavBar = () => {
             {/* Mobile Menu */}
             <div
               className={`absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center ${
-                isOpen ? "translate-x-0 opacity-100" : "opacity-0 -translate-x-full"
+                isOpen
+                  ? "translate-x-0 opacity-100"
+                  : "opacity-0 -translate-x-full"
               }`}
             >
-              <div className="flex flex-col mx-2 lg:flex-row lg:items-center lg:mx-2 font-semibold">
-             
-                <a href="#" className="px-3 py-2 mx-3 mt-2 text-gray-800 transition-colors duration-300 transform rounded-md lg:mt-0 hover:bg-gray-100">
+              <div className="flex flex-col lg:flex-row lg:items-center font-medium">
+                <a
+                  href="#"
+                  className="px-6 py-2 mt-2 text-gray-800 transition-colors duration-300 transform lg:mt-0"
+                >
                   Home
                 </a>
-                <a href="#" className="px-3 py-2 mx-3 mt-2 text-gray-800 transition-colors duration-300 transform rounded-md lg:mt-0 hover:bg-gray-100">
+                <a
+                  href="#"
+                  className="px-6 py-2 mt-2 text-gray-800 transition-colors duration-300 transform lg:mt-0"
+                >
                   About
                 </a>
-                <a href="#" className="px-3 py-2 mx-3 mt-2 text-gray-800 transition-colors duration-300 transform rounded-md lg:mt-0 hover:bg-gray-100">
+                <a
+                  href="#"
+                  className="px-6 py-2 mt-2 text-gray-800 transition-colors duration-300 transform lg:mt-0"
+                >
                   Contact
                 </a>
               </div>
@@ -81,15 +92,14 @@ const HomeNavBar = () => {
                 <button
                   className="hidden mx-4 text-gray-800 transition-colors duration-300 transform lg:block hover:text-gray-700 focus:text-gray-700 focus:outline-none"
                   aria-label="show notifications"
-                >
-                </button>
-                 <div className="w-10 h-8 overflow-hidden rounded-full">
-                    <img
-                      src={Tomato}
-                      className="object-cover w-full h-full"
-                      alt="avatar"
-                    />
-                  </div>
+                ></button>
+                <div className="w-10 h-8 overflow-hidden rounded-full">
+                  <img
+                    src={Tomato}
+                    className="object-cover w-full h-full"
+                    alt="avatar"
+                  />
+                </div>
               </div>
             </div>
           </div>

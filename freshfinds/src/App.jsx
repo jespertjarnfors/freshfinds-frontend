@@ -1,5 +1,6 @@
 import { UserProvider } from "./contexts/UserContext"
-import Home from "./pages/Home"
+import Register from "./components/Register"
+import Verification from "./components/Verification"
 import "./index.css"
 
 function App() {
@@ -7,9 +8,9 @@ function App() {
   return (
     <>
     <UserProvider>
-    <Home />
-      {/* <Register />
-      <Verification /> */}
+    {/* <Home /> */}
+      <Register />
+      <Verification />
       </UserProvider>
     </>
   )
