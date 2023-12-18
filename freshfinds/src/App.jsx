@@ -1,12 +1,14 @@
+import { UserProvider } from "./contexts/UserContext"
 import Register from "./components/Register"
 import Verification from "./components/Verification"
-import { UserProvider } from "./contexts/UserContext"
+import "./index.css"
 
 function App() {
 
   return (
     <>
     <UserProvider>
+    {/* <Home /> */}
       <Register />
       <Verification />
       </UserProvider>
