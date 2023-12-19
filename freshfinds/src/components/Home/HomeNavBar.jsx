@@ -8,7 +8,7 @@ const HomeNavBar = () => {
 
   return (
     <div>
-      <nav className="relative shadow">
+      <nav className="relative">
         <div className="px-6 py-4">
           <div className="lg:flex lg:items-center lg:justify-between">
             <div className="flex items-center justify-between">

@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,

@@ -1,26 +1,28 @@
-import { UserProvider } from "./contexts/UserContext"
-import Home from "./pages/Home"
-import RegisterForm from "./components/Register/RegisterForm"
-import Verification from "./components/Verification"
-import Map from "./components/Google Maps/Map"
-import PlacesAutoComplete from "./components/Google Maps/PlacesAutoComplete"
-import "./App.css"
-import Register from "./pages/Register"
+import { UserProvider } from "./contexts/UserContext";
+import { AppRoutes } from "./routes/AppRoutes";
+import Home from "./pages/Home";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Verification from "./components/Register/Verification";
+import Map from "./components/Google Maps/Map";
+import "./App.css";
 
 function App() {
-
   return (
     <>
-    <UserProvider>
-      {/* <Map></Map>
-      <PlacesAutoComplete></PlacesAutoComplete>*/}
-    {/* <Home />  */}
-      <Register></Register>
-      <Verification></Verification>
-      {/* <Verification />  */}
+      <UserProvider>
+        <AppRoutes>
+        {/* <Map></Map>
+    {/* <Home></Home> */}
+        <Register></Register>
+        {/* <Verification></Verification> */}
+        {/* <Login></Login> */}
+
+        {/* <Verification />  */}
+        </AppRoutes>
       </UserProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
