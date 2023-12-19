@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.2",
     "@react-google-maps/api": "^2.19.2",
     "amazon-cognito-identity-js": "^6.3.7",
     "dotenv": "^16.3.1",

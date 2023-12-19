@@ -70,19 +70,19 @@ const HomeNavBar = () => {
               <div className="flex flex-col lg:flex-row lg:items-center font-medium">
                 <a
                   href="#"
-                  className="px-6 py-2 mt-2 text-gray-800 transition-colors duration-300 transform lg:mt-0"
+                  className="px-6 py-2 mt-2 text-gray-800 transition-colors duration-300 transform lg:mt-0 hover:text-gray-500"
                 >
                   Home
                 </a>
                 <a
                   href="#"
-                  className="px-6 py-2 mt-2 text-gray-800 transition-colors duration-300 transform lg:mt-0"
+                  className="px-6 py-2 mt-2 text-gray-800 transition-colors duration-300 transform lg:mt-0 hover:text-gray-500"
                 >
-                  About
+                 About
                 </a>
                 <a
                   href="#"
-                  className="px-6 py-2 mt-2 text-gray-800 transition-colors duration-300 transform lg:mt-0"
+                  className="px-6 py-2 mt-2 text-gray-800 transition-colors duration-300 transform lg:mt-0 hover:text-gray-500"
                 >
                   Contact
                 </a>
