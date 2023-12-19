@@ -12,9 +12,9 @@ const HomeNavBar = () => {
         <div className="px-6 py-4">
           <div className="lg:flex lg:items-center lg:justify-between">
             <div className="flex items-center justify-between">
-              <a href="#">
+              
                 <img className="w-auto h-32 sm:h-12" src={Logo} alt="" />
-              </a>
+              
 
               {/* Mobile menu button */}
               <div className="flex lg:hidden">

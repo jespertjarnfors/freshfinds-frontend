@@ -68,7 +68,7 @@ const LoginForm = () => {
             <button className="btn-2" type="submit">
               Login
             </button>
-            <button className="btn px-10" type="button" onClick={handleRegisterClick}>
+            <button className="btn px-4" type="button" onClick={handleRegisterClick}>
               Register
             </button>
           </div>
