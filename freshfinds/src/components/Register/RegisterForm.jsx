@@ -4,9 +4,9 @@ import { useUser } from "../../hooks/useUser";
 import UserPool from "../AWS/UserPool";
 import PlacesAutocomplete from "../Google Maps/PlacesAutoComplete";
 import RegisterHeading from "./RegisterHeading";
+import "./RegisterForm.css";
 
 const RegisterForm = () => {
-  
   // For navigation
   const navigate = useNavigate();
 
@@ -24,6 +24,7 @@ const RegisterForm = () => {
   const [familyName, setFamilyName] = useState("");
   const [address, setAddress] = useState("");
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
+  const [isProducer, setIsProducer] = useState("false"); // "false" for consumer, "true" for producer
 
   // Error states
   const [emailError, setEmailError] = useState("");
@@ -82,6 +83,7 @@ const RegisterForm = () => {
         { Name: "address", Value: address },
         { Name: "custom:latitude", Value: coordinates.lat.toFixed(6) },
         { Name: "custom:longitude", Value: coordinates.lng.toFixed(6) },
+        { Name: "custom:isProducer", Value: isProducer }, // Pass isProducer as a number
       ],
       null,
       (err, data) => {
@@ -107,12 +109,13 @@ const RegisterForm = () => {
         minHeight: "85svh",
       }}
     >
-      <div className="rounded-md w-1/3 p-5">
-        <RegisterHeading></RegisterHeading>
+      <div className="rounded-md w-1/3">
+     
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col space-y-2 border-2border-spacing-4 p-8 rounded-2xl shadow-xl"
+          className="flex flex-col space-y-1 border-2border-spacing-4 p-8 rounded-2xl shadow-xl"
         >
+             <RegisterHeading></RegisterHeading>
           <div className="flex flex-col space-y-2">
             <label htmlFor="email" className="text-gray-700 font-medium">
               Email
@@ -199,7 +202,42 @@ const RegisterForm = () => {
               onSelect={setCoordinates}
             />
           </div>
-          <div className="flex justify-center space-x-10 pt-4">
+          <div className="flex flex-col space-y-2">
+            <label className="text-gray-700 font-medium">
+              Are you wanting to sell or buy produce?
+            </label>
+            <div className="flex items-center space-x-4">
+              <div>
+                <label className="custom-radio-container text-gray-700 font-medium">
+                  Buy
+                  <input
+                    type="radio"
+                    id="buy"
+                    name="isProducer"
+                    value="false"
+                    checked={isProducer === "false"}
+                    onChange={() => setIsProducer("false")}
+                  />
+                  <span className="checkmark"></span>
+                </label>
+              </div>
+              <div>
+                <label className="custom-radio-container text-gray-700 font-medium">
+                  Sell
+                  <input
+                    type="radio"
+                    id="sell"
+                    name="isProducer"
+                    value="true"
+                    checked={isProducer === "true"}
+                    onChange={() => setIsProducer("true")}
+                  />
+                  <span className="checkmark"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-center pt-1 space-x-10">
             <button className="btn-2" type="submit">
               Sign Up
             </button>
