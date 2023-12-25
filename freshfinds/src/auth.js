@@ -45,10 +45,6 @@ import {
     // Forgot password implementation
   }
   
-  export function confirmPassword(username, code, newPassword) {
-    // Confirm password implementation
-  }
-  
   export function signOut() {
     // Sign out implementation
   }

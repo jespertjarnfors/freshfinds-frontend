@@ -2,6 +2,7 @@ import {Routes, Route} from 'react-router-dom'
 import Home from '../pages/Home'
 import Register from '../pages/Register'
 import Login from '../pages/Login'
+import ProductFeed from '../pages/ProductFeed'
 
 import Verification from '../components/Register/Verification'
 
@@ -11,6 +12,7 @@ export function AppRoutes() {
             <Route path="/register" element={<Register />} />
             <Route path="/verification" element={<Verification />} />
             <Route path='/login' element={<Login></Login>}></Route>
+            <Route path='/productfeed' element={<ProductFeed></ProductFeed>}></Route>
 
             <Route path='*' element={<Home></Home>}></Route>
         </Routes>

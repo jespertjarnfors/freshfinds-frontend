@@ -1,10 +1,18 @@
 import { useState } from "react";
 import Logo from "../../assets/LogoMedium.png";
 import Tomato from "../../assets/Tomato.png";
+import {useNavigate} from 'react-router-dom';
 import './HomeNavBar.css';
 
 const HomeNavBar = () => {
+
   const [isOpen, setIsOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleHomeClick = () => {
+    navigate("/home");
+  };
 
   return (
     <div>
@@ -13,7 +21,7 @@ const HomeNavBar = () => {
           <div className="lg:flex lg:items-center lg:justify-between">
             <div className="flex items-center justify-between">
               
-                <img className="w-auto h-32 sm:h-12" src={Logo} alt="" />
+                <img className="w-auto h-32 sm:h-12" src={Logo} alt="" onClick={handleHomeClick}/>
               
 
               {/* Mobile menu button */}
@@ -71,6 +79,7 @@ const HomeNavBar = () => {
                 <a
                   href="#"
                   className="px-6 py-2 mt-2 text-gray-800 transition-colors duration-300 transform lg:mt-0 hover:text-gray-500"
+                  onClick={handleHomeClick}
                 >
                   Home
                 </a>
