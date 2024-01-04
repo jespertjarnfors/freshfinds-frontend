@@ -1,6 +1,5 @@
 import { UserProvider } from "./contexts/UserContext";
 import { AppRoutes } from "./routes/AppRoutes";
-import ProductFeed from "./pages/ProductFeed";
 import "./App.css";
 
 function App() {
@@ -8,7 +7,6 @@ function App() {
     <>
       <UserProvider>
         <AppRoutes>
-          <ProductFeed></ProductFeed>
         </AppRoutes>
       </UserProvider>
     </>
