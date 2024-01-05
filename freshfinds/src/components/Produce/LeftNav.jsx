@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import AccordionItem from "./AccordionItem";
 import beefIcon from "../../assets/icons/beef.svg";
@@ -6,20 +7,14 @@ import eggIcon from "../../assets/icons/egg.svg";
 import fruitIcon from "../../assets/icons/fruit.svg";
 import porkIcon from "../../assets/icons/pork.svg";
 import vegetablesIcon from "../../assets/icons/vegetables.svg";
-import oneStar from "../../assets/icons/oneStar.svg";
-import twoStar from "../../assets/icons/twoStar.svg";
-import threeStar from "../../assets/icons/threeStar.svg";
-import fourStar from "../../assets/icons/fourStar.svg";
-import fiveStar from "../../assets/icons/fiveStar.svg";
+import starIcon from "../../assets/icons/star.svg";
 
 const categories = ["Fruit", "Vegetables", "Eggs", "Beef", "Chicken", "Pork"];
 
 const ratings = [
-  { name: "5", icon: fiveStar },
-  { name: "4", icon: fourStar },
-  { name: "3", icon: threeStar },
-  { name: "2", icon: twoStar },
-  { name: "Any", icon: oneStar },
+  { name: "4+", icon: starIcon },
+  { name: "3+", icon: starIcon },
+  { name: "Any", icon: starIcon },
 ];
 
 const distances = ["10km", "25km", "50km"];
@@ -33,7 +28,7 @@ const categoryIcons = {
   "Pork": porkIcon,
 };
 
-const LeftNav = () => {
+const LeftNav = ({ selectedCategory, setSelectedCategory, selectedRating, setSelectedRating }) => {
   const [distance, setDistance] = useState("25km");
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [ratingsOpen, setRatingsOpen] = useState(false);
@@ -41,10 +36,17 @@ const LeftNav = () => {
   const categoryItems = categories.map(category => ({
     name: category,
     icon: categoryIcons[category],
+    onClick: () => setSelectedCategory(category) // onClick handler for category selection
+  }));
+
+  const ratingItems = ratings.map(rating => ({
+    name: rating.name,
+    icon: rating.icon,
+    onClick: () => setSelectedRating(rating.name) // onClick handler for rating selection
   }));
 
   return (
-    <div className="ml-10 p-4 rounded-xl shadow-lg w-1/3" style={{ backgroundColor: "#FFEDC2" }}>
+    <div className="ml-10 p-4 rounded-xl shadow-lg w-1/5 flex flex-col" style={{ backgroundColor: "#FFEDC2" }}>
       <div className="px-2 mb-2">
         <label htmlFor="distance" className="text-lg font-semibold">Distance</label>
         <select
@@ -68,7 +70,7 @@ const LeftNav = () => {
       />
       <AccordionItem
         title="Seller Rating"
-        items={ratings}
+        items={ratingItems}
         isOpen={ratingsOpen}
         setIsOpen={setRatingsOpen}
       />
