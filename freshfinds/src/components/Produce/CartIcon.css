@@ -1,0 +1,18 @@
+.cart-count {
+    position: absolute;
+    top: 25px; /* Adjust as needed */
+    right: -7px; /* Adjust as needed */
+    background-color: #3D3D3D;
+    color: white;
+    border-radius: 50%;
+    padding: 1px 7px;
+    font-size: 0.7rem;
+    /* More styling as needed */
+  }
+  
+  /* Container for the basket icon */
+  .cart-icon-container {
+    position: relative;
+    width: 35px; /* Adjust as needed */
+    height: 35px; /* Adjust as needed */
+  }

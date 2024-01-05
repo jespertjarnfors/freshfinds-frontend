@@ -29,6 +29,7 @@ const categoryIcons = {
 };
 
 const LeftNav = ({ selectedCategory, setSelectedCategory, selectedRating, setSelectedRating }) => {
+  
   const [distance, setDistance] = useState("25km");
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [ratingsOpen, setRatingsOpen] = useState(false);
