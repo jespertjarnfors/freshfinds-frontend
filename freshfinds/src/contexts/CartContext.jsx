@@ -12,7 +12,9 @@ export const CartProvider = ({ children }) => {
       seller: product.seller,
       name: product.name,
       quantity,
-      totalPrice: quantity * product.price, // Price is per kg
+      initialQuantity: product.quantity, // Save the initial available quantity
+      unitPrice: product.price, // Save the unit price
+      totalPrice: quantity * product.price, // Calculate total price
       deliveryMethod: product.deliveryMethod,
       icon: product.icon,
       image: product.image
@@ -26,9 +28,26 @@ export const CartProvider = ({ children }) => {
     setCart(newCart);
   };
 
+  const editCartItem = (index, newQuantity) => {
+    setCart(currentCart => 
+      currentCart.map((item, i) => {
+        if (i === index && newQuantity <= item.initialQuantity) {
+          return { 
+            ...item, 
+            quantity: newQuantity, 
+            totalPrice: newQuantity * item.unitPrice 
+          };
+        }
+        return item;
+      })
+    );
+  };
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, editCartItem }}>
       {children}
     </CartContext.Provider>
   );
 };
+
+export default CartProvider;

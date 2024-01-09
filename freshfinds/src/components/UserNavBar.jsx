@@ -38,7 +38,7 @@ const UserNavBar = () => {
                 <a href="#" className="px-6 py-2 mt-2 text-gray-800..." onClick={() => handleNavigation("/produce")}>Buy Produce</a>
                 <a href="#" className="px-6 py-2 mt-2 text-gray-800..." onClick={() => handleNavigation("/map")}>Map</a>
                 <a href="#" className="px-6 py-2 mt-2 text-gray-800..." onClick={() => handleNavigation("/account")}>Account</a>
-                <a href="#" className="px-6 py-2 mt-2 text-gray-800..." onClick={() => handleNavigation("/orders")}>Orders</a>
+                <a href="#" className="px-6 py-2 mt-2 mr-5 text-gray-800..." onClick={() => handleNavigation("/orders")}>Orders</a>
                 
                 {/* Cart Icon with count */}
                 <CartIcon cartCount={cartCount} onClick={() => handleNavigation("/cart")}/>

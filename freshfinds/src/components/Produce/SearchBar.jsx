@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+
 const SearchBar = ({ value, onChange }) => {
     return (
         <>

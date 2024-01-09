@@ -6,7 +6,6 @@ import UserPool from '../components/AWS/UserPool';
 export const UserContext = createContext();
 
 // UserContext component
-// eslint-disable-next-line react/prop-types
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState("");
 

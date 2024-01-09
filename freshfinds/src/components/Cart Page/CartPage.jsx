@@ -1,7 +1,21 @@
+import React, { useState } from "react";
 import { useCart } from "../../contexts/CartContext";
+import EditCartModal from "./EditCartModal";
 
 const CartPage = () => {
-  const { cart, removeFromCart } = useCart(); // Use removeFromCart from the CartContext
+  const { cart, removeFromCart, editCartItem } = useCart();
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingIndex, setEditingIndex] = useState(-1);
+
+  const openEditModal = (index) => {
+    setEditingIndex(index);
+    setIsEditing(true);
+  };
+
+  const closeEditModal = () => {
+    setIsEditing(false);
+    setEditingIndex(-1);
+  };
 
   return (
     <div className="p-6">
@@ -13,20 +27,31 @@ const CartPage = () => {
             <div className="flex-grow">
               <h3 className="text-md font-semibold">{item.name}</h3>
               <p className="text-gray-600">Seller: {item.seller}</p>
-              <p className="text-gray-600">Quantity: {item.quantity} kg</p>
+              <p className="text-gray-600">Total Available Stock: {item.initialQuantity} kg</p>
+              <p className="text-gray-600">Chosen Quantity: {item.quantity} kg</p>
+              <p className="text-gray-600">Price per kg: ${item.unitPrice.toFixed(2)}</p>
               <p className="text-gray-600">Delivery: {item.deliveryMethod}</p>
               <p className="text-gray-700 font-medium">Total Price: ${item.totalPrice.toFixed(2)}</p>
             </div>
-            <button 
-              onClick={() => removeFromCart(index)}
-              className="ml-4 px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600 transition-colors duration-200 ease-in-out"
-            >
+            <button onClick={() => openEditModal(index)} className="ml-4 px-8 py-2 text-white bg-gray-700 rounded hover:bg-gray-800">
+              Edit
+            </button>
+            <button onClick={() => removeFromCart(index)} className="ml-4 px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">
               Remove
             </button>
           </div>
         ))
       ) : (
-        <p className="text-gray-600">Your cart is empty.</p>
+        <p>Your cart is empty.</p>
+      )}
+
+      {isEditing && editingIndex >= 0 && (
+        <EditCartModal
+          item={cart[editingIndex]}
+          index={editingIndex}
+          editCartItem={editCartItem}
+          closeModal={closeEditModal}
+        />
       )}
     </div>
   );

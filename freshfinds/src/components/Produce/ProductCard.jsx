@@ -1,20 +1,25 @@
-/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useCart } from "../../contexts/CartContext";
 import starIcon from "../../assets/icons/star.svg";
 
 const ProductCard = ({ product }) => {
-    const [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState("");
+    const [error, setError] = useState("");
     const { addToCart } = useCart();
-  
+
     const handleAddToCart = () => {
-      if (quantity > 0 && quantity <= product.quantity) {
-        addToCart(product, quantity);
+      const numericQuantity = parseInt(quantity, 10);
+      if (numericQuantity > 0 && numericQuantity <= product.quantity) {
+        addToCart(product, numericQuantity);
+        setQuantity(""); // Reset quantity after adding to cart
+        setError(""); // Clear any previous error
+      } else {
+        setError("Invalid quantity. Please enter a value between 1 and the available stock.");
       }
     };
-  
+
     return (
-      <div className="w-3/4 sm:w-1/2 md:w-48 mx-4 rounded-xl shadow-xl m-4" style={{ backgroundColor: '#FFF9EB', alignSelf: 'start' }}>
+      <div className="w-3/4 sm:w-1/2 md:w-64 mx-3 rounded-xl shadow-xl m-4" style={{ backgroundColor: '#FFF9EB', alignSelf: 'start' }}>
           <div className="px-4 pt-2 pb-1 flex justify-between items-center">
               <div className="font-semibold text-md flex items-center">
                   {product.seller}
@@ -27,7 +32,7 @@ const ProductCard = ({ product }) => {
           <div className="px-4 py-2">
               <div className="font-semibold text-md mb-1 text-gray-800 flex justify-between items-center"
                   style={{ fontFamily: 'Satoshi, sans-serif' }}>
-                  {product.name} <span className="bg-green-50 rounded-md p-1 text-gray-700 text-sm">${product.price}/kg</span>
+                  {product.name} <span className="bg-green-50 rounded-md p-1 text-gray-700 text-sm mt-1 font-semibold inline-block">${product.price}/kg</span>
               </div>
               <p className="text-gray-700 text-sm">
                   Category: <span className="font-semibold">{product.category}</span>
@@ -54,6 +59,7 @@ const ProductCard = ({ product }) => {
                       onChange={(e) => setQuantity(Math.max(0, parseInt(e.target.value, 10) || 0))}
                   />
               </div>
+              {error && <div className="text-red-500 text-sm mb-2">{error}</div>}
               <button 
                   onClick={handleAddToCart} 
                   className="bg-gray-700 hover:bg-gray-900 text-white font-bold py-1 px-2 rounded text-sm w-full mb-1"
@@ -63,6 +69,6 @@ const ProductCard = ({ product }) => {
           </div>
       </div>
     );
-  };
-  
-  export default ProductCard;
+};
+
+export default ProductCard;
