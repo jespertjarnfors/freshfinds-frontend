@@ -18,11 +18,11 @@ const UserNavBar = () => {
 
   return (
     <div>
-      <nav className="relative">
+      <nav className="user-navbar relative">
         <div className="px-6 py-4">
           <div className="lg:flex lg:items-center lg:justify-between">
             <div className="flex items-center justify-between">
-              <img className="w-auto h-32 sm:h-12" src={Logo} alt="" onClick={() => handleNavigation("/home")}/>
+              <img className="w-auto h-32 sm:h-12 ml-2" src={Logo} alt="" onClick={() => handleNavigation("/home")}/>
               <div className="flex lg:hidden">
                 {/* ... Mobile menu toggle button ... */}
               </div>
@@ -35,10 +35,9 @@ const UserNavBar = () => {
             >
               <div className="flex flex-col lg:flex-row lg:items-center font-medium">
                 {/* Navigation Links */}
-                <a href="#" className="px-6 py-2 mt-2 text-gray-800..." onClick={() => handleNavigation("/produce")}>Buy Produce</a>
-                <a href="#" className="px-6 py-2 mt-2 text-gray-800..." onClick={() => handleNavigation("/map")}>Map</a>
-                <a href="#" className="px-6 py-2 mt-2 text-gray-800..." onClick={() => handleNavigation("/account")}>Account</a>
-                <a href="#" className="px-6 py-2 mt-2 mr-5 text-gray-800..." onClick={() => handleNavigation("/orders")}>Orders</a>
+                <a href="#" className="px-6 py-2 mt-2 text-gray-800" onClick={() => handleNavigation("/produce")}>Buy Produce</a>
+                <a href="#" className="px-6 py-2 mt-2 text-gray-800" onClick={() => handleNavigation("/map")}>Map</a>
+                <a href="#" className="px-6 py-2 mt-2 mr-5 text-gray-800" onClick={() => handleNavigation("/account")}>Account</a>
                 
                 {/* Cart Icon with count */}
                 <CartIcon cartCount={cartCount} onClick={() => handleNavigation("/cart")}/>

@@ -1,27 +1,25 @@
-nav {
+.home-navbar {
   background-color: #FFF9EB;
 }
 
-a {
-    position: relative;
-  }
+.home-navbar a {
+  position: relative;
+}
 
-  
-  
-  a::after {
-    content: '';
-    position: absolute;
-    width: 80%; 
-    left: 10%;
-    transform: scaleX(0);
-    height: 2px;
-    bottom: -0px;
-    background-color: currentColor;
-    transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
-  }
-  
-  a:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-  }
+.home-navbar a::after {
+  content: '';
+  position: absolute;
+  width: 80%; 
+  left: 10%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: -0px;
+  background-color: currentColor;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.home-navbar a:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}

@@ -29,12 +29,13 @@ const ProductContainer = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/products');
+        const response = await fetch("http://localhost:3000/api/products");
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const jsonResponse = await response.json();
-        const transformedProducts = jsonResponse.data.map(product => ({
+        const transformedProducts = jsonResponse.data.map((product) => ({
+          key: product._id, // Using the MongoDB unique ID as key
           name: product.productName,
           seller: product.username,
           icon: categoryIcons[product.category], // Assign icon based on category
@@ -43,11 +44,11 @@ const ProductContainer = () => {
           price: product.price,
           quantity: product.quantity,
           deliveryMethod: product.deliveryMethod,
-          category: product.category
+          category: product.category,
         }));
         setProducts(transformedProducts);
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error("Error fetching products:", error);
       }
     };
 
@@ -66,12 +67,28 @@ const ProductContainer = () => {
   };
 
   const filteredProducts = products.filter((product) => {
-    const matchesSearchTerm = searchTerm ? (product.productName.toLowerCase().includes(searchTerm) || product.category.toLowerCase().includes(searchTerm) || product.username.toLowerCase().includes(searchTerm)) : true;
-    const matchesCategory = selectedCategory ? product.category === selectedCategory : true;
-    const matchesRating = selectedRating ? (selectedRating === "Any" || parseFloat(product.rating) >= parseInt(selectedRating.charAt(0))) : true;
-    const matchesDeliveryMethod = selectedDeliveryMethod ? product.deliveryMethod === selectedDeliveryMethod : true;
+    const matchesSearchTerm = searchTerm
+      ? product.productName.toLowerCase().includes(searchTerm) ||
+        product.category.toLowerCase().includes(searchTerm) ||
+        product.username.toLowerCase().includes(searchTerm)
+      : true;
+    const matchesCategory = selectedCategory
+      ? product.category === selectedCategory
+      : true;
+    const matchesRating = selectedRating
+      ? selectedRating === "Any" ||
+        parseFloat(product.rating) >= parseInt(selectedRating.charAt(0))
+      : true;
+    const matchesDeliveryMethod = selectedDeliveryMethod
+      ? product.deliveryMethod === selectedDeliveryMethod
+      : true;
 
-    return matchesSearchTerm && matchesCategory && matchesRating && matchesDeliveryMethod;
+    return (
+      matchesSearchTerm &&
+      matchesCategory &&
+      matchesRating &&
+      matchesDeliveryMethod
+    );
   });
 
   return (
@@ -84,17 +101,37 @@ const ProductContainer = () => {
         selectedDeliveryMethod={selectedDeliveryMethod}
         setSelectedDeliveryMethod={setSelectedDeliveryMethod}
       />
-      <div className="flex flex-col w-4/5 mr-10 ml-5 p-10 rounded-xl shadow-lg overflow-auto custom-scrollbar" style={{ backgroundColor: "#FFEDC2", height: "85vh" }}>
+      <div
+        className="flex flex-col w-4/5 mr-10 ml-5 p-10 rounded-xl shadow-lg overflow-auto custom-scrollbar"
+        style={{ backgroundColor: "#FFEDC2", height: "85vh" }}
+      >
         <div className="flex justify-start items-center mb-4">
           <SearchBar value={searchTerm} onChange={handleSearchChange} />
-          <button onClick={clearFilters} className="text-medium font-semibold underline text-gray-600 ml-4">Clear Filter</button>
-          {selectedCategory && <div className="bg-gray-200 px-2 py-1 ml-2 rounded-lg">{selectedCategory}</div>}
-          {selectedRating && <div className="bg-gray-200 px-2 py-1 ml-2 rounded-lg">Rating: {selectedRating}</div>}
-          {selectedDeliveryMethod && <div className="bg-gray-200 px-2 py-1 ml-2 rounded-lg">Delivery: {selectedDeliveryMethod}</div>}
+          <button
+            onClick={clearFilters}
+            className="text-medium font-semibold underline text-gray-600 ml-4"
+          >
+            Clear Filter
+          </button>
+          {selectedCategory && (
+            <div className="bg-gray-200 px-2 py-1 ml-2 rounded-lg">
+              {selectedCategory}
+            </div>
+          )}
+          {selectedRating && (
+            <div className="bg-gray-200 px-2 py-1 ml-2 rounded-lg">
+              Rating: {selectedRating}
+            </div>
+          )}
+          {selectedDeliveryMethod && (
+            <div className="bg-gray-200 px-2 py-1 ml-2 rounded-lg">
+              Delivery: {selectedDeliveryMethod}
+            </div>
+          )}
         </div>
         <div className="flex flex-row flex-wrap -mx-4">
-          {filteredProducts.map((product, index) => (
-            <ProductCard key={product._id} product={product} />
+          {filteredProducts.map((product) => (
+            <ProductCard key={product.key} product={product} />
           ))}
         </div>
       </div>

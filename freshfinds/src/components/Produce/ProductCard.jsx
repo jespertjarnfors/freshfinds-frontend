@@ -48,10 +48,10 @@ const ProductCard = ({ product }) => {
           </div>
           <div className="px-4 pt-2 pb-1">
               <div className="flex items-center mb-2">
-                  <label htmlFor="quantity" className="mr-1.5 font-semibold text-sm">Quantity (kgs):</label>
+                  <label htmlFor="quantity" className="mr-1.5 font-semibold text-sm">Quantity (in kilograms):</label>
                   <input
                       id="quantity"
-                      className="shadow appearance-none border rounded py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-12 mr-3"
+                      className="shadow appearance-none border rounded py-1 px-1 w-14 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-12 mr-3"
                       type="number"
                       min="1"
                       max={product.quantity}

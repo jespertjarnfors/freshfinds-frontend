@@ -4,7 +4,7 @@ import UserPool from '../AWS/UserPool';
 import { UserContext } from '../../contexts/UserContext';
 import { useNavigate } from "react-router-dom";
 
-const Verification = () => {
+const VerificationModal = () => {
 
   const navigate = useNavigate();
 
@@ -69,4 +69,4 @@ const Verification = () => {
   );
 };
 
-export default Verification;
+export default VerificationModal;

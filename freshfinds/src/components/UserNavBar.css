@@ -1,12 +1,12 @@
-nav {
+.user-navbar {
   background-color: #fff9eb;
 }
 
-a {
+.user-navbar a {
   position: relative;
 }
 
-a::after {
+.user-navbar a::after {
   content: "";
   position: absolute;
   width: 80%;
@@ -19,7 +19,7 @@ a::after {
   transition: transform 0.25s ease-out;
 }
 
-a:hover::after {
+.user-navbar a:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
 }

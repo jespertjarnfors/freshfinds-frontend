@@ -17,7 +17,7 @@ const distances = ["10km", "25km", "50km"];
 const deliveryMethods = [
   { name: "Delivery", icon: deliveryIcon },
   { name: "Shipping", icon: shippingIcon },
-  { name: "Pick Up", icon: pickupIcon },
+  { name: "Pick-up", icon: pickupIcon },
 ];
 
 const categoryIcons = {

@@ -31,6 +31,7 @@ const PlacesAutocomplete = ({ onAddressChange, onSelect }) => {
   return (
     <div className="relative">
       <input
+        id="address"
         value={value}
         onChange={(e) => {
           setValue(e.target.value);

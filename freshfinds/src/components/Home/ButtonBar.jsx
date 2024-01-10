@@ -15,17 +15,17 @@ const ButtonBar = () => {
 
   return (
     <div className="space-x-6 flex">
+        <button
+        className="btn px-10"
+        onClick={handleLoginClick}
+      >
+        Login
+      </button>
       <button
         className="btn"
         onClick={handleSignUpClick}
       >
         Sign Up
-      </button>
-      <button
-        className="btn"
-        onClick={handleLoginClick}
-      >
-        Login
       </button>
     </div>
   );
