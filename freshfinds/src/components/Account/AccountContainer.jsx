@@ -6,46 +6,22 @@ import PlacesAutocomplete from "../Google Maps/PlacesAutoComplete";
 import { useUser } from "../../hooks/useUser";
 import { changePassword, updateUserAddress } from "../../auth";
 
-// Function to handle password change confirmation
-// const handlePasswordChangeConfirm = async (newPassword, confirmPassword) => {
-//   try {
-//     // Call changePassword function from auth.js
-//     await changePassword(user.password, newPassword);
-//     alert("Password changed successfully");
-//     closeModal();
-//   } catch (error) {
-//     console.error("Error changing password:", error);
-//     alert("Failed to change password");
-//   }
-// };
-
-// // Function to handle address change confirmation
-// const handleAddressChangeConfirm = async (newAddress, newLongitude, newLatitude) => {
-//   try {
-//     // Call updateUserAddress function from auth.js
-//     await updateUserAddress(user.cognitoId, newAddress, newLongitude, newLatitude);
-//     alert("Address updated successfully");
-//     closeModal();
-//   } catch (error) {
-//     console.error("Error updating address:", error);
-//     alert("Failed to update address");
-//   }
-// };
-
 const AccountContainer = () => {
+  // States to handle modal visibility
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [showAddressModal, setShowAddressModal] = useState(false);
-  const { user } = useUser(); // Access user data from UserContext
+
+  // States to handle new address and coordinates
+  const [newAddress, setNewAddress] = useState("");
+  const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
+
+  const { user, setUser } = useUser(); // Access user data from UserContext
 
   // Check if the user data is available
   if (!user) {
     // Display a loading message or handle the case accordingly
     return <div>Loading user details...</div>;
   } // Check if the user data is available
-  if (!user) {
-    // Display a loading message or handle the case accordingly
-    return <div>Loading user details...</div>;
-  }
 
   const handlePasswordChange = (event) => {
     event.preventDefault();
@@ -62,18 +38,58 @@ const AccountContainer = () => {
     setShowAddressModal(false);
   };
 
-  // Placeholder functions for confirming changes
-  const handlePasswordChangeConfirm = (newPassword, confirmPassword) => {
-    // Logic to handle password change
-    console.log("New password:", newPassword);
-    console.log("Confirm password:", confirmPassword);
-    setShowPasswordModal(false);
+  // Function to handle password change confirmation
+  const handlePasswordChangeConfirm = async (
+    oldPassword,
+    newPassword,
+    confirmPassword
+  ) => {
+    if (newPassword !== confirmPassword) {
+      alert("New passwords do not match!");
+      return;
+    }
+
+    try {
+      await changePassword(oldPassword, newPassword);
+      alert("Password changed successfully");
+      closeModal();
+    } catch (error) {
+      console.error("Error changing password:", error);
+      alert(
+        "Failed to change password. Make sure your old password is correct."
+      );
+    }
   };
 
-  const handleAddressChangeConfirm = (newAddress) => {
-    // Logic to handle address change
-    console.log("New address:", newAddress);
-    setShowAddressModal(false);
+  // Function to handle address change confirmation
+  const handleAddressChangeConfirm = async () => {
+    if (coordinates.lat === null || coordinates.lng === null) {
+      alert("Please select an address.");
+      return;
+    }
+
+    try {
+      await updateUserAddress(
+        user.cognitoId,
+        newAddress,
+        coordinates.lat.toString(),
+        coordinates.lng.toString()
+      );
+      alert("Address updated successfully");
+      closeModal();
+
+       // Update the user context with the new address
+       setUser({
+        ...user,
+        address: newAddress,
+        latitude: coordinates.lat.toString(),
+        longitude: coordinates.lng.toString()
+      });
+
+    } catch (error) {
+      console.error("Error updating address:", error);
+      alert("Failed to update address");
+    }
   };
 
   return (
@@ -153,26 +169,41 @@ const AccountContainer = () => {
             </h3>
             <div className="flex flex-col items-center space-y-2">
               <input
-                id="passwordModal"
+                id="oldPasswordModal"
+                className="p-3 rounded-md"
+                type="password"
+                placeholder="Old Password"
+              />
+              <input
+                id="newPasswordModal"
                 className="p-3 rounded-md"
                 type="password"
                 placeholder="New Password"
               />
-              <div>
-                <input
-                  id="confirmPasswordModal"
-                  className="p-3 rounded-md"
-                  type="password"
-                  placeholder="Confirm Password"
-                />
-              </div>
+              <input
+                id="confirmPasswordModal"
+                className="p-3 rounded-md"
+                type="password"
+                placeholder="Confirm New Password"
+              />
             </div>
             <div className="mt-6 flex flex-row justify-center space-x-4">
               <button
                 className="btn-2"
-                onClick={() =>
-                  handlePasswordChangeConfirm("newPassword", "confirmPassword")
-                }
+                onClick={() => {
+                  const oldPassword =
+                    document.getElementById("oldPasswordModal").value;
+                  const newPassword =
+                    document.getElementById("newPasswordModal").value;
+                  const confirmPassword = document.getElementById(
+                    "confirmPasswordModal"
+                  ).value;
+                  handlePasswordChangeConfirm(
+                    oldPassword,
+                    newPassword,
+                    confirmPassword
+                  );
+                }}
               >
                 Confirm
               </button>
@@ -192,11 +223,14 @@ const AccountContainer = () => {
         <Modal isOpen={showAddressModal} onClose={closeModal}>
           <div>
             <h3 className="text-xl font-semibold mb-6">Change Address</h3>
-            <PlacesAutocomplete />
+            <PlacesAutocomplete
+              onAddressChange={(address) => setNewAddress(address)}
+              onSelect={({ lat, lng }) => setCoordinates({ lat, lng })}
+            />
             <div className="mt-6 flex flex-row justify-center space-x-4">
               <button
                 className="btn-2"
-                onClick={() => handleAddressChangeConfirm("newAddress")}
+                onClick={() => handleAddressChangeConfirm()}
               >
                 Confirm
               </button>

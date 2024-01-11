@@ -18,6 +18,7 @@ export const UserProvider = ({ children }) => {
     if (idToken) {
       const decodedToken = jwtDecode(idToken);
       const userDetails = {
+        cognitoId: decodedToken.sub, // Assuming 'sub' is the cognitoId in the decoded token
         username: decodedToken["cognito:username"],
         email: decodedToken.email,
         address: decodedToken.address ? decodedToken.address.formatted : "",
@@ -32,7 +33,6 @@ export const UserProvider = ({ children }) => {
       console.log("No id_token found, user set to null");
     }
   }, [loginTrigger]); // useEffect triggered by changes in loginTrigger
-  
 
   // Function to sign out a user
   const signOut = () => {

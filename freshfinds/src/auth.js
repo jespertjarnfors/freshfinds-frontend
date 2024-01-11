@@ -45,7 +45,7 @@ export function logIn(username, password, onContextUpdate) {
         // Store the new id token in the local storage and decode
         const idToken = result.getIdToken().getJwtToken();
         const decodedToken = jwtDecode(idToken);
-        
+
         // Log the decoded token to the console
         console.log(decodedToken);
 
@@ -76,12 +76,18 @@ export const changePassword = (oldPassword, newPassword) => {
       return reject("User not found");
     }
 
-    cognitoUser.changePassword(oldPassword, newPassword, (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
+    cognitoUser.getSession((err, session) => {
+      if (err || !session.isValid()) {
+        return reject("User is not authenticated");
       }
+
+      cognitoUser.changePassword(oldPassword, newPassword, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
     });
   });
 };
@@ -118,26 +124,34 @@ export const updateUserAddress = async (cognitoId, newAddress, newLongitude, new
 
 const updateCognitoUserAttributes = async (cognitoId, newAddress, newLongitude, newLatitude) => {
   const cognitoUser = userPool.getCurrentUser();
+
   if (!cognitoUser) {
     throw new Error("User not found");
   }
 
-  // Prepare new attribute values
-  const attributes = [
-    // Add other attributes if necessary
-    { Name: "address", Value: newAddress },
-    { Name: "custom:longitude", Value: newLongitude },
-    { Name: "custom:latitude", Value: newLatitude }
-  ];
-
-  // Update the user's attributes in Cognito
+  // Ensure the user is authenticated before updating attributes
   return new Promise((resolve, reject) => {
-    cognitoUser.updateAttributes(attributes, (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
+    cognitoUser.getSession((err, session) => {
+      if (err || !session.isValid()) {
+        reject(new Error("User session is not valid"));
+        return;
       }
+
+      // Prepare new attribute values
+      const attributes = [
+        { Name: "address", Value: newAddress },
+        { Name: "custom:longitude", Value: newLongitude },
+        { Name: "custom:latitude", Value: newLatitude }
+      ];
+
+      // Update the user's attributes in Cognito
+      cognitoUser.updateAttributes(attributes, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
     });
   });
 };

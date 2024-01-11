@@ -6,7 +6,7 @@ import Logo from "../../assets/LogoMedium.png";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const { setUser, setLoginTrigger } = useUser(); // Access setUser from the context
+  const { setUser, setLoginTrigger } = useUser(); // Access setUser and setLoginTrigger from the UserContext
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 

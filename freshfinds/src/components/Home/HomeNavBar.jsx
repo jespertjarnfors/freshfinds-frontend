@@ -64,6 +64,7 @@ const HomeNavBar = () => {
                     </svg>
                   )}
                 </button>
+             
               </div>
             </div>
 
@@ -75,33 +76,6 @@ const HomeNavBar = () => {
                   : "opacity-0 -translate-x-full"
               }`}
             >
-              <div className="flex flex-col lg:flex-row lg:items-center font-medium">
-                <a
-                  href="#"
-                  className="px-6 py-2 mt-2 text-gray-800 transition-colors duration-300 transform lg:mt-0 hover:text-gray-500"
-                  onClick={handleHomeClick}
-                >
-                  Home
-                </a>
-                <a
-                  href="#"
-                  className="px-6 py-2 mt-2 text-gray-800 transition-colors duration-300 transform lg:mt-0 hover:text-gray-500"
-                >
-                 About
-                </a>
-                <a
-                  href="#"
-                  className="px-6 py-2 mt-2 text-gray-800 transition-colors duration-300 transform lg:mt-0 hover:text-gray-500"
-                >
-                  Contact
-                </a>
-              </div>
-
-              <div className="flex items-center mt-4 lg:mt-0">
-                <button
-                  className="hidden mx-4 text-gray-800 transition-colors duration-300 transform lg:block hover:text-gray-700 focus:text-gray-700 focus:outline-none"
-                  aria-label="show notifications"
-                ></button>
                 <div className="w-10 h-8 mr-6 overflow-hidden rounded-full">
                   <img
                     src={Tomato}
@@ -109,7 +83,7 @@ const HomeNavBar = () => {
                     alt="avatar"
                   />
                 </div>
-              </div>
+              
             </div>
           </div>
         </div>
