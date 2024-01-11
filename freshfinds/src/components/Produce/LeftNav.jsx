@@ -61,7 +61,7 @@ const LeftNav = ({ selectedCategory, setSelectedCategory, selectedRating, setSel
           id="distance"
           value={distance}
           onChange={(e) => setDistance(e.target.value)}
-          className="mt-1 p-2 rounded-md w-full"
+          className="mt-1 px-3 py-2 rounded-md w-full"
           style={{ backgroundColor: "#FFF9EB" }}
         >
           {distances.map((d, index) => (

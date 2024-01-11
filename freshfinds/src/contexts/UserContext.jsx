@@ -1,67 +1,54 @@
-import { createContext, useState } from 'react';
-import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
-import UserPool from '../components/AWS/UserPool';
+import { createContext, useState, useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 
-// Create a context
+import UserPool from "../components/AWS/UserPool";
+
 export const UserContext = createContext();
 
-// UserContext component
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState("");
+ 
+  const [user, setUser] = useState(null);  // State to store the current user's data
+  const [loginTrigger, setLoginTrigger] = useState(false); // State to trigger useEffect
 
-  const signIn = async (username, password) => {
-    try {
-      const cognitoUser = await signInUser(username, password);
-      const userData = await getUserAttributes(cognitoUser);
-      setUser(userData);
-    } catch (err) {
-      console.error(err);
-      // Handle sign-in errors here
+
+  // Load user attributes from Cognito on component mount if user is already signed in
+  useEffect(() => {
+    console.log("Before setting user:", user);
+    const idToken = localStorage.getItem("id_token");
+    if (idToken) {
+      const decodedToken = jwtDecode(idToken);
+      const userDetails = {
+        username: decodedToken["cognito:username"],
+        email: decodedToken.email,
+        address: decodedToken.address ? decodedToken.address.formatted : "",
+        isProducer: decodedToken["custom:isProducer"],
+        latitude: decodedToken["custom:latitude"],
+        longitude: decodedToken["custom:longitude"],
+      };
+      setUser(userDetails); // Update the user data in state
+      console.log("After setting user:", userDetails);
+    } else {
+      setUser(null); // Handle case where there is no token (user is not logged in)
+      console.log("No id_token found, user set to null");
+    }
+  }, [loginTrigger]); // useEffect triggered by changes in loginTrigger
+  
+
+  // Function to sign out a user
+  const signOut = () => {
+    const cognitoUser = UserPool.getCurrentUser();
+    if (cognitoUser) {
+      cognitoUser.signOut();
+      localStorage.removeItem("id_token");
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      setUser(null);
     }
   };
 
-  const signUp = (username) => {
-    setUser({ username });
-  };
-
   return (
-    <UserContext.Provider value={{ user, signIn, signUp }}>
+    <UserContext.Provider value={{ user, setUser, signOut, setLoginTrigger }}>
       {children}
     </UserContext.Provider>
   );
-};
-
-const signInUser = (username, password) => {
-  return new Promise((resolve, reject) => {
-    const authenticationDetails = new AuthenticationDetails({
-      Username: username,
-      Password: password,
-    });
-
-    const cognitoUser = new CognitoUser({
-      Username: username,
-      Pool: UserPool,
-    });
-
-    cognitoUser.authenticateUser(authenticationDetails, {
-      onSuccess: (session) => resolve(cognitoUser),
-      onFailure: (err) => reject(err),
-    });
-  });
-};
-
-const getUserAttributes = (cognitoUser) => {
-  return new Promise((resolve, reject) => {
-    cognitoUser.getUserAttributes((err, attributes) => {
-      if (err) {
-        reject(err);
-      } else {
-        const userData = attributes.reduce((acc, attribute) => {
-          acc[attribute.getName()] = attribute.getValue();
-          return acc;
-        }, {});
-        resolve(userData);
-      }
-    });
-  });
 };

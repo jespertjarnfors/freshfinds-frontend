@@ -1,38 +1,45 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { logIn } from "../../auth";
+import { useUser } from "../../hooks/useUser"; // Import useUser hook
 import Logo from "../../assets/LogoMedium.png";
-import { signIn } from "../../auth";
 
 const LoginForm = () => {
-
   const navigate = useNavigate();
+  const { setUser, setLoginTrigger } = useUser(); // Access setUser from the context
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
 
   const handleRegisterClick = () => {
     navigate("/register");
   };
 
-  // State variables for username and password
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+    const handleLoginSuccess = (decodedToken) => {
+      setUser(decodedToken); // Update user context
+      setLoginTrigger(prev => !prev); // Toggle loginTrigger to update the context
+    };
+  
     try {
-      const result = await signIn(username, password);
-      console.log(result);
-      // Handle successful login here
+      await logIn(username, password, handleLoginSuccess);
+      navigate("/produce");
     } catch (err) {
       console.error(err);
-      // Handle login error here
+      alert("Password or Username is incorrect. Please try again.");
+      setUsername("");
+      setPassword("");
     }
   };
+  
 
   return (
     <div
       className="flex items-center justify-center"
       style={{
-        minHeight: "85svh",
+        minHeight: "85vh",
       }}
     >
       <div className="rounded-md w-1/3 p-8">
@@ -51,7 +58,7 @@ const LoginForm = () => {
               className="bg-white p-4 rounded-md text-lg"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-            ></input>
+            />
           </div>
           <div className="flex flex-col space-y-2">
             <label htmlFor="password" className="text-gray-700 font-medium">
@@ -62,13 +69,17 @@ const LoginForm = () => {
               className="bg-white p-4 rounded-md text-lg"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-            ></input>
+            />
           </div>
           <div className="flex justify-center space-x-10 pt-4">
             <button className="btn-2" type="submit">
               Login
             </button>
-            <button className="btn px-4" type="button" onClick={handleRegisterClick}>
+            <button
+              className="btn px-4"
+              type="button"
+              onClick={handleRegisterClick}
+            >
               Register
             </button>
           </div>

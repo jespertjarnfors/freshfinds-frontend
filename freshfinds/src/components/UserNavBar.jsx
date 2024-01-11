@@ -1,15 +1,18 @@
 import { useState } from "react";
-import Logo from "../assets/LogoMedium.png";
 import { useNavigate } from 'react-router-dom';
-import './UserNavBar.css'; 
-import CartIcon from "./Produce/CartIcon";
 import { useCart } from "../contexts/CartContext";
+import { useUser } from "../hooks/useUser";
+import CartIcon from "./Produce/CartIcon";
+import Logo from "../assets/LogoMedium.png";
+import './UserNavBar.css'; 
+
 
 const UserNavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { cart } = useCart(); // Use cart from CartContext
   const cartCount = cart.length; // Cart count is the length of the cart array
   const navigate = useNavigate();
+  const { user } = useUser();
 
   const handleNavigation = (path) => {
     navigate(path);
@@ -34,6 +37,7 @@ const UserNavBar = () => {
               }`}
             >
               <div className="flex flex-col lg:flex-row lg:items-center font-medium">
+              <p className="text-gray-600 mr-4 mt-2">{user ? `Welcome, ${user.username}.` : "Welcome"}</p>
                 {/* Navigation Links */}
                 <a href="#" className="px-6 py-2 mt-2 text-gray-800" onClick={() => handleNavigation("/produce")}>Buy Produce</a>
                 <a href="#" className="px-6 py-2 mt-2 text-gray-800" onClick={() => handleNavigation("/map")}>Map</a>
