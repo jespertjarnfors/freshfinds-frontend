@@ -15,7 +15,7 @@ const AccountContainer = () => {
   const [newAddress, setNewAddress] = useState("");
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
 
-  const { user, setUser } = useUser(); // Access user data from UserContext
+  const { user, setUser, setLoginTrigger } = useUser(); // Access user data from UserContext
 
   // Check if the user data is available
   if (!user) {

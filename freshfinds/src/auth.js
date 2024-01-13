@@ -12,14 +12,6 @@ const userPool = new CognitoUserPool({
   ClientId: cognitoConfig.ClientId,
 });
 
-export function signUp(username, email, password) {
-  // Sign up implementation
-}
-
-export function confirmSignUp(username, code) {
-  // Confirm sign up implementation
-}
-
 export function logIn(username, password, onContextUpdate) {
   return new Promise((resolve, reject) => {
     const authenticationDetails = new AuthenticationDetails({
@@ -95,16 +87,16 @@ export const changePassword = (oldPassword, newPassword) => {
 export const updateUserAddress = async (
   cognitoId,
   newAddress,
-  newLongitude,
-  newLatitude
+  newLatitude,
+  newLongitude
 ) => {
   try {
     // Step 1: Update AWS Cognito User Attributes
     await updateCognitoUserAttributes(
       cognitoId,
       newAddress,
-      newLongitude,
-      newLatitude
+      newLatitude,
+      newLongitude
     );
 
     // Step 2: Update MongoDB Record
@@ -117,8 +109,8 @@ export const updateUserAddress = async (
         },
         body: JSON.stringify({
           address: newAddress,
-          longitude: newLongitude,
           latitude: newLatitude,
+          longitude: newLongitude,
         }),
       }
     );
@@ -138,8 +130,8 @@ export const updateUserAddress = async (
 const updateCognitoUserAttributes = async (
   cognitoId,
   newAddress,
-  newLongitude,
-  newLatitude
+  newLatitude,
+  newLongitude
 ) => {
   const cognitoUser = userPool.getCurrentUser();
 
@@ -158,8 +150,8 @@ const updateCognitoUserAttributes = async (
       // Prepare new attribute values
       const attributes = [
         { Name: "address", Value: newAddress },
-        { Name: "custom:longitude", Value: newLongitude },
         { Name: "custom:latitude", Value: newLatitude },
+        { Name: "custom:longitude", Value: newLongitude },
       ];
 
       // Update the user's attributes in Cognito

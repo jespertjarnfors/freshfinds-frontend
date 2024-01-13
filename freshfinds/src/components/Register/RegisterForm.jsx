@@ -7,13 +7,6 @@ import RegisterHeading from "./RegisterHeading";
 import "./RegisterForm.css";
 
 const RegisterForm = () => {
-  // For navigation
-  const navigate = useNavigate();
-
-  const handleBackClick = () => {
-    navigate("/home");
-  };
-
   // Form input
   const { signUp } = useUser();
   const [username, setUsername] = useState("");
@@ -31,6 +24,13 @@ const RegisterForm = () => {
   const [nameError, setNameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+
+  // For navigation
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate("/home");
+  };
 
   // Prevent site reload on form submission
   const handleSubmit = (e) => {
@@ -110,12 +110,11 @@ const RegisterForm = () => {
       }}
     >
       <div className="rounded-md w-1/3">
-     
         <form
           onSubmit={handleSubmit}
           className="flex flex-col space-y-1 border-2border-spacing-4 p-8 rounded-2xl shadow-xl"
         >
-             <RegisterHeading></RegisterHeading>
+          <RegisterHeading></RegisterHeading>
           <div className="flex flex-col space-y-2">
             <label htmlFor="email" className="text-gray-700 font-medium">
               Email

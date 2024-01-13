@@ -30,6 +30,23 @@ const VerificationModal = () => {
         } else {
           alert('Successfully verified!');
           console.log('call result: ' + result);
+          // Add API call to create user in MongoDB
+          fetch('http://localhost:3000/api/users/create', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ cognitoId: user.username }) // Send cognitoId as the username
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Failed to create user in MongoDB');
+            }
+            return response.json();
+          })
+          .catch(error => {
+            console.error('Error creating user in MongoDB:', error);
+          });
           resolve(result);
         }
       });
@@ -40,7 +57,7 @@ const VerificationModal = () => {
     .catch((err) => {
       console.error(err);
     });
-  };
+  };  
 
   return (
     <div className="flex items-center justify-center min-h-screen">

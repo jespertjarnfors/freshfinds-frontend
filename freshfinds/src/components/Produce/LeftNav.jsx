@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import { useState } from "react";
 import AccordionItem from "./AccordionItem";
 import beefIcon from "../../assets/icons/beef.svg";
@@ -29,7 +31,8 @@ const categoryIcons = {
   "Pork": porkIcon,
 };
 
-const LeftNav = ({ selectedCategory, setSelectedCategory, selectedRating, setSelectedRating, selectedDeliveryMethod, setSelectedDeliveryMethod }) => {
+const LeftNav = ({ selectedCategory, setSelectedCategory, selectedRating, setSelectedRating, selectedDeliveryMethod, setSelectedDeliveryMethod, selectedDistance, setSelectedDistance }) => {
+  
   const [distance, setDistance] = useState("25km");
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [ratingsOpen, setRatingsOpen] = useState(false);
@@ -53,16 +56,20 @@ const LeftNav = ({ selectedCategory, setSelectedCategory, selectedRating, setSel
     onClick: () => setSelectedDeliveryMethod(method.name)
   }));
 
+  const handleDistanceChange = (e) => {
+    setSelectedDistance(e.target.value);
+  };
+
   return (
     <div className="ml-10 p-4 rounded-xl shadow-lg w-1/6" style={{ backgroundColor: "#FFEDC2" }}>
       <div className="px-2 mb-2">
         <label htmlFor="distance" className="text-lg font-semibold">Distance</label>
         <select
-          id="distance"
-          value={distance}
-          onChange={(e) => setDistance(e.target.value)}
-          className="mt-1 px-3 py-2 rounded-md w-full"
-          style={{ backgroundColor: "#FFF9EB" }}
+            id="distance"
+            value={selectedDistance}
+            onChange={handleDistanceChange}
+            className="mt-1 px-3 py-2 rounded-md w-full"
+            style={{ backgroundColor: "#FFF9EB" }}
         >
           {distances.map((d, index) => (
             <option key={index} value={d}>{d}</option>

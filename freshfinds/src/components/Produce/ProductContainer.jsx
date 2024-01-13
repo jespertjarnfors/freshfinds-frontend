@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useUser } from "../../hooks/useUser";
 import ProductCard from "./ProductCard";
 import SearchBar from "./SearchBar";
 import LeftNav from "./LeftNav";
@@ -10,6 +11,7 @@ import fruitIcon from "../../assets/icons/fruit.svg";
 import porkIcon from "../../assets/icons/pork.svg";
 import vegetablesIcon from "../../assets/icons/vegetables.svg";
 
+// Mapping category names to corresponding icon images
 const categoryIcons = {
   Fruit: fruitIcon,
   Vegetables: vegetablesIcon,
@@ -25,40 +27,52 @@ const ProductContainer = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedRating, setSelectedRating] = useState(null);
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(null);
+  const [selectedDistance, setSelectedDistance] = useState("25km");
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/products");
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const jsonResponse = await response.json();
-        const transformedProducts = jsonResponse.data.map((product) => ({
-          key: product._id, // Using the MongoDB unique ID as key
-          name: product.productName,
-          seller: product.username,
-          icon: categoryIcons[product.category], // Assign icon based on category
-          rating: "4.2", // Generalized rating for now
-          image: product.image,
-          price: product.price,
-          quantity: product.quantity,
-          deliveryMethod: product.deliveryMethod,
-          category: product.category,
-        }));
-        setProducts(transformedProducts);
-      } catch (error) {
-        console.error("Error fetching products:", error);
+  const { user } = useUser();
+
+  // Fetch products data from the API on component mount
+useEffect(() => {
+  const fetchProducts = async () => {
+    try {
+      // Get user's location from UserContext
+      const userLocation = { lat: user.latitude, lng: user.longitude };
+      // Convert selectedDistance to a number (e.g., "25km" becomes 25)
+      const distanceInKm = parseInt(selectedDistance.replace('km', ''));
+
+      const response = await fetch(`http://localhost:3000/api/products/distance?lat=${userLocation.lat}&lng=${userLocation.lng}&distance=${distanceInKm}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-    };
+      const jsonResponse = await response.json();
+      // Transforming the API response to a suitable format for rendering
+      const transformedProducts = jsonResponse.data.map((product) => ({
+        key: product._id, // MongoDB unique ID
+        name: product.productName,
+        seller: product.username,
+        icon: categoryIcons[product.category], // Assigning icon based on category
+        rating: "4.2", // Placeholder rating for now
+        image: product.image,
+        price: product.price,
+        quantity: product.quantity,
+        deliveryMethod: product.deliveryMethod,
+        category: product.category,
+      }));
+      setProducts(transformedProducts);
+    } catch (error) {
+      console.error("Error fetching products by distance:", error);
+    }
+  };
 
-    fetchProducts();
-  }, []);
+  fetchProducts();
+}, [selectedDistance, user.latitude, user.longitude]);
 
+  // Handling search input changes
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value.toLowerCase());
   };
 
+  // Function to clear all filters
   const clearFilters = () => {
     setSelectedCategory(null);
     setSelectedRating(null);
@@ -66,19 +80,23 @@ const ProductContainer = () => {
     setSearchTerm("");
   };
 
+  // Filtering products based on search term, category, rating, and delivery method
   const filteredProducts = products.filter((product) => {
     const matchesSearchTerm = searchTerm
-      ? product.productName.toLowerCase().includes(searchTerm) ||
+      ? product.name.toLowerCase().includes(searchTerm) ||
         product.category.toLowerCase().includes(searchTerm) ||
-        product.username.toLowerCase().includes(searchTerm)
+        product.seller.toLowerCase().includes(searchTerm)
       : true;
+
     const matchesCategory = selectedCategory
       ? product.category === selectedCategory
       : true;
+
     const matchesRating = selectedRating
       ? selectedRating === "Any" ||
         parseFloat(product.rating) >= parseInt(selectedRating.charAt(0))
       : true;
+
     const matchesDeliveryMethod = selectedDeliveryMethod
       ? product.deliveryMethod === selectedDeliveryMethod
       : true;
@@ -100,6 +118,8 @@ const ProductContainer = () => {
         setSelectedRating={setSelectedRating}
         selectedDeliveryMethod={selectedDeliveryMethod}
         setSelectedDeliveryMethod={setSelectedDeliveryMethod}
+        selectedDistance={selectedDistance}
+        setSelectedDistance={setSelectedDistance}
       />
       <div
         className="flex flex-col w-4/5 mr-10 ml-5 p-10 rounded-xl shadow-lg overflow-auto custom-scrollbar"

@@ -17,7 +17,7 @@ export const UserProvider = ({ children }) => {
     if (idToken) {
       const decodedToken = jwtDecode(idToken);
       const userDetails = {
-        cognitoId: decodedToken.sub, // Assuming 'sub' is the cognitoId in the decoded token
+        cognitoId: decodedToken.sub, // 'sub' is the cognitoId in the decoded token
         username: decodedToken["cognito:username"],
         email: decodedToken.email,
         address: decodedToken.address ? decodedToken.address.formatted : "",
@@ -33,6 +33,9 @@ export const UserProvider = ({ children }) => {
     }
   }, [loginTrigger]); // useEffect triggered by changes in loginTrigger
 
+  const signUp = (username) => {
+    setUser({ username });
+  };
 
    // signOut function that uses signOut from auth.js
    const signOut = () => {
@@ -41,7 +44,7 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, setUser, signOut, setLoginTrigger }}>
+    <UserContext.Provider value={{ user, setUser, signUp, signOut, setLoginTrigger }}>
       {children}
     </UserContext.Provider>
   );

@@ -29,7 +29,6 @@ const LoginForm = () => {
     } catch (err) {
       console.error(err);
       alert("Password or Username is incorrect. Please try again.");
-      setUsername("");
       setPassword("");
     }
   };

@@ -19,6 +19,7 @@ const PlacesAutocomplete = ({ onAddressChange, onSelect }) => {
   // handleSelect is triggered when a user selects an address from the dropdown
   const handleSelect = async (address) => {
     setValue(address, false);
+    onAddressChange(address);
     clearSuggestions();
 
     // getGeocode and getLatLng are used to fetch the coordinates of the selected address

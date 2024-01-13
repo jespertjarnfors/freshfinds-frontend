@@ -1,56 +1,89 @@
-// import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
-// import { useState, useEffect, useCallback } from "react";
+// import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from "@react-google-maps/api";
+// import { useState, useCallback, useEffect } from "react";
 // import { useUser } from "../../hooks/useUser";
 
 // const containerStyle = {
 //   width: '1000px',
-//   height: '700px'
+//   height: '600px'
 // };
 
-// const ProducerMapBackup = () => {
-//   const [map, setMap] = useState(null);
-//   const { user } = useUser();
+// const ProducerMap = () => {
+//     const { user } = useUser();
+//     const [map, setMap] = useState(null);
+//     const [producers, setProducers] = useState([]);
+//     const [selectedProducer, setSelectedProducer] = useState(null);
 
-//   const { isLoaded } = useJsApiLoader({
-//     id: 'google-map-script',
-//     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY
-//   });
+//     useEffect(() => {
+//         const fetchProducers = async () => {
+//             try {
+//                 const response = await fetch("http://localhost:3000/api/users/producers");
+//                 if (!response.ok) {
+//                     throw new Error(`HTTP error! Status: ${response.status}`);
+//                 }
+//                 const data = await response.json();
+//                 console.log("Fetched producers data:", data); // Debugging log
+//                 setProducers(data.data); // Use data.data to access the array
+//             } catch (error) {
+//                 console.error("Failed to fetch producers:", error);
+//             }
+//         };
+    
+//         fetchProducers();
+//     }, []);
 
-//   // Set up a default center point
-//   const [center, setCenter] = useState({
-//     lat: -41.29228680000001,
-//     lng: 174.788848
-//   });
+//     const { isLoaded } = useJsApiLoader({
+//         id: 'google-map-script',
+//         googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+//     });
 
-//   useEffect(() => {
-//     // Check if user's coordinates are available and update the center point
-//     if (user && user.latitude && user.longitude) {
-//       setCenter({
-//         lat: parseFloat(user.latitude),
-//         lng: parseFloat(user.longitude)
-//       });
-//     }
-//   }, [user]);
+//     // Default center
+//     const defaultCenter = {
+//         lat: -10.805109387808187,
+//         lng: 92.75040048152385
+//     };
 
-//   const onLoad = useCallback(function callback(map) {
-//     setMap(map);
-//   }, []);
+//     // User's center (if available)
+//     const userCenter = user && user.latitude && user.longitude ? {
+//       lat: parseFloat(user.latitude),
+//       lng: parseFloat(user.longitude)
+//     } : defaultCenter;
 
-//   const onUnmount = useCallback(function callback(map) {
-//     setMap(null);
-//   }, []);
+//     const onLoad = useCallback((map) => {
+//         setMap(map);
+//     }, []);
 
-//   return isLoaded ? (
-//     <GoogleMap
-//       mapContainerStyle={containerStyle}
-//       center={center}
-//       zoom={10}
-//       onLoad={onLoad}
-//       onUnmount={onUnmount}
-//     >
-//       {/* Add markers or other components here */}
-//     </GoogleMap>
-//   ) : <></>;
+//     const onUnmount = useCallback((map) => {
+//         setMap(null);
+//     }, []);
+
+//     return isLoaded ? (
+//         <GoogleMap
+//             mapContainerStyle={containerStyle}
+//             center={userCenter}
+//             zoom={12}
+//             onLoad={onLoad}
+//             onUnmount={onUnmount}
+//         >
+//             {producers && Array.isArray(producers) && producers.map(producer => (
+//                 <Marker 
+//                     key={producer._id}
+//                     position={{ lat: parseFloat(producer.latitude), lng: parseFloat(producer.longitude) }}
+//                     onClick={() => setSelectedProducer(producer)}
+//                 />
+//             ))}
+
+//             {selectedProducer && (
+//                 <InfoWindow
+//                     position={{ lat: parseFloat(selectedProducer.latitude), lng: parseFloat(selectedProducer.longitude) }}
+//                     onCloseClick={() => setSelectedProducer(null)}
+//                 >
+//                     <div>
+//                         <h3>{selectedProducer.username}</h3>
+//                     </div>
+//                 </InfoWindow>
+//             )}
+//         </GoogleMap>
+//     ) : <></>;
 // }
 
-// export default ProducerMapBackup;
+// export default ProducerMap;
