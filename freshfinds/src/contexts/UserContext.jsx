@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
-
-import UserPool from "../components/AWS/UserPool";
+import { signOut as signOutFromAuth } from "../auth";
 
 export const UserContext = createContext();
 
@@ -34,16 +33,11 @@ export const UserProvider = ({ children }) => {
     }
   }, [loginTrigger]); // useEffect triggered by changes in loginTrigger
 
-  // Function to sign out a user
-  const signOut = () => {
-    const cognitoUser = UserPool.getCurrentUser();
-    if (cognitoUser) {
-      cognitoUser.signOut();
-      localStorage.removeItem("id_token");
-      localStorage.removeItem("access_token");
-      localStorage.removeItem("refresh_token");
-      setUser(null);
-    }
+
+   // signOut function that uses signOut from auth.js
+   const signOut = () => {
+    signOutFromAuth();
+    setUser(null); // Update user state to reflect sign out
   };
 
   return (

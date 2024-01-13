@@ -92,37 +92,55 @@ export const changePassword = (oldPassword, newPassword) => {
   });
 };
 
-export const updateUserAddress = async (cognitoId, newAddress, newLongitude, newLatitude) => {
+export const updateUserAddress = async (
+  cognitoId,
+  newAddress,
+  newLongitude,
+  newLatitude
+) => {
   try {
     // Step 1: Update AWS Cognito User Attributes
-    await updateCognitoUserAttributes(cognitoId, newAddress, newLongitude, newLatitude);
+    await updateCognitoUserAttributes(
+      cognitoId,
+      newAddress,
+      newLongitude,
+      newLatitude
+    );
 
     // Step 2: Update MongoDB Record
-    const response = await fetch(`http://localhost:3000/api/users/cognito/update/${cognitoId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        address: newAddress,
-        longitude: newLongitude,
-        latitude: newLatitude
-      }),
-    });
+    const response = await fetch(
+      `http://localhost:3000/api/users/cognito/update/${cognitoId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          address: newAddress,
+          longitude: newLongitude,
+          latitude: newLatitude,
+        }),
+      }
+    );
 
     if (!response.ok) {
-      throw new Error('Failed to update user address in MongoDB');
+      throw new Error("Failed to update user address in MongoDB");
     }
 
     const updatedUserData = await response.json();
     return updatedUserData;
   } catch (error) {
-    console.error('Error updating user address:', error);
+    console.error("Error updating user address:", error);
     throw error;
   }
 };
 
-const updateCognitoUserAttributes = async (cognitoId, newAddress, newLongitude, newLatitude) => {
+const updateCognitoUserAttributes = async (
+  cognitoId,
+  newAddress,
+  newLongitude,
+  newLatitude
+) => {
   const cognitoUser = userPool.getCurrentUser();
 
   if (!cognitoUser) {
@@ -141,7 +159,7 @@ const updateCognitoUserAttributes = async (cognitoId, newAddress, newLongitude, 
       const attributes = [
         { Name: "address", Value: newAddress },
         { Name: "custom:longitude", Value: newLongitude },
-        { Name: "custom:latitude", Value: newLatitude }
+        { Name: "custom:latitude", Value: newLatitude },
       ];
 
       // Update the user's attributes in Cognito
@@ -156,14 +174,21 @@ const updateCognitoUserAttributes = async (cognitoId, newAddress, newLongitude, 
   });
 };
 
-
 export function forgotPassword(username) {
   // Forgot password implementation
 }
 
-export function signOut() {
-  // Sign out implementation
-}
+// Function to sign out a user
+export const signOut = () => {
+  const cognitoUser = userPool.getCurrentUser();
+  if (cognitoUser) {
+    cognitoUser.signOut();
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    console.log("Sign out successful.");
+  }
+};
 
 export function getCurrentUser() {
   // Get current user implementation
