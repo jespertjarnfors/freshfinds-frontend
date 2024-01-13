@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from "@react-google-maps/api";
 import { useState, useCallback, useEffect } from "react";
 import { useUser } from "../../hooks/useUser";

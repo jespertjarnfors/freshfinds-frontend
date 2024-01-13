@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import Lottie from "lottie-react";
 import ProfileAnimation from "../../assets/ProfileAnimation.json";

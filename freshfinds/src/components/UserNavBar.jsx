@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../contexts/CartContext";
 import { useUser } from "../hooks/useUser";
-import CartIcon from "./Produce/CartIcon";
+import CartIcon from "./Products/CartIcon";
 import Logo from "../assets/LogoMedium.png";
 import "./UserNavBar.css";
 
@@ -58,7 +58,7 @@ const UserNavBar = () => {
                 <a
                   href="#"
                   className="px-6 py-2 mt-2 text-gray-800"
-                  onClick={() => handleNavigation("/produce")}
+                  onClick={() => handleNavigation("/products")}
                 >
                   Buy Produce
                 </a>

@@ -1,7 +1,7 @@
 import UserNavBar from "../components/UserNavBar";
-import ProductContainer from "../components/Produce/ProductContainer";
+import ProductContainer from "../components/Products/ProductContainer";
 
-const Produce = () => {
+const Products = () => {
   return (
     <>
       <UserNavBar></UserNavBar>
@@ -14,4 +14,4 @@ const Produce = () => {
   );
 };
 
-export default Produce;
+export default Products;

@@ -25,7 +25,7 @@ const LoginForm = () => {
   
     try {
       await logIn(username, password, handleLoginSuccess);
-      navigate("/produce");
+      navigate("/products");
     } catch (err) {
       console.error(err);
       alert("Password or Username is incorrect. Please try again.");
