@@ -31,41 +31,49 @@ const ProductContainer = () => {
 
   const { user } = useUser();
 
-  // Fetch products data from the API on component mount
+// Fetch products data from the API on component mount
 useEffect(() => {
   const fetchProducts = async () => {
     try {
-      // Get user's location from UserContext
-      const userLocation = { lat: user.latitude, lng: user.longitude };
-      // Convert selectedDistance to a number (e.g., "25km" becomes 25)
-      const distanceInKm = parseInt(selectedDistance.replace('km', ''));
+      // Check if latitude and longitude are defined
+      if (user && user.latitude && user.longitude) {
+        // Convert selectedDistance to a number (e.g., "25km" becomes 25)
+        const distanceInKm = parseInt(selectedDistance.replace('km', ''));
 
-      const response = await fetch(`http://localhost:3000/api/products/distance?lat=${userLocation.lat}&lng=${userLocation.lng}&distance=${distanceInKm}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        const response = await fetch(
+          `http://localhost:3000/api/products/distance?lat=${user.latitude}&lng=${user.longitude}&distance=${distanceInKm}`
+        );
+
+        if (response.ok) {
+          const jsonResponse = await response.json();
+          // Transforming the API response to a suitable format for rendering
+          const transformedProducts = jsonResponse.data.map((product) => ({
+            key: product._id, // MongoDB unique ID
+            name: product.productName,
+            seller: product.username,
+            icon: categoryIcons[product.category], // Assigning icon based on category
+            rating: "4.2", // Placeholder rating for now
+            image: product.image,
+            price: product.price,
+            quantity: product.quantity,
+            deliveryMethod: product.deliveryMethod,
+            category: product.category,
+          }));
+          setProducts(transformedProducts);
+        } else {
+          console.error("Error fetching products by distance:", response.statusText);
+        }
+      } else {
+        console.log("Latitude or longitude undefined. Skipping fetchProducts.");
       }
-      const jsonResponse = await response.json();
-      // Transforming the API response to a suitable format for rendering
-      const transformedProducts = jsonResponse.data.map((product) => ({
-        key: product._id, // MongoDB unique ID
-        name: product.productName,
-        seller: product.username,
-        icon: categoryIcons[product.category], // Assigning icon based on category
-        rating: "4.2", // Placeholder rating for now
-        image: product.image,
-        price: product.price,
-        quantity: product.quantity,
-        deliveryMethod: product.deliveryMethod,
-        category: product.category,
-      }));
-      setProducts(transformedProducts);
     } catch (error) {
       console.error("Error fetching products by distance:", error);
     }
   };
 
+  // Call fetchProducts initially and whenever user's location changes
   fetchProducts();
-}, [selectedDistance, user.latitude, user.longitude]);
+}, [selectedDistance, user?.latitude, user?.longitude]);
 
   // Handling search input changes
   const handleSearchChange = (e) => {

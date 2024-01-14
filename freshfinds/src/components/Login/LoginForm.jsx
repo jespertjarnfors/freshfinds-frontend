@@ -10,19 +10,18 @@ const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-
   const handleRegisterClick = () => {
     navigate("/register");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const handleLoginSuccess = (decodedToken) => {
       setUser(decodedToken); // Update user context
-      setLoginTrigger(prev => !prev); // Toggle loginTrigger to update the context
+      setLoginTrigger((prev) => !prev); // Toggle loginTrigger to update the context
     };
-  
+
     try {
       await logIn(username, password, handleLoginSuccess);
       navigate("/products");
@@ -32,7 +31,6 @@ const LoginForm = () => {
       setPassword("");
     }
   };
-  
 
   return (
     <div
@@ -54,6 +52,7 @@ const LoginForm = () => {
               Username
             </label>
             <input
+              id="username"
               className="bg-white p-4 rounded-md text-lg"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -64,6 +63,7 @@ const LoginForm = () => {
               Password
             </label>
             <input
+              id="password"
               type="password"
               className="bg-white p-4 rounded-md text-lg"
               value={password}

@@ -23,7 +23,6 @@ const ProducerMap = () => {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 const data = await response.json();
-                console.log("Fetched producers data:", data);
                 setProducers(data.data);
             } catch (error) {
                 console.error("Failed to fetch producers:", error);

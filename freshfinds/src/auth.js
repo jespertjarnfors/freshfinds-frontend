@@ -30,16 +30,10 @@ export function logIn(username, password, onContextUpdate) {
         localStorage.removeItem("id_token");
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
-
-        // Debugging log to ensure the token has been cleared
-        console.log(localStorage.getItem("id_token"));
-
+        
         // Store the new id token in the local storage and decode
         const idToken = result.getIdToken().getJwtToken();
         const decodedToken = jwtDecode(idToken);
-
-        // Log the decoded token to the console
-        console.log(decodedToken);
 
         // Update the user context
         onContextUpdate(decodedToken);

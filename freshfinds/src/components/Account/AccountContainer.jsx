@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Lottie from "lottie-react";
 import ProfileAnimation from "../../assets/ProfileAnimation.json";
-import Modal from "./Modal";
+import Modal from "../Modal";
 import PlacesAutocomplete from "../Google Maps/PlacesAutoComplete";
 import { useUser } from "../../hooks/useUser";
 import { changePassword, updateUserAddress } from "../../auth";
