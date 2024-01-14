@@ -1,11 +1,14 @@
 import { useState } from "react";
-import starIcon from "../../assets/icons/star.svg";
+import { useProductsUpdated } from "../../contexts/ProductsUpdatedContext";
 import EditProductModal from "./EditProductModal";
 import DeleteProductModal from "./DeleteProductModal";
+import starIcon from "../../assets/icons/star.svg";
 
 const ProducerProductCard = ({ product, productId }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const { setProductsUpdated } = useProductsUpdated();
+
 
   const openEditModal = () => {
     console.log("Opening Edit Modal");
@@ -14,6 +17,8 @@ const ProducerProductCard = ({ product, productId }) => {
 
   const closeEditModal = () => {
     setIsEditModalOpen(false);
+    // Delay resetting productsUpdated so that the context can register the change
+    setTimeout(() => setProductsUpdated(false), 500);
   };
 
   const openDeleteModal = () => {
@@ -23,6 +28,8 @@ const ProducerProductCard = ({ product, productId }) => {
 
   const closeDeleteModal = () => {
     setIsDeleteModalOpen(false);
+    // Same goes here
+    setTimeout(() => setProductsUpdated(false), 500);
   };
 
   return (

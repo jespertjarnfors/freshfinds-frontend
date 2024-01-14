@@ -10,7 +10,7 @@ const ProductCard = ({ product, productId }) => {
     const handleAddToCart = () => {
       const numericQuantity = parseInt(quantity, 10);
       if (numericQuantity > 0 && numericQuantity <= product.quantity) {
-        addToCart(product, numericQuantity);
+        addToCart(product, numericQuantity, productId);
         setQuantity(""); // Reset quantity after adding to cart
         setError(""); // Clear any previous error
       } else {

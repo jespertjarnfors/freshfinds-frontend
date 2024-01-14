@@ -1,9 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
+import { useProductsUpdated } from "../../contexts/ProductsUpdatedContext";
 import Modal from "../Modal";
 
 const DeleteProductModal = ({ isOpen, closeModal, productId }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const { setProductsUpdated } = useProductsUpdated();
 
   const handleDeleteProduct = async () => {
     setIsLoading(true);
@@ -22,6 +24,7 @@ const DeleteProductModal = ({ isOpen, closeModal, productId }) => {
 
       if (response.ok) {
         alert("Product deleted successfully");
+        setProductsUpdated(true);
         closeModal();
       } else {
         console.error("Failed to delete product. Please try again.");

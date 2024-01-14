@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useUser } from "../../hooks/useUser";
+import { useProductsUpdated } from "../../contexts/ProductsUpdatedContext";
 import ProductCard from "./ProductCard";
 import ProducerProductCard from "./ProducerProductCard";
 import SearchBar from "./SearchBar";
@@ -23,6 +24,7 @@ const categoryIcons = {
 };
 
 const ProductContainer = () => {
+  // State variables
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -30,7 +32,8 @@ const ProductContainer = () => {
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(null);
   const [selectedDistance, setSelectedDistance] = useState("25km");
   const [showMyProducts, setShowMyProducts] = useState(false);
-
+  const { productsUpdated, setProductsUpdated } = useProductsUpdated();
+  
   const { user } = useUser();
 
   // Fetch products data from the API on component mount
@@ -80,7 +83,7 @@ const ProductContainer = () => {
 
     // Call fetchProducts initially and whenever user's location changes
     fetchProducts();
-  }, [selectedDistance, user?.latitude, user?.longitude]);
+  }, [selectedDistance, user?.latitude, user?.longitude, productsUpdated]);
 
   // Handling search input changes
   const handleSearchChange = (e) => {
@@ -164,7 +167,7 @@ const ProductContainer = () => {
             </div>
           )}
 
-            {/* "All Products / My Products toggle buttons (Conditionally rendered for producers) */}
+          {/* "All Products / My Products toggle buttons (Conditionally rendered for producers) */}
           {user?.isProducer === "true" && (
             <div
               className="ml-auto mr-12 flex items-center shadow-lg rounded-2xl font-semibold text-gray-700"
@@ -201,14 +204,18 @@ const ProductContainer = () => {
           {filteredProducts.map((product) => (
             <div key={product.key}>
               {showMyProducts ? (
-                <ProducerProductCard product={product} productId={product.key} />
+                <ProducerProductCard
+                  product={product}
+                  productId={product.key}
+                  productsUpdated={productsUpdated}
+                  setProductsUpdated={setProductsUpdated}
+                />
               ) : (
                 <ProductCard product={product} productId={product.key} />
               )}
             </div>
           ))}
         </div>
-        
       </div>
     </div>
   );

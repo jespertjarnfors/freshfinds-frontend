@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useProductsUpdated } from "../../contexts/ProductsUpdatedContext";
 import Modal from "../Modal";
 
 const categories = ["Fruit", "Vegetables", "Eggs", "Beef", "Chicken", "Pork"];
@@ -18,6 +19,9 @@ const EditProductModal = ({
     deliveryMethod: productData.deliveryMethod,
     image: productData.image,
   });
+
+  const { productsUpdated, setProductsUpdated } = useProductsUpdated();
+
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -43,6 +47,7 @@ const EditProductModal = ({
   // Validation functions
   const isValidProductName = (name) => /^[a-zA-Z\s]{1,18}$/.test(name);
 
+  // Function to edit the product
   const handleEditProduct = async () => {
     setIsLoading(true);
 
@@ -73,6 +78,8 @@ const EditProductModal = ({
 
       if (response.ok) {
         alert("Product updated successfully");
+        setProductsUpdated(true);
+        console.log(productsUpdated);
         closeModal();
       } else {
         console.error("Failed to update product. Please try again.");
