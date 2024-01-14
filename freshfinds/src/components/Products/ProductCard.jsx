@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useCart } from "../../contexts/CartContext";
 import starIcon from "../../assets/icons/star.svg";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, productId }) => {
     const [quantity, setQuantity] = useState("");
     const [error, setError] = useState("");
     const { addToCart } = useCart();

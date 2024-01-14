@@ -1,101 +1,94 @@
-import { useState } from "react";
-import { useUser } from "../../hooks/useUser";
+import { useState, useEffect } from "react";
 import Modal from "../Modal";
 
 const categories = ["Fruit", "Vegetables", "Eggs", "Beef", "Chicken", "Pork"];
 
-const AddProductModal = ({ isOpen, closeModal }) => {
-  const { user } = useUser();
-  const [productData, setProductData] = useState({
-    userId: "",
-    username: user.username,
-    productName: "",
-    price: 0,
-    quantity: 0,
-    category: "",
-    deliveryMethod: "",
-    image: "",
+const EditProductModal = ({
+  isOpen,
+  productId,
+  closeModal,
+  productData,
+}) => {
+
+  const [editedProductData, setEditedProductData] = useState({
+    productName: productData.name,
+    price: productData.price,
+    quantity: productData.quantity,
+    category: productData.category,
+    deliveryMethod: productData.deliveryMethod,
+    image: productData.image,
   });
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    // Update editedProductData when productData changes
+    setEditedProductData({
+      productName: productData.name,
+      price: productData.price,
+      quantity: productData.quantity,
+      category: productData.category,
+      deliveryMethod: productData.deliveryMethod,
+      image: productData.image,
+    });
+  }, [productData]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setProductData({
-      ...productData,
+    setEditedProductData({
+      ...editedProductData,
       [name]: value,
     });
   };
 
-  const handleImageUpload = (e) => {
-    // Implement image upload logic and update the productData.image
-    // This function will vary based on your specific image upload implementation
-    const file = e.target.files[0];
-    // Implement logic to upload the file and set the URL or file path in productData.image
-  };
-
-  // Validation function for productName
+  // Validation functions
   const isValidProductName = (name) => /^[a-zA-Z\s]{1,18}$/.test(name);
 
-  const handleAddProduct = async () => {
+  const handleEditProduct = async () => {
     setIsLoading(true);
-  
+
     try {
-      // Assuming userId, latitude, and longitude are stored in user context
-      const userId = user.userId;
-      const latitude = user.latitude;
-      const longitude = user.longitude;
-  
-      if (!userId || !latitude || !longitude) {
-        console.error("User information incomplete. Please make sure the user is logged in with location data.");
-        return;
-      }
-  
-      // Use the userId and location data in the request body
+      // Validate and prepare data for PUT request
       const requestBody = {
-        userId: userId,
-        username: user.username, // Include other user-related data if needed
-        productName: productData.productName,
-        price: parseFloat(productData.price), // Parse to ensure it's a number
-        quantity: parseInt(productData.quantity), // Parse to ensure it's an integer
-        category: productData.category,
-        deliveryMethod: productData.deliveryMethod,
-        image: productData.image,
-        location: {
-          type: "Point",
-          coordinates: [parseFloat(longitude), parseFloat(latitude)],
-        },
-        // Add other fields as needed
+        productName: editedProductData.productName,
+        price: parseFloat(editedProductData.price),
+        quantity: parseInt(editedProductData.quantity),
+        category: editedProductData.category,
+        deliveryMethod: editedProductData.deliveryMethod,
+        image: editedProductData.image,
       };
-  
+
       console.log("Request Body:", requestBody);
-  
-      // Make the POST request
-      const response = await fetch("http://localhost:3000/api/products/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          // Add any additional headers as needed
-        },
-        body: JSON.stringify(requestBody),
-      });
-  
+
+      // Make the PUT request to update the product
+      const response = await fetch(
+        `http://localhost:3000/api/products/update/${productId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
+
       if (response.ok) {
-        console.log("Product added successfully");
+        alert("Product updated successfully");
         closeModal();
       } else {
-        console.error("Failed to add product. Please try again.");
+        console.error("Failed to update product. Please try again.");
         console.log("Response Status:", response.status);
         console.log("Response Body:", await response.json());
       }
     } catch (error) {
       console.error("An error occurred:", error);
+      alert("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
-  };  
+  };
 
   return (
-    <Modal isOpen={isOpen} closeModal={closeModal} title="Add Product">
+    <Modal isOpen={isOpen} closeModal={closeModal} title="Edit Product">
       <form>
         {/* Image URL */}
         <div className="mb-2">
@@ -109,7 +102,7 @@ const AddProductModal = ({ isOpen, closeModal }) => {
             type="text"
             id="image"
             name="image"
-            value={productData.image}
+            value={editedProductData.image}
             onChange={handleInputChange}
             className="mt-1 p-2 border rounded-md w-full"
           />
@@ -127,12 +120,12 @@ const AddProductModal = ({ isOpen, closeModal }) => {
             type="text"
             id="productName"
             name="productName"
-            value={productData.productName}
+            value={editedProductData.productName}
             onChange={handleInputChange}
             className="mt-1 p-2 border rounded-md w-full"
             maxLength={18} // Set maximum length
           />
-          {!isValidProductName(productData.productName) && (
+          {!isValidProductName(editedProductData.productName) && (
             <p className="text-red-500 text-sm mt-1">
               Invalid product name. Only letters allowed, max 18 characters.
             </p>
@@ -152,7 +145,7 @@ const AddProductModal = ({ isOpen, closeModal }) => {
               type="number"
               id="price"
               name="price"
-              value={productData.price}
+              value={editedProductData.price}
               onChange={handleInputChange}
               className="mt-1 p-2 border rounded-md w-full"
             />
@@ -168,7 +161,7 @@ const AddProductModal = ({ isOpen, closeModal }) => {
               type="number"
               id="quantity"
               name="quantity"
-              value={productData.quantity}
+              value={editedProductData.quantity}
               onChange={handleInputChange}
               className="mt-1 p-2 border rounded-md w-full"
             />
@@ -187,7 +180,7 @@ const AddProductModal = ({ isOpen, closeModal }) => {
             <select
               id="category"
               name="category"
-              value={productData.category}
+              value={editedProductData.category}
               onChange={handleInputChange}
               className="mt-1 p-2 border rounded-md w-full"
             >
@@ -211,7 +204,7 @@ const AddProductModal = ({ isOpen, closeModal }) => {
             <select
               id="deliveryMethod"
               name="deliveryMethod"
-              value={productData.deliveryMethod}
+              value={editedProductData.deliveryMethod}
               onChange={handleInputChange}
               className="mt-1 p-2 border rounded-md w-full"
             >
@@ -227,16 +220,16 @@ const AddProductModal = ({ isOpen, closeModal }) => {
 
         {/* Buttons */}
         <div className="mt-2 flex flex-row justify-center space-x-4">
-          {/* Add Product Button */}
+          {/* Edit Product Button */}
           <button
             type="button"
-            onClick={handleAddProduct}
+            onClick={handleEditProduct}
             className={`btn-2 px-8 py-4 ${
               isLoading ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={isLoading}
           >
-            {isLoading ? "Adding Product..." : "Confirm"}
+            {isLoading ? "Updating Product..." : "Confirm"}
           </button>
 
           {/* Close button */}
@@ -249,4 +242,4 @@ const AddProductModal = ({ isOpen, closeModal }) => {
   );
 };
 
-export default AddProductModal;
+export default EditProductModal;
