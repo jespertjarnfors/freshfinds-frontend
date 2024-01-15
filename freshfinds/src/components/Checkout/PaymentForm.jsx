@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useCheckout } from "../../contexts/CheckoutContext";
+import { useCart } from "../../contexts/CartContext";
+import useCheckoutProcess from "../../hooks/useCheckoutProcess";
 
 const currentYear = new Date().getFullYear();
 const years = Array.from({ length: 10 }, (_, i) => currentYear + i);
 
-const PaymentForm = ({ onPaymentSubmit }) => {
+const PaymentForm = () => {
   // Payment form states
   const [paymentDetails, setPaymentDetails] = useState({
     cardNumber: "",
@@ -12,11 +14,19 @@ const PaymentForm = ({ onPaymentSubmit }) => {
     cvv: "",
   });
 
+  // Expiration date states
   const [expirationMonth, setExpirationMonth] = useState("");
   const [expirationYear, setExpirationYear] = useState("");
 
+  // Checkout process state, basically just navigation
   const { moveToConfirmation } = useCheckout();
 
+  // Checkout process function, handles order creation and product quantity update
+  const processCheckout = useCheckoutProcess();
+
+  const { cart, setCart } = useCart();
+
+ // Validate input based on name and value
   const validateInput = (name, value) => {
     switch (name) {
       case "cardNumber":
@@ -38,12 +48,24 @@ const PaymentForm = ({ onPaymentSubmit }) => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // No need to process paymentDetails for this dummy setup
-    moveToConfirmation(); // change the current step to 'confirmation'
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  
+    try {
+      // Capture the order IDs returned from the processCheckout function
+      const orderIds = await processCheckout();
+  
+      // Clear the cart after successful checkout
+      setCart([]); // Assuming setCart is the method from useCart to update the cart state
+  
+      // Navigate to the confirmation step with order IDs
+      moveToConfirmation(orderIds); // Pass the order IDs to the confirmation step
+    } catch (error) {
+      console.error("Error during checkout:", error);
+      alert("An error occurred during checkout. Please try again later.");
+    }
   };
-
+  
   return (
     <div
       className="p-4 shadow-xl rounded-lg"

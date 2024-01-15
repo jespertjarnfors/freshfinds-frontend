@@ -23,7 +23,6 @@ const CartPage = () => {
   };
 
   const handleCheckout = () => {
-    // Logic for checkout (e.g., navigate to checkout page, process payment, etc.)
     navigate("/checkout");
   };
 

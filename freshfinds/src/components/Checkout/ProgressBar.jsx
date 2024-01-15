@@ -15,10 +15,10 @@ const ProgressBar = () => {
 
     return (
         <div className="mt-8 flex flex-col items-center">
-            <div className="flex justify-between w-2/5 mb-2 relative">
+            <div className="flex justify-between w-2/4 mb-2 relative">
                 {/* Connecting Line */}
-                <div className="absolute top-16 -translate-y-1/2 left-0 w-full h-1 bg-gray-300"></div>
-                <div className={`absolute top-16 -translate-y-1/2 left-0 ${lineClass()} h-1 bg-gray-800 transition-all duration-300 ease-in-out`}></div>
+                <div className="absolute top-16 translate-y-1/2 left-0 w-full h-1 bg-gray-300"></div>
+                <div className={`absolute top-16 translate-y-1/2 left-0 ${lineClass()} h-1 bg-gray-800 transition-all duration-300 ease-in-out`}></div>
 
                 {/* Steps */}
                 {/* Shipping Details */}

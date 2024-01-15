@@ -1,10 +1,11 @@
+import { useEffect } from 'react';
 import UserNavBar from '../components/UserNavBar';
 import ShippingForm from '../components/Checkout/ShippingForm';
 import ProgressBar from '../components/Checkout/ProgressBar';
 import PaymentForm from '../components/Checkout/PaymentForm';
 import OrderSummary from '../components/Checkout/OrderSummary';
 import OrderConfirmation from '../components/Checkout/OrderConfirmation';
-import { CheckoutProvider, useCheckout } from '../contexts/CheckoutContext';
+import { useCheckout } from '../contexts/CheckoutContext';
 
 const CheckoutContent = () => {
     const { currentStep } = useCheckout();
@@ -22,7 +23,16 @@ const CheckoutContent = () => {
 };
 
 const Checkout = () => {
-    const { currentStep } = useCheckout();
+    const { currentStep, moveToShipping } = useCheckout();
+
+    useEffect(() => {
+        return () => {
+            // Reset checkout to 'shipping' when the Checkout component unmounts and currentStep is 'confirmation'
+            if (currentStep === 'confirmation') {
+                moveToShipping();
+            }
+        };
+    }, [currentStep]);
 
     return (
         <div>
