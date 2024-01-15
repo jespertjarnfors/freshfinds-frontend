@@ -6,6 +6,7 @@ import Products from '../pages/Products'
 import ViewCart from '../pages/ViewCart'
 import Account from '../pages/Account'
 import Map from '../pages/Map'
+import Checkout from '../pages/Checkout'
 import VerificationModal from '../components/Register/VerificationModal'
 import ProtectedRoute from '../components/ProtectedRoute'
 
@@ -19,6 +20,7 @@ export function AppRoutes() {
             <Route path='/products' element={<ProtectedRoute component={Products} />} />
             <Route path="/cart" element={<ProtectedRoute component={ViewCart} />} />
             <Route path="/map" element={<ProtectedRoute component={Map} />} />
+            <Route path="/checkout" element={<ProtectedRoute component={Checkout} />} />
 
             <Route path='*' element={<Home />} />
         </Routes>
