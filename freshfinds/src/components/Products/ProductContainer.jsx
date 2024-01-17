@@ -33,8 +33,32 @@ const ProductContainer = () => {
   const [selectedDistance, setSelectedDistance] = useState("25km");
   const [showMyProducts, setShowMyProducts] = useState(false);
   const { productsUpdated, setProductsUpdated } = useProductsUpdated();
-  
+
   const { user } = useUser();
+
+  // Creates a dictionary to store seller ratings
+  const sellerRatings = new Map();
+
+  // Function to fetch ratings for all sellers and store them in the dictionary
+  const fetchSellerRatings = async (sellers) => {
+    for (const seller of sellers) {
+      if (!sellerRatings.has(seller.userId)) {
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/users/${seller.userId}/average-rating`
+          );
+          if (response.ok) {
+            const data = await response.json();
+            sellerRatings.set(seller.userId, data.averageRating); // The API response contains the average rating
+          } else {
+            console.error("Error fetching seller rating:", response.statusText);
+          }
+        } catch (error) {
+          console.error("Error fetching seller rating:", error);
+        }
+      }
+    }
+  };
 
   // Fetch products data from the API on component mount
   useEffect(() => {
@@ -51,13 +75,17 @@ const ProductContainer = () => {
 
           if (response.ok) {
             const jsonResponse = await response.json();
+
+            await fetchSellerRatings(jsonResponse.data);
+
             // Transforming the API response to a suitable format for rendering
             const transformedProducts = jsonResponse.data.map((product) => ({
-              key: product._id, // MongoDB unique ID
+              key: product._id,
               name: product.productName,
               seller: product.username,
-              icon: categoryIcons[product.category], // Assigning icon based on category
-              rating: "4.2", // Placeholder rating for now
+              sellerId: product.userId,
+              icon: categoryIcons[product.category],
+              rating: sellerRatings.get(product.userId) || "4.2", // Use the stored rating or a placeholder
               image: product.image,
               price: product.price,
               quantity: product.quantity,
@@ -120,8 +148,8 @@ const ProductContainer = () => {
       ? product.deliveryMethod === selectedDeliveryMethod
       : true;
 
-     // Check if showMyProducts is true and user is a producer, then filter by seller
-     if (showMyProducts && user?.isProducer === "true") {
+    // Check if showMyProducts is true and user is a producer, then filter by seller
+    if (showMyProducts && user?.isProducer === "true") {
       return (
         matchesSearchTerm &&
         matchesCategory &&

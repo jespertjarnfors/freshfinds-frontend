@@ -11,7 +11,7 @@ const DeleteProductModal = ({ isOpen, closeModal, productId }) => {
     setIsLoading(true);
 
     try {
-      // Make the DELETE request to remove the product
+      // Makes the DELETE request to remove the product
       const response = await fetch(
         `http://localhost:3000/api/products/delete/${productId}`,
         {

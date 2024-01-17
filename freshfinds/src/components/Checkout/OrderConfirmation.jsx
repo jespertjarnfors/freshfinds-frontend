@@ -46,7 +46,6 @@ const OrderConfirmation = () => {
             )
           );
 
-          console.log("Responses from API:", responses);
           const fetchedOrders = responses.map((res) => res.data.data);
           setOrderDetails(fetchedOrders);
 
@@ -90,10 +89,36 @@ const OrderConfirmation = () => {
     fetchData(); // Start the initial fetch
   }, [orderIds]);
 
+  // Use a separate useEffect to fetch and update product names
+  useEffect(() => {
+    const fetchProductNames = async () => {
+      if (orderItems.length > 0) {
+        const updatedOrderItems = [];
+        for (const item of orderItems) {
+          try {
+            const productResponse = await axios.get(
+              `http://localhost:3000/api/products/${item.productId}`
+            );
+
+            const productData = productResponse.data.data;
+            const updatedItem = {
+              ...item,
+              productName: productData.productName,
+            };
+            updatedOrderItems.push(updatedItem);
+          } catch (error) {
+            console.error("Error fetching product data:", error);
+          }
+        }
+        setOrderItems(updatedOrderItems);
+      }
+    };
+
+    fetchProductNames();
+  }, [orderItems]); // Fetch product names when orderItems change
 
   // useEffect to create a review based on the order data
   useEffect(() => {
-
     // Assigning default values for each order
     const createReviews = async () => {
       for (const order of orderDetails) {
@@ -123,8 +148,8 @@ const OrderConfirmation = () => {
     // Check if all required data is available before creating the reviews
     if (user && orderDetails.length > 0) {
       createReviews();
-        // Once reviews are created, set the state to indicate it
-        setReviewsCreated(true);
+      // Once reviews are created, set the state to indicate it
+      setReviewsCreated(true);
     }
   }, [user, orderDetails]);
 
@@ -152,12 +177,12 @@ const OrderConfirmation = () => {
 
         {/* Display order items */}
         {orderItems.length > 0 ? (
-          <div className="border p-4 mb-4  rounded-lg">
+          <div className="border p-4 mb-4 rounded-lg">
             <h2 className="text-xl font-semibold mb-2">Order Items</h2>
             {orderItems.map((item) => (
               <div key={item._id} className="flex justify-between">
                 <p>
-                  {item.quantity} x {item.productId}
+                  {item.quantity} x {item.productName || item.productId}
                 </p>
                 <p>
                   ${item.price ? item.price.toFixed(2) : "Price not available"}
@@ -178,16 +203,17 @@ const OrderConfirmation = () => {
       </div>
 
       {/* Conditionally display ReviewForm */}
-      <div className="flex flex-col mt-10 space-y-4">
+      <div className="flex flex-col mt-10 space-y-3">
         {reviewsCreated && // Only render ReviewForm components if new reviews have been created
-          orderDetails.map((order, index) =>
-            reviewFormVisibility[index] && (
-              <ReviewForm
-                key={order._id}
-                orderId={order._id}
-                onSuccess={() => handleReviewSuccess(index)}
-              />
-            )
+          orderDetails.map(
+            (order, index) =>
+              reviewFormVisibility[index] && (
+                <ReviewForm
+                  key={order._id}
+                  orderId={order._id}
+                  onSuccess={() => handleReviewSuccess(index)}
+                />
+              )
           )}
       </div>
     </div>

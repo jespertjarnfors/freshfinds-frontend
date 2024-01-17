@@ -33,7 +33,7 @@ const AccordionItem = ({ title, items, isOpen, setIsOpen }) => {
           {items.map(({ name, icon, onClick }, index) => (
             <div
               key={index}
-              onClick={onClick} // Add onClick event here
+              onClick={onClick}
               className="flex items-center py-1 pl-2 mb-1 rounded text-gray-700 font-medium cursor-pointer"
               style={{ backgroundColor: "#FFF9EB" }}
             >

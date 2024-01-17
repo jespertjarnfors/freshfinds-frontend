@@ -5,10 +5,12 @@ import DeleteProductModal from "./DeleteProductModal";
 import starIcon from "../../assets/icons/star.svg";
 
 const ProducerProductCard = ({ product, productId }) => {
+
+  // States to manage modal visibility
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  // Context to manage productsUpdated state, refreshes the page when a product is edited or deleted
   const { setProductsUpdated } = useProductsUpdated();
-
 
   const openEditModal = () => {
     console.log("Opening Edit Modal");
@@ -30,6 +32,11 @@ const ProducerProductCard = ({ product, productId }) => {
     setIsDeleteModalOpen(false);
     setTimeout(() => setProductsUpdated(false), 500);
   };
+
+  // Check if the product quantity is greater than 0 before rendering
+  if (product.quantity <= 0) {
+    return null; // Returning null to prevent rendering
+  }
 
   return (
     <div
