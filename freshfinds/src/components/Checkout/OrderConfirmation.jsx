@@ -89,7 +89,7 @@ const OrderConfirmation = () => {
     fetchData(); // Start the initial fetch
   }, [orderIds]);
 
-  // Use a separate useEffect to fetch and update product names
+  // Separate useEffect to fetch and update product names
   useEffect(() => {
     const fetchProductNames = async () => {
       if (orderItems.length > 0) {

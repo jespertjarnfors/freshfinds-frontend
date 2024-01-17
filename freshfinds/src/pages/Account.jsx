@@ -9,7 +9,6 @@ const Account = () => {
             <div className="flex justify-center items-center w-full">
             <AccountContainer></AccountContainer>
             <OrdersContainer></OrdersContainer>
-            {/* Your component content goes here */}
             </div>
         </div>
     );
