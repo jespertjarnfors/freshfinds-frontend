@@ -51,7 +51,7 @@ const ShippingForm = () => {
 
   return (
     <div
-      className="p-4 shadow-xl rounded-lg"
+      className="p-4 shadow-xl rounded-lg mt-2"
       style={{ backgroundColor: "#FFEDC2" }}
     >
       <form onSubmit={handleSubmit}>

@@ -1,5 +1,5 @@
 import UserNavBar from "../components/UserNavBar";
-import CartPage from "../components/Cart Page/CartPage";
+import CartPage from "../components/Cart/CartPage";
 
 
 const ViewCart = () => {

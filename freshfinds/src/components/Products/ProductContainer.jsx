@@ -81,7 +81,8 @@ const ProductContainer = () => {
       }
     };
 
-    // Call fetchProducts initially and whenever user's location changes
+    /* Call fetchProducts initially and whenever user's location changes, selectedDistance changes,
+     or when productsUpdated is set to true */
     fetchProducts();
   }, [selectedDistance, user?.latitude, user?.longitude, productsUpdated]);
 
@@ -118,6 +119,17 @@ const ProductContainer = () => {
     const matchesDeliveryMethod = selectedDeliveryMethod
       ? product.deliveryMethod === selectedDeliveryMethod
       : true;
+
+     // Check if showMyProducts is true and user is a producer, then filter by seller
+     if (showMyProducts && user?.isProducer === "true") {
+      return (
+        matchesSearchTerm &&
+        matchesCategory &&
+        matchesRating &&
+        matchesDeliveryMethod &&
+        product.seller === user.username
+      );
+    }
 
     return (
       matchesSearchTerm &&

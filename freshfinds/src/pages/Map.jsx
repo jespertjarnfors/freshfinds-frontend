@@ -1,4 +1,4 @@
-import MapContainer from '../components/Map Page/MapContainer';
+import MapContainer from '../components/Map/MapContainer';
 import UserNavBar from '../components/UserNavBar';
 
 const Map = () => {

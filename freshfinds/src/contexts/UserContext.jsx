@@ -10,7 +10,7 @@ export const UserProvider = ({ children }) => {
 
   // Load user attributes from Cognito on component mount if the user is already signed in
   useEffect(() => {
-    console.log("Before setting user:", user);
+
     const idToken = localStorage.getItem("id_token");
 
     const fetchUserIdFromMongoDB = async (cognitoId) => {
@@ -27,7 +27,6 @@ export const UserProvider = ({ children }) => {
             userId: userData.data._id,
           };
           setUser(userDetailsWithUserId);
-          console.log("After setting user:", userDetailsWithUserId);
         } else {
           console.error("Failed to fetch userId from MongoDB");
         }

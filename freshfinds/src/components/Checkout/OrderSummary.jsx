@@ -16,7 +16,7 @@ const OrderSummary = () => {
     }, {});
 
     return (
-        <div className="p-4 shadow-md rounded-lg w-52 bg-gray-800 border-2 border-gray-200 text-white">
+        <div className="p-4 shadow-md rounded-lg w-52 mt-2 bg-gray-800 border-2 border-gray-200 text-white">
             <h3 className="text-lg font-semibold text-white">Order Summary</h3>
             <p>Total Items: {totalItems}</p>
             <div>

@@ -28,7 +28,7 @@ const ProductCard = ({ product, productId }) => {
               </div>
               <img src={product.icon} alt="category icon" className="h-8 w-8" />
           </div>
-          <img className="w-full h-32 object-cover" src={product.image} alt={product.name} />
+          <img className="w-full h-36 object-cover object-center" src={product.image} alt={product.name} />
           <div className="px-4 py-2">
               <div className="font-semibold text-md mb-1 text-gray-800 flex justify-between items-center"
                   style={{ fontFamily: 'Satoshi, sans-serif' }}>

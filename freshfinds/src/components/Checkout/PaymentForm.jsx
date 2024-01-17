@@ -68,7 +68,7 @@ const PaymentForm = () => {
   
   return (
     <div
-      className="p-4 shadow-xl rounded-lg"
+      className="p-4 mt-2 shadow-xl rounded-lg"
       style={{ backgroundColor: "#FFEDC2" }}
     >
       <form onSubmit={handleSubmit}>

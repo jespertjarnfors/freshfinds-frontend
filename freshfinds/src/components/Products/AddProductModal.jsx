@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { useUser } from "../../hooks/useUser";
+import { useProductsUpdated } from "../../contexts/ProductsUpdatedContext";
 import Modal from "../Modal";
 
 const categories = ["Fruit", "Vegetables", "Eggs", "Beef", "Chicken", "Pork"];
 
 const AddProductModal = ({ isOpen, closeModal }) => {
   const { user } = useUser();
+  const [isLoading, setIsLoading] = useState(false);
+  const { setProductsUpdated } = useProductsUpdated();
+
   const [productData, setProductData] = useState({
     userId: "",
     username: user.username,
@@ -16,7 +20,6 @@ const AddProductModal = ({ isOpen, closeModal }) => {
     deliveryMethod: "",
     image: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,27 +39,30 @@ const AddProductModal = ({ isOpen, closeModal }) => {
   // Validation function for productName
   const isValidProductName = (name) => /^[a-zA-Z\s]{1,18}$/.test(name);
 
+  // Function to add the product
   const handleAddProduct = async () => {
     setIsLoading(true);
-  
+
     try {
-      // Assuming userId, latitude, and longitude are stored in user context
+      // userId, latitude, and longitude are stored in user context
       const userId = user.userId;
       const latitude = user.latitude;
       const longitude = user.longitude;
-  
+
       if (!userId || !latitude || !longitude) {
-        console.error("User information incomplete. Please make sure the user is logged in with location data.");
+        console.error(
+          "User information incomplete. Please make sure the user is logged in with location data."
+        );
         return;
       }
-  
+
       // Use the userId and location data in the request body
       const requestBody = {
         userId: userId,
-        username: user.username, // Include other user-related data if needed
+        username: user.username,
         productName: productData.productName,
-        price: parseFloat(productData.price), // Parse to ensure it's a number
-        quantity: parseInt(productData.quantity), // Parse to ensure it's an integer
+        price: parseFloat(productData.price), // Parsing to ensure it's a number
+        quantity: parseInt(productData.quantity), // Parsing to ensure it's an integer
         category: productData.category,
         deliveryMethod: productData.deliveryMethod,
         image: productData.image,
@@ -64,23 +70,25 @@ const AddProductModal = ({ isOpen, closeModal }) => {
           type: "Point",
           coordinates: [parseFloat(longitude), parseFloat(latitude)],
         },
-        // Add other fields as needed
       };
-  
+
       console.log("Request Body:", requestBody);
-  
+
       // Make the POST request
-      const response = await fetch("http://localhost:3000/api/products/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          // Add any additional headers as needed
-        },
-        body: JSON.stringify(requestBody),
-      });
-  
+      const response = await fetch(
+        "http://localhost:3000/api/products/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
+
       if (response.ok) {
         console.log("Product added successfully");
+        setProductsUpdated(true);
         closeModal();
       } else {
         console.error("Failed to add product. Please try again.");
@@ -92,7 +100,7 @@ const AddProductModal = ({ isOpen, closeModal }) => {
     } finally {
       setIsLoading(false);
     }
-  };  
+  };
 
   return (
     <Modal isOpen={isOpen} closeModal={closeModal} title="Add Product">

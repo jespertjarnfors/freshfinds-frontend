@@ -28,7 +28,6 @@ const ProducerProductCard = ({ product, productId }) => {
 
   const closeDeleteModal = () => {
     setIsDeleteModalOpen(false);
-    // Same goes here
     setTimeout(() => setProductsUpdated(false), 500);
   };
 

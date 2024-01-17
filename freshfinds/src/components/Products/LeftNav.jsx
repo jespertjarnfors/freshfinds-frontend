@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-
 import { useState } from "react";
 import { useUser } from "../../hooks/useUser";
+import { useProductsUpdated } from "../../contexts/ProductsUpdatedContext";
 import AccordionItem from "./AccordionItem";
 import AddProductModal from "./AddProductModal";
 import beefIcon from "../../assets/icons/beef.svg";
@@ -50,6 +50,7 @@ const LeftNav = ({
   selectedDistance,
   setSelectedDistance,
 }) => {
+
   // Filtering states
   const [distance, setDistance] = useState("25km");
   const [categoriesOpen, setCategoriesOpen] = useState(false);
@@ -57,6 +58,7 @@ const LeftNav = ({
   const [deliveryMethodOpen, setDeliveryMethodOpen] = useState(false);
 
   const [isAddProductModalOpen, setAddProductModalOpen] = useState(false); // State to manage modal visibility
+  const { setProductsUpdated } = useProductsUpdated();
   const { user } = useUser();
 
   // Categories to items with name, icon, and onClick handler
@@ -151,7 +153,10 @@ const LeftNav = ({
       {/* AddProductModal */}
       <AddProductModal
         isOpen={isAddProductModalOpen}
-        closeModal={() => setAddProductModalOpen(false)}
+        closeModal={() => {
+          setAddProductModalOpen(false);
+          setTimeout(() => setProductsUpdated(false), 500);
+        }}
       />
     </div>
   );
