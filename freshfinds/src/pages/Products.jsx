@@ -6,7 +6,7 @@ const Products = () => {
     <>
       <UserNavBar></UserNavBar>
       <div className="flex flex-row justify-center items-start">
-        <div className="flex-none" style={{ width: "100%" }}> {/* Fixed width for ProductContainer */}
+        <div className="flex-none" style={{ width: "100%" }}>
           <ProductContainer></ProductContainer>
         </div>
       </div>

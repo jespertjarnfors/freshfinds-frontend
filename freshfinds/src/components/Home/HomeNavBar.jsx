@@ -6,10 +6,11 @@ import './HomeNavBar.css';
 
 const HomeNavBar = () => {
 
+  // State for the mobile menu
   const [isOpen, setIsOpen] = useState(false);
-
   const navigate = useNavigate();
 
+  // Navigate to the home page
   const handleHomeClick = () => {
     navigate("/home");
   };

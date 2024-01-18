@@ -155,7 +155,7 @@ const OrderConfirmation = () => {
 
   return (
     <div className="flex flex-row">
-      <div className="max-w-3xl mx-auto p-8 shadow-xl bg-white border-2 border-gray-400 rounded-xl mt-10">
+      <div className="max-w-3xl mx-auto p-8 shadow-xl bg-white border-2 border-gray-400 rounded-xl mt-4">
         <h1 className="text-3xl font-semibold mb-4">Order Confirmation</h1>
         <p className="mb-4">Your order has been confirmed.</p>
 
@@ -203,7 +203,7 @@ const OrderConfirmation = () => {
       </div>
 
       {/* Conditionally display ReviewForm */}
-      <div className="grid grid-cols-2 gap-2 mt-10">
+      <div className="flex flex-col gap-2 mt-4">
         {reviewsCreated && // Only render ReviewForm components if new reviews have been created
           orderDetails.map(
             (order, index) =>

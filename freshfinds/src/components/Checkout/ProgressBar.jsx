@@ -1,12 +1,15 @@
 import { useCheckout } from "../../contexts/CheckoutContext";
 
 const ProgressBar = () => {
+    // Access the currentStep from the CheckoutContext
     const { currentStep } = useCheckout();
 
+    // Function to determine if the step is the current step
     const isCurrent = (step) => {
       return currentStep === step;
     };
 
+    // Function to determine the width of the connecting line, and how it progresses for each step
     const lineClass = () => {
       if (currentStep === 'payment') return 'w-1/2';
       if (currentStep === 'confirmation') return 'w-full';

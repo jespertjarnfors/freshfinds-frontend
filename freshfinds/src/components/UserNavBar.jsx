@@ -80,7 +80,7 @@ const UserNavBar = () => {
                 
                 <button
                   onClick={handleSignOut}
-                  className="mt-2 mr-3 px-1.5 py-2 text-gray-700 font-bold bg-inherit rounded hover:text-red-600 underline-offset-2 underline"
+                  className="mt-2 mr-12 px-1.5 py-2 text-gray-700 font-bold bg-inherit rounded hover:text-red-600 underline-offset-2 underline"
                   style={{
                     fontSize: "0.75rem"
                   }}

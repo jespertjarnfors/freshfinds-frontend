@@ -15,6 +15,7 @@ const ProducerMap = () => {
     const [producers, setProducers] = useState([]);
     const [selectedProducer, setSelectedProducer] = useState(null);
 
+      // Fetch producers data for display on the map
     useEffect(() => {
         const fetchProducers = async () => {
             try {
@@ -37,13 +38,13 @@ const ProducerMap = () => {
         googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY
     });
 
-    // Default center
+     // Default center coordinates for the map
     const defaultCenter = {
         lat: -10.805109387808187,
         lng: 92.75040048152385
     };
 
-    // User's center (if available)
+    // Determine the center of the map based on user's location or default center
     const userCenter = user && user.latitude && user.longitude ? {
       lat: parseFloat(user.latitude),
       lng: parseFloat(user.longitude)
@@ -52,10 +53,12 @@ const ProducerMap = () => {
     // Log user center
     console.log("User Center:", userCenter);
 
+    // Callback to handle the map load event
     const onLoad = useCallback((map) => {
         setMap(map);
     }, []);
 
+    // Callback to handle the map unmount event
     const onUnmount = useCallback((map) => {
         setMap(null);
     }, []);

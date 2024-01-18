@@ -7,7 +7,6 @@ const Map = () => {
             <UserNavBar />
             <div className='flex justify-center'>
             <MapContainer></MapContainer>
-            {/* Your map component content */}
             </div>
         </div>
     );

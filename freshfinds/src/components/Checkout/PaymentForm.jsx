@@ -56,7 +56,7 @@ const PaymentForm = () => {
       const orderIds = await processCheckout();
   
       // Clear the cart after successful checkout
-      setCart([]); // Assuming setCart is the method from useCart to update the cart state
+      setCart([]);
   
       // Navigate to the confirmation step with order IDs
       moveToConfirmation(orderIds); // Pass the order IDs to the confirmation step

@@ -1,14 +1,17 @@
 import "./ButtonBar.css"
 import { useNavigate } from "react-router-dom";
 
+// ButtonBar component provides navigation buttons for Login and Sign Up.
 const ButtonBar = () => {
 
+  // Navigates to the Register page
   const navigate = useNavigate();
 
   const handleSignUpClick = () => {
     navigate('/register');
   };
 
+  // Navigates to the Login page
   const handleLoginClick = () => {
     navigate('/login');
   };

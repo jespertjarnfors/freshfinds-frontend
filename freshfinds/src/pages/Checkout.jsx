@@ -8,8 +8,10 @@ import OrderConfirmation from '../components/Checkout/OrderConfirmation';
 import { useCheckout } from '../contexts/CheckoutContext';
 
 const CheckoutContent = () => {
+    // Get the current step from the CheckoutContext
     const { currentStep } = useCheckout();
 
+    // Render the appropriate component based on the current step
     switch (currentStep) {
         case 'shipping':
             return <ShippingForm />;

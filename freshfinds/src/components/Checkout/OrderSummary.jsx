@@ -29,7 +29,7 @@ const OrderSummary = () => {
                     <span>Subtotal:</span>
                     <span>${totalCost.toFixed(2)}</span>
                 </div>
-                {/* Additional costs here */}
+                {/* Total cost here */}
                 <div className="flex justify-between mt-2">
                     <span>Total:</span>
                     <span className="font-semibold">${totalCost.toFixed(2)}</span>

@@ -85,7 +85,7 @@ const ProductContainer = () => {
               seller: product.username,
               sellerId: product.userId,
               icon: categoryIcons[product.category],
-              rating: sellerRatings.get(product.userId) || "4.2", // Use the stored rating or a placeholder
+              rating: sellerRatings.get(product.userId) || "4.2", // Use the calculated rating or a placeholder
               image: product.image,
               price: product.price,
               quantity: product.quantity,

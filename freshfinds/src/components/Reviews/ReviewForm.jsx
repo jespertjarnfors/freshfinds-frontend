@@ -9,9 +9,8 @@ const ReviewForm = ({ orderId, onSuccess }) => {
   const [targetUsername, setTargetUsername] = useState(""); // Store the target user's username
 
   useEffect(() => {
+
     // Fetch the review data by orderId and userId
-
-
     const fetchReviewData = async () => {
       try {
         const response = await fetch(
@@ -21,7 +20,6 @@ const ReviewForm = ({ orderId, onSuccess }) => {
   
         if (data.result === 200) {
           // If a review exists, populate the form with its data
-
           const existingReview = data.data;
           setRating(existingReview.rating);
           setReviewText(existingReview.reviewText);

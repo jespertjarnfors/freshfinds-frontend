@@ -6,10 +6,12 @@ import Modal from "../Modal";
 const categories = ["Fruit", "Vegetables", "Eggs", "Beef", "Chicken", "Pork"];
 
 const AddProductModal = ({ isOpen, closeModal }) => {
+
   const { user } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const { setProductsUpdated } = useProductsUpdated();
 
+  // Initial state for the product data
   const [productData, setProductData] = useState({
     userId: "",
     username: user.username,
@@ -21,6 +23,7 @@ const AddProductModal = ({ isOpen, closeModal }) => {
     image: "",
   });
 
+  // Handles changes in the input fields and updates the productData state accordingly
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProductData({
@@ -29,19 +32,29 @@ const AddProductModal = ({ isOpen, closeModal }) => {
     });
   };
 
-  /* Attach image, yet to be done
-  
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-  }; 
-  
-  */
-
   // Validation function for productName
   const isValidProductName = (name) => /^[a-zA-Z\s]{1,18}$/.test(name);
 
+  // Function to validate all form fields
+  const areAllFieldsValid = () => {
+    return (
+      isValidProductName(productData.productName) &&
+      productData.price > 0 &&
+      productData.quantity > 0 &&
+      productData.category &&
+      productData.deliveryMethod &&
+      productData.image
+    );
+  };
+
   // Function to add the product
   const handleAddProduct = async () => {
+
+    if (!areAllFieldsValid()) {
+      console.error("Validation failed. Please fill all fields correctly.");
+      alert("Failed to add product. Please fill out all the fields correctly.");
+      return;
+    }
     setIsLoading(true);
 
     try {
@@ -87,18 +100,6 @@ const AddProductModal = ({ isOpen, closeModal }) => {
         });
       };
 
-      // Function to validate all form fields
-      const areAllFieldsValid = () => {
-        return (
-          isValidProductName(productData.productName) &&
-          productData.price > 0 &&
-          productData.quantity > 0 &&
-          productData.category &&
-          productData.deliveryMethod &&
-          productData.image
-        );
-      };
-
       // Make the POST request
       const response = await fetch(
         "http://localhost:3000/api/products/create",
@@ -112,13 +113,11 @@ const AddProductModal = ({ isOpen, closeModal }) => {
       );
 
       if (response.ok) {
-        console.log("Product added successfully");
         setProductsUpdated(true);
         resetFormFields(); // Reset form fields after successful addition
         closeModal();
       } else {
         console.error("Failed to add product. Please try again.");
-        alert("Failed to add product. Please fill out all the fields correctly.");
       }
     } catch (error) {
       console.error("An error occurred:", error);

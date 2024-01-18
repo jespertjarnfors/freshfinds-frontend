@@ -36,11 +36,12 @@ const RegisterForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validation tests
+    // Validation critera
     const emailRegex = /^\S+@\S+\.\S+$/;
     const nameRegex = /^[A-Za-z]+$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
+    // Validation functions for all fields
     if (!emailRegex.test(email)) {
       setEmailError("Invalid email.");
     } else {

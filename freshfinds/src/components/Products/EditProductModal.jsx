@@ -11,6 +11,7 @@ const EditProductModal = ({
   productData,
 }) => {
 
+  // Initialized state for the product data
   const [editedProductData, setEditedProductData] = useState({
     productName: productData.name,
     price: productData.price,

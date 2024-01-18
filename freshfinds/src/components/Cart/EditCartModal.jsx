@@ -1,10 +1,14 @@
 import { useState } from 'react';
 
 const EditCartModal = ({ item, index, editCartItem, closeModal }) => {
+
+  // State to manage the new quantity for the item
   const [newQuantity, setNewQuantity] = useState(item.quantity);
 
   const handleConfirm = () => {
+     // Check if the new quantity is valid (greater than 0 and within initial stock)
     if (newQuantity > 0 && newQuantity <= item.initialQuantity) {
+        // Update the cart item with the new quantity
       editCartItem(index, newQuantity);
       closeModal();
     } else {

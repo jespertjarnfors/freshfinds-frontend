@@ -11,15 +11,19 @@ const VerificationModal = () => {
   const { user } = useContext(UserContext);
   const [verificationCode, setVerificationCode] = useState("");
 
+  // Function to handle input change
   const handleInputChange = (e) => {
     setVerificationCode(e.target.value);
   };
 
+  // Navigate to register page
   const handleBackClick = () => {
     navigate('/register');
   }
 
+  // Function to confirm the user in AWS Cognito, and create the user in MongoDB
   const handleConfirmClick = () => {
+
     const cognitoUser = new CognitoUser({ Username: user.username, Pool: UserPool });
   
     return new Promise((resolve, reject) => {
@@ -30,13 +34,14 @@ const VerificationModal = () => {
         } else {
           alert('Successfully verified!');
           console.log('call result: ' + result);
-          // Add API call to create user in MongoDB
+          // API call to create user in MongoDB
           fetch('http://localhost:3000/api/users/create', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ cognitoId: user.username }) // Send cognitoId as the username
+            // Due to username being the unique identifier, we use it as the cognitoId value in MongoDB
+            body: JSON.stringify({ cognitoId: user.username })
           })
           .then(response => {
             if (!response.ok) {

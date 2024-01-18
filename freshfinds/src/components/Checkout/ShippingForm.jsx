@@ -35,6 +35,7 @@ const ShippingForm = () => {
     }
   };
 
+  // Updates shippingDetails state based on input, ensuring data conforms to validation
   const handleChange = (e) => {
     if (validateInput(e.target.name, e.target.value)) {
       setShippingDetails({
@@ -44,6 +45,7 @@ const ShippingForm = () => {
     }
   };
 
+  // Handle form submission and move to payment through the checkout context
   const handleSubmit = (e) => {
     e.preventDefault();
     moveToPayment(shippingDetails);

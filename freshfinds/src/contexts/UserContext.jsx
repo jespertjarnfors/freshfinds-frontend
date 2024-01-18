@@ -37,6 +37,7 @@ export const UserProvider = ({ children }) => {
 
     let userDetails = null;
 
+    // Check if idToken exists, then decodes it
     if (idToken) {
       const decodedToken = jwtDecode(idToken);
       userDetails = {
@@ -49,12 +50,10 @@ export const UserProvider = ({ children }) => {
         longitude: decodedToken["custom:longitude"],
       };
       setUser(userDetails); // Update the user data in state
-      console.log("After setting user:", userDetails);
       // Fetch userId from MongoDB
       fetchUserIdFromMongoDB(decodedToken.sub);
     } else {
       setUser(null); // Handle the case where there is no token (user is not logged in)
-      console.log("No id_token found, user set to null");
     }
   }, [loginTrigger]); // useEffect triggered by changes in loginTrigger
 
