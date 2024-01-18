@@ -27,7 +27,7 @@ const ShippingForm = () => {
       case "addressLine1":
         return /^[A-Za-z0-9\s,.-]*$/.test(value); // Letters, numbers, spaces, commas, periods, hyphens
       case "zipCode":
-        return /^[A-Za-z0-9]*$/.test(value); // Alphanumeric (for international zip codes)
+        return /^[0-9]{0,6}$/.test(value); // Only numbers, up to 6 characters
       case "contactNumber":
         return /^[0-9+()\s-]*$/.test(value); // Numeric, plus sign, parentheses, spaces, hyphens
       default:

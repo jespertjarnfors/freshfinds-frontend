@@ -29,12 +29,13 @@ const AddProductModal = ({ isOpen, closeModal }) => {
     });
   };
 
+  /* Attach image, yet to be done
+  
   const handleImageUpload = (e) => {
-    // Implement image upload logic and update the productData.image
-    // This function will vary based on your specific image upload implementation
     const file = e.target.files[0];
-    // Implement logic to upload the file and set the URL or file path in productData.image
-  };
+  }; 
+  
+  */
 
   // Validation function for productName
   const isValidProductName = (name) => /^[a-zA-Z\s]{1,18}$/.test(name);
@@ -72,7 +73,31 @@ const AddProductModal = ({ isOpen, closeModal }) => {
         },
       };
 
-      console.log("Request Body:", requestBody);
+      // Function to reset the form fields
+      const resetFormFields = () => {
+        setProductData({
+          userId: "",
+          username: user.username,
+          productName: "",
+          price: 0,
+          quantity: 0,
+          category: "",
+          deliveryMethod: "",
+          image: "",
+        });
+      };
+
+      // Function to validate all form fields
+      const areAllFieldsValid = () => {
+        return (
+          isValidProductName(productData.productName) &&
+          productData.price > 0 &&
+          productData.quantity > 0 &&
+          productData.category &&
+          productData.deliveryMethod &&
+          productData.image
+        );
+      };
 
       // Make the POST request
       const response = await fetch(
@@ -89,11 +114,11 @@ const AddProductModal = ({ isOpen, closeModal }) => {
       if (response.ok) {
         console.log("Product added successfully");
         setProductsUpdated(true);
+        resetFormFields(); // Reset form fields after successful addition
         closeModal();
       } else {
         console.error("Failed to add product. Please try again.");
-        console.log("Response Status:", response.status);
-        console.log("Response Body:", await response.json());
+        alert("Failed to add product. Please fill out all the fields correctly.");
       }
     } catch (error) {
       console.error("An error occurred:", error);

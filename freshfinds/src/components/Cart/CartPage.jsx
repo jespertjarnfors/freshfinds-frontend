@@ -12,6 +12,7 @@ const CartPage = () => {
   // Calculate the total cost of the cart
   const totalCost = cart.reduce((sum, item) => sum + item.totalPrice, 0);
 
+  // Open and close the edit modal
   const openEditModal = (index) => {
     setEditingIndex(index);
     setIsEditing(true);
@@ -22,6 +23,7 @@ const CartPage = () => {
     setEditingIndex(-1);
   };
 
+  // Handle the checkout button click
   const handleCheckout = () => {
     navigate("/checkout");
   };

@@ -203,7 +203,7 @@ const OrderConfirmation = () => {
       </div>
 
       {/* Conditionally display ReviewForm */}
-      <div className="flex flex-col mt-10 space-y-3">
+      <div className="grid grid-cols-2 gap-2 mt-10">
         {reviewsCreated && // Only render ReviewForm components if new reviews have been created
           orderDetails.map(
             (order, index) =>

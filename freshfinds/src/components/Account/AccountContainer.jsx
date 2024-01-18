@@ -20,7 +20,7 @@ const AccountContainer = () => {
 
   // Check if the user data is available
   if (!user) {
-    // Display a loading message or handle the case accordingly
+    // Display a loading message
     return <div>Loading user details...</div>;
   } // Check if the user data is available
 
@@ -115,7 +115,7 @@ const AccountContainer = () => {
             className="py-2 px-2 font-medium mt-1 rounded-md text-md text-gray-900"
             style={{ backgroundColor: "#FFF9EB" }}
           >
-            {user.username} {/* Updated to use user data from context */}
+            {user.username} {/* Using user data from context */}
           </div>
         </div>
         <div className="font-bold text-gray-600">
@@ -124,7 +124,7 @@ const AccountContainer = () => {
             className="py-2 px-2 font-medium mt-1 rounded-md text-md text-gray-900"
             style={{ backgroundColor: "#FFF9EB" }}
           >
-            {user.email} {/* Updated to use user data from context */}
+            {user.email}
           </div>
         </div>
         <div className="font-bold text-gray-600">
@@ -149,7 +149,7 @@ const AccountContainer = () => {
             className="py-2 px-2 font-medium my-1 rounded-md text-md text-gray-900"
             style={{ backgroundColor: "#FFF9EB" }}
           >
-            {user.address} {/* Updated to use user data from context */}
+            {user.address}
           </div>
           <a
             href="#"
