@@ -28,8 +28,8 @@ const OrdersContainer = () => {
   // Function to calculate the total cost of an order
   const calculateTotalCost = (items) => {
     return items.reduce((total, item) => {
-      const product = orderItems.find(oi => oi._id === item._id);
-      return total + (product?.price || 0) * item.quantity;
+      const product = orderItems.find(orderItem => orderItem._id === item._id);
+      return total + (product?.price || 0);
     }, 0).toFixed(2);
   };
 
