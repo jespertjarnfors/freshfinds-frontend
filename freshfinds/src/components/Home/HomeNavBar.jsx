@@ -1,20 +1,29 @@
 import { useState } from "react";
 import Logo from "../../assets/LogoMedium.png";
 import Tomato from "../../assets/Tomato.png";
+import {useNavigate} from 'react-router-dom';
 import './HomeNavBar.css';
 
 const HomeNavBar = () => {
+
+  // State for the mobile menu
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  // Navigate to the home page
+  const handleHomeClick = () => {
+    navigate("/home");
+  };
 
   return (
     <div>
-      <nav className="relative bg-white shadow">
+      <nav className="home-navbar relative">
         <div className="px-6 py-4">
           <div className="lg:flex lg:items-center lg:justify-between">
             <div className="flex items-center justify-between">
-              <a href="#">
-                <img className="w-auto h-32 sm:h-12" src={Logo} alt="" />
-              </a>
+              
+                <img className="w-auto h-32 sm:h-12 ml-2" src={Logo} alt="" onClick={handleHomeClick}/>
+              
 
               {/* Mobile menu button */}
               <div className="flex lg:hidden">
@@ -56,6 +65,7 @@ const HomeNavBar = () => {
                     </svg>
                   )}
                 </button>
+             
               </div>
             </div>
 
@@ -67,40 +77,14 @@ const HomeNavBar = () => {
                   : "opacity-0 -translate-x-full"
               }`}
             >
-              <div className="flex flex-col lg:flex-row lg:items-center font-medium">
-                <a
-                  href="#"
-                  className="px-6 py-2 mt-2 text-gray-800 transition-colors duration-300 transform lg:mt-0"
-                >
-                  Home
-                </a>
-                <a
-                  href="#"
-                  className="px-6 py-2 mt-2 text-gray-800 transition-colors duration-300 transform lg:mt-0"
-                >
-                  About
-                </a>
-                <a
-                  href="#"
-                  className="px-6 py-2 mt-2 text-gray-800 transition-colors duration-300 transform lg:mt-0"
-                >
-                  Contact
-                </a>
-              </div>
-
-              <div className="flex items-center mt-4 lg:mt-0">
-                <button
-                  className="hidden mx-4 text-gray-800 transition-colors duration-300 transform lg:block hover:text-gray-700 focus:text-gray-700 focus:outline-none"
-                  aria-label="show notifications"
-                ></button>
-                <div className="w-10 h-8 overflow-hidden rounded-full">
+                <div className="w-10 h-8 mr-6 overflow-hidden rounded-full">
                   <img
                     src={Tomato}
                     className="object-cover w-full h-full"
                     alt="avatar"
                   />
                 </div>
-              </div>
+              
             </div>
           </div>
         </div>
