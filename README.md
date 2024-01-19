@@ -5,6 +5,8 @@
 
 A full-stack web application designed to connect local produce buyers with nearby producers. Built with React, Node.js, Express, MongoDB, TailwindCSS, and Google Maps API, the app features user authentication, product listings, a shopping cart, order management, and an interactive map for locating producers. 
 
+Project Documentation and Capstone presentation: https://drive.google.com/drive/folders/19R6ggXmppgaeYH__Ir1dsrBfQd30mdjj?usp=sharing
+
 ## Key Features
 
 User authentication and authorization through AWS Cognito.
@@ -24,11 +26,21 @@ bash, Copy code or git clone https://github.com/jespertjarnfors/freshfinds-front
 - `npm start` for backend
 
 To run the backend and frontend in its current state, you will need:
-- Google Maps API Key
+- Google Maps API Key with Places API, Maps Javascript API, and Geocoding API activated.
 - AWS Cognito User Pool
 - MongoDB Database
 
-Ensure to create your .env file with your own personal configuration for User Pool details, and MongoDB settings.
+For the Frontend, ensure to create your .env file with your own personal configuration for the following settings:
+- `VITE_GOOGLE_MAPS_API_KEY = {yourGoogleMapsAPIKey}`
+- `VITE_COGNITO_USER_POOL_ID = {yourCognitoUserPoolId}`
+- `VITE_COGNITO_CLIENT_ID = {yourCognitoClientId}`
+
+Additionally, in order to get the PlacesAutoComplete component to work,
+I had to use a publicly exposed Google Maps API Key in index.html for the presentation, it has now been disabled.
+This was due to the component not supporting the latest npm packages by Google Maps which enables you import your API Key from a local .env.
+
+In order to get the PlacesAutoComplete to work, you will need to replace the API key with an active key here in index.html:
+`<script src="https://maps.googleapis.com/maps/api/js?key={yourGoogleMapsAPIKey}&libraries=places"></script>`
 
 ## Usage
 
@@ -49,8 +61,8 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 
 ### License
 
-"This project is licensed under the MIT License - see the LICENSE.md file for details."
+"This project is licensed under the MIT License."
 
 **Acknowledgments**
 
-I would like to thank Mirza Arshad and Willy Erlemann for their with this project.
+I would like to thank Mirza Arshad and Willy Erlemann for their support with this project.
