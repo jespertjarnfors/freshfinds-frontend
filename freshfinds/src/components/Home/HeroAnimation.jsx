@@ -4,7 +4,7 @@ import AppleHarvest from '../../assets/AppleHarvest.json';
 const HeroAnimation = () => {
     return (
         <>
-            <Lottie animationData={AppleHarvest} className='w-full' />
+            <Lottie animationData={AppleHarvest} className='md:w-full' />
         </>
     );
 };

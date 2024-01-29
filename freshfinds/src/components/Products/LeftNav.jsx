@@ -99,14 +99,14 @@ const LeftNav = ({
     >
       <div className="px-2 mb-2">
         {/* Distance Dropdown */}
-        <label htmlFor="distance" className="text-lg font-semibold">
+        <label htmlFor="distance" className="xl:text-base 2xl:text-lg font-semibold">
           Distance
         </label>
         <select
           id="distance"
           value={selectedDistance}
           onChange={handleDistanceChange}
-          className="mt-1 px-3 py-2 rounded-md w-full"
+          className="mt-1 xl:text-sm 2xl:text-base px-1 py-1 2xl:px-3 2xl:py-2 rounded-md w-full"
           style={{ backgroundColor: "#FFF9EB" }}
         >
           {distances.map((d, index) => (
@@ -144,7 +144,7 @@ const LeftNav = ({
       {/* "Add Product" Button (Conditionally rendered for producers) */}
       <div className="flex justify-center">
         {user.isProducer === "true" && (
-          <button onClick={openAddProductModal} className="btn mt-4 px-4 py-2">
+          <button onClick={openAddProductModal} className="btn 2xl:mt-2 3xl:mt-4 px-4 py-2">
             Add Product
           </button>
         )}

@@ -40,11 +40,11 @@ const ProducerProductCard = ({ product, productId }) => {
 
   return (
     <div
-      className="w-3/4 sm:w-1/2 md:w-64 mx-3 rounded-xl shadow-xl m-4"
+      className="sm:w-1/2 xl:w-56 2xl:w-64 mx-3 rounded-xl shadow-xl m-4"
       style={{ backgroundColor: "#FFF9EB", alignSelf: "start" }}
     >
       <div className="px-4 pt-2 pb-1 flex justify-between items-center">
-        <div className="font-semibold text-md flex items-center">
+        <div className="font-semibold text-md xl:text-sm 2xl:text-md flex items-center">
           {product.seller}
           <img src={starIcon} alt="Star Icon" className="ml-1 h-5 w-5" />
           <span className="ml-1">{product.rating}</span>

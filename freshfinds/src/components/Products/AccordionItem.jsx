@@ -23,7 +23,7 @@ const AccordionItem = ({ title, items, isOpen, setIsOpen }) => {
         onClick={() => setIsOpen(!isOpen)}
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
-        className="flex justify-between items-center text-lg font-semibold py-2 px-2 w-full text-left rounded-lg"
+        className="flex justify-between items-center text-lg xl:text-base 2xl:text-lg font-semibold py-2 px-2 w-full text-left rounded-lg"
         style={{
           backgroundColor: isOpen ? "#FFEDC2" : "transparent",
           transition: "background-color 0.2s ease-in-out",
@@ -38,10 +38,10 @@ const AccordionItem = ({ title, items, isOpen, setIsOpen }) => {
             <div
               key={index}
               onClick={onClick}
-              className="flex items-center py-1 pl-2 mb-1 rounded text-gray-700 font-medium cursor-pointer"
+              className="flex items-center py-1 pl-2 mb-1 rounded text-gray-700 xl:text-sm 2xl:text-base font-medium cursor-pointer"
               style={{ backgroundColor: "#FFF9EB" }}
             >
-              <img src={icon} alt={name} className="w-6 h-6 mr-2" />
+              <img src={icon} alt={name} className="w-4 h-4 xl:w-4 xl:h-4 2xl:w-5 2xl:h-5 mr-2" />
               {name}
             </div>
           ))}

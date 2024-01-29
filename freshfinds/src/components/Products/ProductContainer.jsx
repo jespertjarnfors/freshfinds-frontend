@@ -210,7 +210,7 @@ const ProductContainer = () => {
           {/* "All Products / My Products toggle buttons (Conditionally rendered for producers) */}
           {user?.isProducer === "true" && (
             <div
-              className="ml-auto mr-12 flex items-center shadow-lg rounded-2xl font-semibold text-gray-700"
+              className="ml-auto mr-2 2xl:mr-8 3xl:mr-12 flex items-center shadow-lg rounded-2xl font-semibold text-gray-700"
               style={{ backgroundColor: "#FFF9EB" }}
             >
               <button
