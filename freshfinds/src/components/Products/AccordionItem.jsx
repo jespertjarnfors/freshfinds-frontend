@@ -1,9 +1,23 @@
-const AccordionItem = ({ title, items, isOpen, setIsOpen }) => {
+import { useState, useEffect } from "react";
+
+const AccordionItem = ({ title, items, isOpen, setIsOpen, resetSelections }) => {
+  const [activeItem, setActiveItem] = useState(null);
 
   // SVG component for the down arrow icon
   const DownArrowSVG = () => (
-    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+    <svg
+      className="w-4 h-4"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M19 9l-7 7-7-7"
+      ></path>
     </svg>
   );
 
@@ -16,6 +30,19 @@ const AccordionItem = ({ title, items, isOpen, setIsOpen }) => {
   const handleMouseOut = (e) => {
     if (!isOpen) e.currentTarget.style.backgroundColor = "transparent";
   };
+
+  // Event handler for clicking an item
+  const handleItemClick = (name, onClick) => {
+    setActiveItem(name);
+    onClick();
+  };
+
+    // useEffect to reset activeItem and background color when resetSelections changes
+    useEffect(() => {
+      if (resetSelections) {
+        setActiveItem(null);
+      }
+    }, [resetSelections]);
 
   return (
     <div className="mb-2">
@@ -37,11 +64,19 @@ const AccordionItem = ({ title, items, isOpen, setIsOpen }) => {
           {items.map(({ name, icon, onClick }, index) => (
             <div
               key={index}
-              onClick={onClick}
-              className="flex items-center py-1 pl-2 mb-1 rounded text-gray-700 xl:text-sm 2xl:text-base font-medium cursor-pointer"
-              style={{ backgroundColor: "#FFF9EB" }}
+              onClick={() => handleItemClick(name, onClick)}
+              className={`flex items-center py-1 pl-2 mb-1 rounded text-gray-700 xl:text-sm 2xl:text-base font-medium cursor-pointer ${
+                activeItem === name ? "bg-yellow-200" : ""
+              }`}
+              style={{
+                backgroundColor: activeItem === name ? "#FFE991" : "#FFF9EB",
+              }}
             >
-              <img src={icon} alt={name} className="w-4 h-4 xl:w-4 xl:h-4 2xl:w-5 2xl:h-5 mr-2" />
+              <img
+                src={icon}
+                alt={name}
+                className="w-4 h-4 xl:w-4 xl:h-4 2xl:w-5 2xl:h-5 mr-2"
+              />
               {name}
             </div>
           ))}

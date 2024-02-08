@@ -27,8 +27,9 @@ const ProductCard = ({ product, productId }) => {
 
   return (
     <div
-      className="sm:w-1/2 xl:w-56 2xl:w-64 2xl:mx-2 3xl:mx-3 rounded-xl shadow-xl m-4"
+      className="w-64 md:w-60 lg:w-60 xl:w-56 2xl:w-64 2xl:mx-2 3xl:mx-3 rounded-xl shadow-xl m-2"
       style={{ backgroundColor: "#FFF9EB", alignSelf: "start" }}
+      key={Date.now()}
     >
       <div className="px-4 pt-2 pb-1 flex justify-between items-center">
         <div className="font-semibold text-md xl:text-sm 2xl:text-base flex items-center">
@@ -45,7 +46,7 @@ const ProductCard = ({ product, productId }) => {
       />
       <div className="px-4 py-2">
         <div
-          className="font-semibold xl:text-sm 2xl:text-base mb-1 text-gray-800 flex justify-between items-center"
+          className="font-semibold md:text-sm xl:text-sm 2xl:text-base mb-1 text-gray-800 flex justify-between items-center"
           style={{ fontFamily: "Satoshi, sans-serif" }}
         >
           {product.name}{" "}
@@ -72,6 +73,7 @@ const ProductCard = ({ product, productId }) => {
           </label>
           <input
             id="quantity"
+            key={Date.now()}
             className="shadow appearance-none border rounded py-1 px-2 w-14 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             type="number"
             min="1"

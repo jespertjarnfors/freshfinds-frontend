@@ -40,7 +40,7 @@ const ProducerProductCard = ({ product, productId }) => {
 
   return (
     <div
-      className="sm:w-1/2 xl:w-56 2xl:w-64 mx-3 rounded-xl shadow-xl m-4"
+      className="w-64 md:w-60 lg:w-60 xl:w-56 2xl:w-64 2xl:mx-2 3xl:mx-3 rounded-xl shadow-xl m-2"
       style={{ backgroundColor: "#FFF9EB", alignSelf: "start" }}
     >
       <div className="px-4 pt-2 pb-1 flex justify-between items-center">

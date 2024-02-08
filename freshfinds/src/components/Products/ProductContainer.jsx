@@ -33,6 +33,8 @@ const ProductContainer = () => {
   const [selectedDistance, setSelectedDistance] = useState("25km");
   const [showMyProducts, setShowMyProducts] = useState(false);
   const { productsUpdated, setProductsUpdated } = useProductsUpdated();
+  const [showLeftNav, setShowLeftNav] = useState(true);
+  const [resetSelections, setResetSelections] = useState(false);
 
   const { user } = useUser();
 
@@ -119,12 +121,19 @@ const ProductContainer = () => {
     setSearchTerm(e.target.value.toLowerCase());
   };
 
+  // Function to reset highlighted items in Mobile Menu/LeftNav
+  const handleReset = () => {
+    // Toggle the reset state to trigger the reset functionality
+    setResetSelections(prevState => !prevState);
+  };
+
   // Function to clear all filters
   const clearFilters = () => {
     setSelectedCategory(null);
     setSelectedRating(null);
     setSelectedDeliveryMethod(null);
     setSearchTerm("");
+    handleReset();
   };
 
   // Filtering products based on search term, category, rating, and delivery method
@@ -169,6 +178,18 @@ const ProductContainer = () => {
 
   return (
     <div className="flex">
+       <div className="relative md:hidden">
+      {/* Filter Button */}
+      <button
+        className={`absolute top-1/2 z-10 px-2 py-5 border border-gray-300 rounded-r-3xl font-bold text-gray-900 shadow-xl ${
+          showLeftNav ? "rounded-b-none" : ""
+        }`}
+        style={{ backgroundColor: "#FFF9EB"}}
+        onClick={() => setShowLeftNav(!showLeftNav)}
+      >
+        Filter
+      </button>
+      </div>
       <LeftNav
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
@@ -178,43 +199,49 @@ const ProductContainer = () => {
         setSelectedDeliveryMethod={setSelectedDeliveryMethod}
         selectedDistance={selectedDistance}
         setSelectedDistance={setSelectedDistance}
+        showLeftNav={showLeftNav}
+        toggleLeftNav={() => setShowLeftNav(!showLeftNav)}
+        resetSelections={resetSelections}
+        setResetSelections={setResetSelections}
       />
       <div
-        className="flex flex-col w-4/5 mr-10 ml-5 p-10 rounded-xl shadow-lg overflow-auto custom-scrollbar"
+        className="flex flex-col w-max md:w-4/5 mr-2 xl:mr-10 ml-2 xl:ml-5 p-5 xl:p-10 rounded-xl shadow-lg overflow-auto custom-scrollbar"
         style={{ backgroundColor: "#FFEDC2", height: "85vh" }}
       >
-        <div className="flex justify-start items-center mb-4">
+        <div className="flex justify-start flex-col-reverse md:flex-row items-center mb-2 md:mb-4">
+          <div className="flex flex-row">
           <SearchBar value={searchTerm} onChange={handleSearchChange} />
           <button
             onClick={clearFilters}
-            className="text-medium font-semibold underline text-gray-600 ml-4"
+            className="text-medium font-semibold underline text-gray-600 ml-2 md:ml-4"
           >
             Clear Filter
           </button>
           {selectedCategory && (
-            <div className="bg-gray-200 px-2 py-1 ml-2 rounded-lg">
+            <div className="bg-gray-200 px-2 py-1 ml-2 rounded-lg hidden lg:block">
               {selectedCategory}
             </div>
           )}
           {selectedRating && (
-            <div className="bg-gray-200 px-2 py-1 ml-2 rounded-lg">
+            <div className="bg-gray-200 px-2 py-1 ml-2 rounded-lg hidden lg:block">
               Rating: {selectedRating}
             </div>
           )}
           {selectedDeliveryMethod && (
-            <div className="bg-gray-200 px-2 py-1 ml-2 rounded-lg">
+            <div className="bg-gray-200 px-2 py-1 ml-2 rounded-lg hidden lg:block">
               Delivery: {selectedDeliveryMethod}
             </div>
           )}
+          </div>
 
           {/* "All Products / My Products toggle buttons (Conditionally rendered for producers) */}
           {user?.isProducer === "true" && (
             <div
-              className="ml-auto mr-2 2xl:mr-8 3xl:mr-12 flex items-center shadow-lg rounded-2xl font-semibold text-gray-700"
+              className="ml-auto sm:ml-0 md:ml-auto mr-auto md:mr-2 mb-5 md:mb-0 2xl:mr-8 3xl:mr-12 flex items-center shadow-lg rounded-2xl font-semibold text-gray-700"
               style={{ backgroundColor: "#FFF9EB" }}
             >
               <button
-                className={`btn-toggle-switch py-2 px-4 rounded-2xl ${
+                className={`btn-toggle-switch py-2 px-6 md:px-4 rounded-2xl md:text-xs lg:text-base ${
                   showMyProducts ? "text-gray-400" : "border-gray-300 border-2"
                 }`}
                 style={{
@@ -225,7 +252,7 @@ const ProductContainer = () => {
                 All Products
               </button>
               <button
-                className={`btn-toggle-switch px-3 py-2 rounded-2xl ${
+                className={`btn-toggle-switch px-4 md:px-3 py-2 rounded-2xl md:text-xs lg:text-base ${
                   showMyProducts ? "border-gray-300 border-2" : "text-gray-400"
                 }`}
                 style={{
@@ -239,7 +266,7 @@ const ProductContainer = () => {
           )}
         </div>
 
-        <div className="flex flex-row flex-wrap -mx-4">
+        <div className="flex flex-row flex-wrap -mx-4 justify-center lg:justify-normal">
           {/* Conditionally render ProductCard or ProducerProductCard based on showMyProducts */}
           {filteredProducts.map((product) => (
             <div key={product.key}>

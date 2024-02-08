@@ -36,7 +36,7 @@ const UserNavBar = () => {
                 onClick={() => handleNavigation("/home")}
               />
                 {/* Conditional Mobile Menu Cart and Sign out */}
-              <div className="ml-8 flex flex-row md:hidden mb-1 space-x-2">
+              <div className="ml-auto mr-2 flex flex-row lg:hidden mb-1 space-x-2">
               <button
                   onClick={handleSignOut}
                   className="mr-2 px-1.5 py-2 text-gray-700 font-bold bg-inherit rounded hover:text-red-600 underline-offset-2 underline"
@@ -51,8 +51,9 @@ const UserNavBar = () => {
                   onClick={() => handleNavigation("/cart")}
                 />
               </div>
+
               {/* Mobile menu toggle button */}
-              <div className="lg:hidden">
+              <div className="lg:hidden md:mr-4 ml-2">
                 <button
                   onClick={() => setIsOpen(!isOpen)}
                   type="button"
@@ -127,7 +128,7 @@ const UserNavBar = () => {
                 >
                   Account
                 </a>
-                <span className="hidden md:flex">
+                <span className="hidden lg:flex">
                 <button
                   onClick={handleSignOut}
                   className="mt-2 mr-12 px-1.5 py-2 text-gray-700 font-bold bg-inherit rounded hover:text-red-600 underline-offset-2 underline"

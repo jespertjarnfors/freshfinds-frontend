@@ -49,8 +49,11 @@ const LeftNav = ({
   setSelectedDeliveryMethod,
   selectedDistance,
   setSelectedDistance,
+  showLeftNav,
+  toggleLeftNav, // Props for controlling visibility
+  resetSelections, // Props for resetting highlighted selections for Mobile
+  setResetSelections,
 }) => {
-
   // Filtering states
   const [distance, setDistance] = useState("25km");
   const [categoriesOpen, setCategoriesOpen] = useState(false);
@@ -94,12 +97,36 @@ const LeftNav = ({
 
   return (
     <div
-      className="ml-10 p-4 rounded-xl shadow-lg w-1/6"
+      className={`absolute inset-x-0 z-20 w-full h-full px-6 py-4 transition-all duration-300 ease-in-out shadow-none md:shadow-xl ${
+        showLeftNav ? "block" : "hidden md:block"
+      } md:relative md:w-1/4 lg:w-1/6 md:transition-none rounded-xl md:ml-10 md:h-auto`}
       style={{ backgroundColor: "#FFEDC2" }}
     >
+      <button
+        onClick={toggleLeftNav}
+        className="absolute top-0 right-0 m-4 text-gray-600 block md:hidden"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
       <div className="px-2 mb-2">
         {/* Distance Dropdown */}
-        <label htmlFor="distance" className="xl:text-base 2xl:text-lg font-semibold">
+        <label
+          htmlFor="distance"
+          className="xl:text-base 2xl:text-lg font-semibold"
+        >
           Distance
         </label>
         <select
@@ -123,6 +150,7 @@ const LeftNav = ({
         items={categoryItems}
         isOpen={categoriesOpen}
         setIsOpen={setCategoriesOpen}
+        resetSelections={resetSelections}
       />
 
       {/* Seller Rating Accordion */}
@@ -131,6 +159,7 @@ const LeftNav = ({
         items={ratingItems}
         isOpen={ratingsOpen}
         setIsOpen={setRatingsOpen}
+        resetSelections={resetSelections}
       />
 
       {/* Delivery Method Accordion */}
@@ -139,12 +168,16 @@ const LeftNav = ({
         items={deliveryMethodItems}
         isOpen={deliveryMethodOpen}
         setIsOpen={setDeliveryMethodOpen}
+        resetSelections={resetSelections}
       />
 
       {/* "Add Product" Button (Conditionally rendered for producers) */}
       <div className="flex justify-center">
         {user.isProducer === "true" && (
-          <button onClick={openAddProductModal} className="btn 2xl:mt-2 3xl:mt-4 px-4 py-2">
+          <button
+            onClick={openAddProductModal}
+            className="btn mt-4 2xl:mt-2 3xl:mt-4 px-4 py-2"
+          >
             Add Product
           </button>
         )}
