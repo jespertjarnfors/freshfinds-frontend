@@ -6,7 +6,7 @@ const Account = () => {
     return (
         <div>
             <UserNavBar></UserNavBar>
-            <div className="flex justify-center items-center w-full">
+            <div className="flex flex-col md:flex-row md:justify-center md:items-center w-full">
             <AccountContainer></AccountContainer>
             <OrdersContainer></OrdersContainer>
             </div>

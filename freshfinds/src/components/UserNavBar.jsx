@@ -97,7 +97,7 @@ const UserNavBar = () => {
 
             {/* Mobile Menu */}
             <div
-              className={`absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 bg-orange-50 flex justify-center ease-in-out lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center ${
+              className={`absolute inset-x-0 z-50 w-full px-6 py-4 transition-all duration-300 bg-orange-50 flex justify-center ease-in-out lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center ${
                 isOpen
                   ? "translate-x-0 opacity-100 h-screen xl:h-12 text-3xl xl:text-base py-56"
                   : "opacity-0 -translate-x-full"
