@@ -107,10 +107,10 @@ const OrdersContainer = () => {
   }, [orderItems]);
 
   return (
-    <div className="flex flex-row md:w-4/5 mr-5 ml-5 my-5 lg:my-0 lg:mr-10 lg:ml-5 p-10 rounded-xl shadow-lg justify-between custom-scrollbar overflow-hidden"
+    <div className="flex flex-row md:w-4/5 mr-5 ml-5 my-5 lg:my-0 lg:mr-10 lg:ml-5 p-10 xl:p-5 3xl:p-10 rounded-xl shadow-lg justify-between custom-scrollbar overflow-hidden"
          style={{ backgroundColor: "#FFEDC2", height: "85vh", overflowY: "auto" }}>
       <div className="w-full">
-        <h1 className="text-2xl font-bold text-gray-700 mb-4">Order History</h1>
+        <h1 className="text-2xl xl:text-xl font-bold text-gray-700 mb-4">Order History</h1>
         <div className="grid lg:grid-cols-3 gap-4">
           {/* Mapping over the orders to distribute the relevant data */}
           {orders.map((order) => (
