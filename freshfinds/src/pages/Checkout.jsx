@@ -20,7 +20,7 @@ const CheckoutContent = () => {
         case 'confirmation':
             return <OrderConfirmation />;
         default:
-            return null; // Or some default component
+            return null;
     }
 };
 
@@ -40,15 +40,15 @@ const Checkout = () => {
         <div>
                 <UserNavBar />
                 <ProgressBar />
-                <div className="flex flex-row justify-center space-x-2">
-                    <div className="mt-4">
+                <div className="flex flex-col xl:flex-row justify-center">
+                    <div className="mt-4 w-4/5 flex flex-col justify-center xl:flex-row mx-auto xl:ml-0">
                         <CheckoutContent />
-                    </div>
-                    {currentStep !== 'confirmation' && (
-                        <div className="mt-4">
+                        {currentStep !== 'confirmation' && (
+                        <div className="hidden md:block ml-2">
                             <OrderSummary />
                         </div>
                     )}
+                    </div>
                 </div>
         </div>
     );

@@ -55,7 +55,7 @@ const OrderConfirmation = () => {
 
           // Fetch seller usernames and store them
           const sellerIds = fetchedOrders.map((order) => order.sellerId);
-          const uniqueSellerIds = [...new Set(sellerIds)]; // Remove duplicates if any
+          const uniqueSellerIds = [...new Set(sellerIds)]; // Removes duplicates if any
           const sellerNameData = {};
           for (const sellerId of uniqueSellerIds) {
             try {
@@ -154,8 +154,8 @@ const OrderConfirmation = () => {
   }, [user, orderDetails]);
 
   return (
-    <div className="flex flex-row">
-      <div className="max-w-3xl mx-auto p-8 shadow-xl bg-white border-2 border-gray-400 rounded-xl mt-4">
+    <div className="flex flex-col md:flex-row">
+      <div className="max-w-3xl md:mx-auto p-8 shadow-xl bg-white border-2 border-gray-400 rounded-xl mt-4">
         <h1 className="text-3xl font-semibold mb-4">Order Confirmation</h1>
         <p className="mb-4">Your order has been confirmed.</p>
 
@@ -163,7 +163,7 @@ const OrderConfirmation = () => {
         {orderDetails.length > 0 ? (
           orderDetails.map((order) => (
             <div key={order._id} className="border p-4 mb-4 rounded-lg">
-              <h2 className="text-xl font-semibold mb-2">
+              <h2 className="md:text-lg font-semibold mb-2">
                 Order ID: {order._id}
               </h2>
               <p>Date: {new Date(order.orderDate).toLocaleDateString()}</p>
@@ -178,7 +178,7 @@ const OrderConfirmation = () => {
         {/* Display order items */}
         {orderItems.length > 0 ? (
           <div className="border p-4 mb-4 rounded-lg">
-            <h2 className="text-xl font-semibold mb-2">Order Items</h2>
+            <h2 className="md:text-lg font-semibold mb-2">Order Items</h2>
             {orderItems.map((item) => (
               <div key={item._id} className="flex justify-between">
                 <p>
@@ -203,7 +203,7 @@ const OrderConfirmation = () => {
       </div>
 
       {/* Conditionally display ReviewForm */}
-      <div className="flex flex-col gap-2 mt-4">
+      <div className="flex flex-col mb-6 md:mb-0 md:gap-2 mt-4">
         {reviewsCreated && // Only render ReviewForm components if new reviews have been created
           orderDetails.map(
             (order, index) =>

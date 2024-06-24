@@ -95,10 +95,10 @@ const AccountContainer = () => {
 
   return (
     <div
-      className="flex flex-col w-1/5 ml-10 mr-5 p-10 rounded-xl shadow-lg"
+      className="flex flex-col md:w-3/5 lg:w-2/5 xl:w-1/5 ml-5 mr-5 md:ml-10 md:mr-0 p-10 xl:p-5 3xl:p-10 rounded-xl shadow-lg"
       style={{ backgroundColor: "#FFEDC2", height: "85vh" }}
     >
-      <h1 className="text-2xl text-center font-bold text-gray-700 mb-4">
+      <h1 className="text-2xl xl:text-xl text-center font-bold text-gray-700 mb-4">
         Account Details
       </h1>
       <Lottie

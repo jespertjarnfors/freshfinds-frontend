@@ -13,8 +13,8 @@ const RegisterForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [givenName, setGivenName] = useState("");
-  const [familyName, setFamilyName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [surname, setSurname] = useState("");
   const [address, setAddress] = useState("");
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
   const [isProducer, setIsProducer] = useState("false"); // "false" for consumer, "true" for producer
@@ -48,7 +48,7 @@ const RegisterForm = () => {
       setEmailError("");
     }
 
-    if (!nameRegex.test(givenName) || !nameRegex.test(familyName)) {
+    if (!nameRegex.test(firstName) || !nameRegex.test(surname)) {
       setNameError("Name and Surname can only contain letters.");
     } else {
       setNameError("");
@@ -79,8 +79,8 @@ const RegisterForm = () => {
       password,
       [
         { Name: "email", Value: email },
-        { Name: "given_name", Value: givenName },
-        { Name: "family_name", Value: familyName },
+        { Name: "given_name", Value: firstName },
+        { Name: "family_name", Value: surname },
         { Name: "address", Value: address },
         { Name: "custom:latitude", Value: coordinates.lat.toFixed(6) },
         { Name: "custom:longitude", Value: coordinates.lng.toFixed(6) },
@@ -110,59 +110,59 @@ const RegisterForm = () => {
         minHeight: "85svh",
       }}
     >
-      <div className="rounded-md w-1/3">
+      <div className="rounded-md w-4/5 text-sm md:text-lg lg:w-1/2 xl:w-2/5 2xl:w-1/3">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col space-y-1 border-2border-spacing-4 p-8 rounded-2xl shadow-xl"
+          className="flex flex-col space-y-1 p-8 rounded-2xl shadow-xl"
         >
           <RegisterHeading></RegisterHeading>
           <div className="flex flex-col space-y-2">
-            <label htmlFor="email" className="text-gray-700 font-medium">
+            <label htmlFor="email" className="text-gray-700 font-medium 2xl:text-sm 3xl:text-lg">
               Email
             </label>
             {emailError && <div className="text-red-500">{emailError}</div>}
             <input
-              className="bg-white p-2 rounded-md"
+              className="bg-white p-2 xl:p-0.5 2xl:p-2 rounded-md"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             ></input>
           </div>
           <div className="flex flex-col space-y-2">
-            <label htmlFor="username" className="text-gray-700 font-medium">
+            <label htmlFor="username" className="text-gray-700 font-medium 2xl:text-sm 3xl:text-lg">
               Username
             </label>
             <input
-              className="bg-white p-2 rounded-md"
+              className="bg-white p-2 xl:p-0.5 2xl:p-2 rounded-md"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             ></input>
           </div>
-          <div className="flex space-x-4">
+          <div className="flex flex-col md:flex-row md:space-x-4">
             <div className="flex flex-col w-full space-y-2">
-              <label htmlFor="givenName" className="text-gray-700 font-medium">
+              <label htmlFor="givenName" className="text-gray-700 font-medium 2xl:text-sm 3xl:text-lg">
                 First Name
               </label>
               {nameError && <div className="text-red-500">{nameError}</div>}
               <input
-                className="bg-white p-2 rounded-md"
-                value={givenName}
-                onChange={(e) => setGivenName(e.target.value)}
+                className="bg-white p-2 xl:p-0.5 2xl:p-2 rounded-md"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               ></input>
             </div>
             <div className="flex flex-col w-full space-y-2">
-              <label htmlFor="familyName" className="text-gray-700 font-medium">
+              <label htmlFor="familyName" className="text-gray-700 font-medium 2xl:text-sm 3xl:text-lg">
                 Surname
               </label>
               <input
-                className="bg-white p-2 rounded-md"
-                value={familyName}
-                onChange={(e) => setFamilyName(e.target.value)}
+                className="bg-white p-2 xl:p-0.5 2xl:p-2 rounded-md"
+                value={surname}
+                onChange={(e) => setSurname(e.target.value)}
               ></input>
             </div>
           </div>
-          <div className="flex space-x-4">
+          <div className="flex flex-col md:flex-row md:space-x-4">
             <div className="flex flex-col w-full space-y-2">
-              <label htmlFor="password" className="text-gray-700 font-medium">
+              <label htmlFor="password" className="text-gray-700 font-medium 2xl:text-sm 3xl:text-lg">
                 Password
               </label>
               {passwordError && (
@@ -170,7 +170,7 @@ const RegisterForm = () => {
               )}
               <input
                 type="password"
-                className="bg-white p-2 rounded-md"
+                className="bg-white p-2 xl:p-0.5 2xl:p-2 rounded-md"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               ></input>
@@ -178,7 +178,7 @@ const RegisterForm = () => {
             <div className="flex flex-col w-full space-y-2">
               <label
                 htmlFor="confirmPassword"
-                className="text-gray-700 font-medium"
+                className="text-gray-700 font-medium 2xl:text-sm 3xl:text-lg"
               >
                 Confirm Password
               </label>
@@ -187,14 +187,14 @@ const RegisterForm = () => {
               )}
               <input
                 type="password"
-                className="bg-white p-2 rounded-md"
+                className="bg-white p-2 xl:p-0.5 2xl:p-2 rounded-md"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               ></input>
             </div>
           </div>
           <div className="flex flex-col space-y-2">
-            <label htmlFor="address" className="text-gray-700 font-medium">
+            <label htmlFor="address" className="text-gray-700 font-medium 2xl:text-sm 3xl:text-lg">
               Address
             </label>
             <PlacesAutocomplete
@@ -202,13 +202,13 @@ const RegisterForm = () => {
               onSelect={setCoordinates}
             />
           </div>
-          <div className="flex flex-col space-y-2">
-            <label className="text-gray-700 font-medium">
+          <div className="flex flex-col space-y-3">
+            <label className="text-gray-700 font-medium 2xl:text-sm 3xl:text-lg">
               Are you wanting to sell or buy produce?
             </label>
             <div className="flex items-center space-x-4">
               <div>
-                <label className="custom-radio-container text-gray-700 font-medium">
+                <label className="custom-radio-container text-gray-700 font-medium 2xl:text-sm 3xl:text-lg">
                   Buy
                   <input
                     type="radio"
@@ -222,7 +222,7 @@ const RegisterForm = () => {
                 </label>
               </div>
               <div>
-                <label className="custom-radio-container text-gray-700 font-medium">
+                <label className="custom-radio-container text-gray-700 font-medium 2xl:text-sm 3xl:text-lg">
                   Sell
                   <input
                     type="radio"
@@ -237,12 +237,12 @@ const RegisterForm = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-center pt-1 space-x-10">
-            <button className="btn-2" type="submit">
+          <div className="flex justify-center pt-2 md:pt-1 space-x-5 md:space-x-10">
+            <button className="btn-2 px-5" type="submit">
               Sign Up
             </button>
             <button
-              className="btn px-10"
+              className="btn md:px-10"
               type="button"
               onClick={handleBackClick}
             >

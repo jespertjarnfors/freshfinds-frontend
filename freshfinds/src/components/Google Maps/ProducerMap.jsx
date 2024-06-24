@@ -50,9 +50,6 @@ const ProducerMap = () => {
       lng: parseFloat(user.longitude)
     } : defaultCenter;
 
-    // Log user center
-    console.log("User Center:", userCenter);
-
     // Callback to handle the map load event
     const onLoad = useCallback((map) => {
         setMap(map);

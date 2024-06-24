@@ -39,8 +39,8 @@ const LoginForm = () => {
         minHeight: "85vh",
       }}
     >
-      <div className="rounded-md w-1/3 p-8">
-        <div className="flex flex-col justify-center items-center">
+      <div className="rounded-md md:w-2/3 xl:w-1/3 p-8">
+        <div className="hidden md:flex flex-col justify-center items-center">
           <img src={Logo} alt="logo" className="w-96 pb-4" />
         </div>
         <form

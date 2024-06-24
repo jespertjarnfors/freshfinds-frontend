@@ -111,7 +111,7 @@ const ReviewForm = ({ orderId, onSuccess }) => {
   };
 
   return (
-    <div className="h-auto ml-4 p-6 shadow-xl bg-white border-2 border-gray-400 rounded-xl">
+    <div className="h-auto md:ml-4 p-6 shadow-xl bg-white border-2 border-gray-400 rounded-xl">
       <form onSubmit={handleSubmit}>
         {/* Display targetUsername in the form */}
         <p>Reviewing: {targetUsername}</p>
