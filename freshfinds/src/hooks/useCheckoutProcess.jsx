@@ -26,7 +26,7 @@ const useCheckoutProcess = () => {
   const fetchSellerUserId = async (sellerUsername) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/users/username/${sellerUsername}`
+        `https://freshfinds-backend.vercel.app/api/users/username/${sellerUsername}`
       );
       return response.data.data._id; // This is the format of the API response
     } catch (error) {
@@ -48,7 +48,7 @@ const useCheckoutProcess = () => {
     };
     
     // POST request to create an order for each seller
-    const response = await axios.post("http://localhost:3000/api/orders/create", orderData);
+    const response = await axios.post("https://freshfinds-backend.vercel.app/api/orders/create", orderData);
 
     // Extract the orderId from the response
     const orderId = response.data.data[0]._id;
@@ -81,7 +81,7 @@ const useCheckoutProcess = () => {
         for (const item of group.items) {
           const newQuantity = item.initialQuantity - item.quantity;
           await axios.put(
-            `http://localhost:3000/api/products/update/${item.productId}`,
+            `https://freshfinds-backend.vercel.app/api/products/update/${item.productId}`,
             { quantity: newQuantity }
           );
         }

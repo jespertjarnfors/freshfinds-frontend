@@ -67,7 +67,7 @@ const EditProductModal = ({
 
       // Make the PUT request to update the product
       const response = await fetch(
-        `http://localhost:3000/api/products/update/${productId}`,
+        `https://freshfinds-backend.vercel.app/api/products/update/${productId}`,
         {
           method: "PUT",
           headers: {
