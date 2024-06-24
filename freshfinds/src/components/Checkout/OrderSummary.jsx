@@ -25,10 +25,6 @@ const OrderSummary = () => {
                 ))}
             </div>
             <div className="mt-2">
-                <div className="flex justify-between">
-                    <span>Subtotal:</span>
-                    <span>${totalCost.toFixed(2)}</span>
-                </div>
                 {/* Total cost here */}
                 <div className="flex justify-between mt-2">
                     <span>Total:</span>

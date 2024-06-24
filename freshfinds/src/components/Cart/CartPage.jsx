@@ -41,37 +41,41 @@ const CartPage = () => {
               <img
                 src={item.image}
                 alt={item.name}
-                className="w-20 h-20 object-cover mr-6"
+                className="w-28 h-24 md:w-32 md:h-32 object-cover mr-6"
               />
-              <div className="flex-grow">
+              <div>
+              <div className="flex flex-col">
                 <h3 className="text-md font-semibold">{item.name}</h3>
-                <p className="text-gray-600">Seller: {item.seller}</p>
+                <p className="text-gray-600 hidden md:block">Seller: {item.seller}</p>
                 <p className="text-gray-600">
-                  Total Available Stock: {item.initialQuantity} kg
+                  Available Stock: {item.initialQuantity} kg
                 </p>
                 <p className="text-gray-600">
                   Chosen Quantity: {item.quantity} kg
                 </p>
-                <p className="text-gray-600">
+                <p className="text-gray-600 hidden md:block">
                   Price per kg: ${item.unitPrice.toFixed(2)}
                 </p>
-                <p className="text-gray-600">Delivery: {item.deliveryMethod}</p>
+                <p className="text-gray-600">Delivery Type: {item.deliveryMethod}</p>
                 <p className="text-gray-700 font-medium">
                   Total Price: ${item.totalPrice.toFixed(2)}
                 </p>
               </div>
+              <div className="mt-2 space-x-1">
               <button
                 onClick={() => openEditModal(index)}
-                className="ml-4 px-8 py-2 text-white bg-gray-700 rounded hover:bg-gray-800"
+                className="px-5 md:px-7 md:py-2 text-white bg-gray-700 rounded hover:bg-gray-800"
               >
                 Edit
               </button>
               <button
                 onClick={() => removeFromCart(index)}
-                className="ml-4 px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
+                className="px-2 md:ml-4 md:px-4 md:py-2 text-white bg-red-500 rounded hover:bg-red-600"
               >
                 Remove
               </button>
+              </div>
+              </div>
             </div>
           ))
         ) : (

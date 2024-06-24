@@ -24,7 +24,7 @@ const PaymentForm = () => {
   // Checkout process function, handles order creation and product quantity update
   const processCheckout = useCheckoutProcess();
 
-  const { cart, setCart } = useCart();
+  const { setCart } = useCart();
 
  // Validate input based on name and value
   const validateInput = (name, value) => {
@@ -76,7 +76,7 @@ const PaymentForm = () => {
         <div className="mb-4">
           <label
             htmlFor="cardNumber"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm md:text-lg xl:text-sm font-medium text-gray-700 md:mb-2 xl:mb-0"
           >
             Card Number
           </label>
@@ -86,7 +86,7 @@ const PaymentForm = () => {
             name="cardNumber"
             value={paymentDetails.cardNumber}
             onChange={handleChange}
-            className="mt-1 p-2 border rounded-md w-full"
+            className="mt-1 p-2 md:p-3 xl:p-2 border rounded-md w-full"
             placeholder="1234 5678 9012 3456"
             required
           />
@@ -96,7 +96,7 @@ const PaymentForm = () => {
         <div className="mb-4">
           <label
             htmlFor="cardHolderName"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm md:text-lg xl:text-sm font-medium text-gray-700 md:mb-2 xl:mb-0"
           >
             Card Holder Name
           </label>
@@ -106,7 +106,7 @@ const PaymentForm = () => {
             name="cardHolderName"
             value={paymentDetails.cardHolderName}
             onChange={handleChange}
-            className="mt-1 p-2 border rounded-md w-full"
+            className="mt-1 p-2 md:p-3 xl:p-2 border rounded-md w-full"
             placeholder="John Doe"
             required
           />
@@ -118,7 +118,7 @@ const PaymentForm = () => {
           <div className="mb-4">
             <label
               htmlFor="expirationMonth"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm md:text-lg xl:text-sm font-medium text-gray-700 md:mb-2 xl:mb-0"
             >
               Expiration Month
             </label>
@@ -127,7 +127,7 @@ const PaymentForm = () => {
               name="expirationMonth"
               value={expirationMonth}
               onChange={(e) => setExpirationMonth(e.target.value)}
-              className="mt-1 p-2 border rounded-md w-full"
+              className="mt-1 p-2 md:p-3 xl:p-2 border rounded-md w-full"
               required
             >
               <option value="">Month</option>
@@ -143,7 +143,7 @@ const PaymentForm = () => {
           <div className="mb-4">
             <label
               htmlFor="expirationYear"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm md:text-lg xl:text-sm  font-medium text-gray-700 md:mb-2 xl:mb-0"
             >
               Expiration Year
             </label>
@@ -152,7 +152,7 @@ const PaymentForm = () => {
               name="expirationYear"
               value={expirationYear}
               onChange={(e) => setExpirationYear(e.target.value)}
-              className="mt-1 p-2 border rounded-md w-full"
+              className="mt-1 p-2 md:p-3 xl:p-2 border rounded-md w-full"
               required
             >
               <option value="">Year</option>
@@ -168,7 +168,7 @@ const PaymentForm = () => {
           <div className="mb-4">
             <label
               htmlFor="cvv"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm md:text-lg xl:text-sm font-medium text-gray-700 md:mb-2 xl:mb-0"
             >
               CVV
             </label>
@@ -178,7 +178,7 @@ const PaymentForm = () => {
               name="cvv"
               value={paymentDetails.cvv}
               onChange={handleChange}
-              className="mt-1 p-2 border rounded-md w-full"
+              className="mt-1 p-2 md:p-3 xl:p-2 border rounded-md w-full"
               placeholder="123"
               required
             />
@@ -188,7 +188,7 @@ const PaymentForm = () => {
         {/* Complete Checkout Button */}
         <button
           type="submit"
-          className="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded w-full"
+          className="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded w-full md:mt-2 xl:mt-0"
         >
           Complete Checkout
         </button>

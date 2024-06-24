@@ -18,37 +18,37 @@ const ProgressBar = () => {
 
     return (
         <div className="mt-8 flex flex-col items-center">
-            <div className="flex justify-between w-2/4 mb-2 relative">
+            <div className="flex justify-between w-3/4 md:w-3/4 2xl:w-2/4 mb-2 relative md:space-x-0">
                 {/* Connecting Line */}
                 <div className="absolute top-16 translate-y-1/2 left-0 w-full h-1 bg-gray-300"></div>
                 <div className={`absolute top-16 translate-y-1/2 left-0 ${lineClass()} h-1 bg-gray-800 transition-all duration-300 ease-in-out`}></div>
 
                 {/* Steps */}
                 {/* Shipping Details */}
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center mr-5">
                     <div className={`flex items-center justify-center w-8 h-8 rounded-full ${isCurrent("shipping") ? "bg-gray-800" : "bg-gray-400"}`}>
                         <span className="text-white">1</span>
                     </div>
                     <span className={`font-medium text-md mt-1 ${isCurrent("shipping") ? "text-gray-800" : "text-gray-400"}`}>
-                        Shipping Details
+                        Shipping
                     </span>
                 </div>
                 {/* Payment Details */}
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center ml-5">
                     <div className={`flex items-center justify-center w-8 h-8 rounded-full ${isCurrent("payment") ? "bg-gray-800" : "bg-gray-400"}`}>
                         <span className="text-white">2</span>
                     </div>
                     <span className={`font-medium text-md mt-1 ${isCurrent("payment") ? "text-gray-800" : "text-gray-400"}`}>
-                        Payment Details
+                        Payment
                     </span>
                 </div>
                 {/* Order Confirmation */}
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center ml-5">
                     <div className={`flex items-center justify-center w-8 h-8 rounded-full ${isCurrent("confirmation") ? "bg-gray-800" : "bg-gray-400"}`}>
                         <span className="text-white">3</span>
                     </div>
                     <span className={`font-medium text-md mt-1 ${isCurrent("confirmation") ? "text-gray-800" : "text-gray-400"}`}>
-                        Order Confirmation
+                        Confirmation
                     </span>
                 </div>
             </div>
