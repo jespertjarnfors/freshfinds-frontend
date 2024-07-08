@@ -70,6 +70,11 @@ const LoginForm = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          <div className="text-gray-500 font-medium text-left mb-4 ml-2 text-sm">
+            <p className="text-gray-700">Demo</p>
+            <p>Username: Test</p>
+            <p>Password: Test1234</p>
+          </div>
           <div className="flex justify-center space-x-10 pt-4">
             <button className="btn-2" type="submit">
               Login
