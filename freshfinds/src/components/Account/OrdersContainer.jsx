@@ -36,7 +36,7 @@ const OrdersContainer = () => {
   // Fetch user orders from the API
   const fetchUserOrders = async () => {
     try {
-      const apiUrl = `http://localhost:3000/api/orders/user/${userId}`;
+      const apiUrl = `https://freshfinds-backend.vercel.app/api/orders/user/${userId}`;
       const response = await axios.get(apiUrl);
 
       if (response.status === 200) {
@@ -66,7 +66,7 @@ const OrdersContainer = () => {
         const sellerData = {};
         await Promise.all(uniqueSellerIds.map(async (sellerId) => {
           try {
-            const sellerResponse = await axios.get(`http://localhost:3000/api/users/${sellerId}`);
+            const sellerResponse = await axios.get(`https://freshfinds-backend.vercel.app/api/users/${sellerId}`);
             sellerData[sellerId] = sellerResponse.data.data.username;
           } catch (error) {
             console.error("Error fetching seller data:", error);
@@ -86,7 +86,7 @@ const OrdersContainer = () => {
     if (orderItems.length > 0) {
       const updatedOrderItems = await Promise.all(orderItems.map(async (item) => {
         try {
-          const productResponse = await axios.get(`http://localhost:3000/api/products/${item.productId}`);
+          const productResponse = await axios.get(`https://freshfinds-backend.vercel.app/api/products/${item.productId}`);
           return { ...item, productName: productResponse.data.data.productName };
         } catch (error) {
           console.error("Error fetching product data:", error);

@@ -14,7 +14,7 @@ const ReviewForm = ({ orderId, onSuccess }) => {
     const fetchReviewData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/reviews/order/${orderId}`
+          `https://freshfinds-backend.vercel.app/api/reviews/order/${orderId}`
         );
         const data = await response.json();
   
@@ -41,7 +41,7 @@ const ReviewForm = ({ orderId, onSuccess }) => {
     const fetchTargetUsername = async (targetUserId) => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/users/${targetUserId}`
+          `https://freshfinds-backend.vercel.app/api/users/${targetUserId}`
         );
         const userData = await response.json();
   
@@ -78,7 +78,7 @@ const ReviewForm = ({ orderId, onSuccess }) => {
       if (reviewData) {
         // If reviewData exists, update the review
         const response = await fetch(
-          `http://localhost:3000/api/reviews/update/${reviewData._id}`,
+          `https://freshfinds-backend.vercel.app/api/reviews/update/${reviewData._id}`,
           {
             method: "PUT",
             headers: {

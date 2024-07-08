@@ -42,7 +42,7 @@ const OrderConfirmation = () => {
         try {
           const responses = await Promise.all(
             orderIds.map((orderId) =>
-              axios.get(`http://localhost:3000/api/orders/${orderId}`)
+              axios.get(`https://freshfinds-backend.vercel.app/api/orders/${orderId}`)
             )
           );
 
@@ -60,7 +60,7 @@ const OrderConfirmation = () => {
           for (const sellerId of uniqueSellerIds) {
             try {
               const sellerResponse = await axios.get(
-                `http://localhost:3000/api/users/${sellerId}`
+                `https://freshfinds-backend.vercel.app/api/users/${sellerId}`
               );
               const sellerData = sellerResponse.data.data;
               sellerNameData[sellerId] = sellerData.username;
@@ -97,7 +97,7 @@ const OrderConfirmation = () => {
         for (const item of orderItems) {
           try {
             const productResponse = await axios.get(
-              `http://localhost:3000/api/products/${item.productId}`
+              `https://freshfinds-backend.vercel.app/api/products/${item.productId}`
             );
 
             const productData = productResponse.data.data;
@@ -128,7 +128,7 @@ const OrderConfirmation = () => {
 
         try {
           const response = await axios.post(
-            `http://localhost:3000/api/reviews/create`,
+            `https://freshfinds-backend.vercel.app/api/reviews/create`,
             {
               userId,
               targetUserId,

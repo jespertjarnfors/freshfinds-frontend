@@ -47,7 +47,7 @@ const ProductContainer = () => {
       if (!sellerRatings.has(seller.userId)) {
         try {
           const response = await fetch(
-            `http://localhost:3000/api/users/${seller.userId}/average-rating`
+            `https://freshfinds-backend.vercel.app/api/users/${seller.userId}/average-rating`
           );
           if (response.ok) {
             const data = await response.json();
@@ -72,7 +72,7 @@ const ProductContainer = () => {
           const distanceInKm = parseInt(selectedDistance.replace("km", ""));
 
           const response = await fetch(
-            `http://localhost:3000/api/products/distance?lat=${user.latitude}&lng=${user.longitude}&distance=${distanceInKm}`
+            `https://freshfinds-backend.vercel.app/api/products/distance?lat=${user.latitude}&lng=${user.longitude}&distance=${distanceInKm}`
           );
 
           if (response.ok) {

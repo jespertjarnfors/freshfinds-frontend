@@ -102,7 +102,7 @@ const AddProductModal = ({ isOpen, closeModal }) => {
 
       // Make the POST request
       const response = await fetch(
-        "http://localhost:3000/api/products/create",
+        "https://freshfinds-backend.vercel.app/api/products/create",
         {
           method: "POST",
           headers: {

@@ -16,7 +16,7 @@ export const UserProvider = ({ children }) => {
     const fetchUserIdFromMongoDB = async (cognitoId) => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/users/cognito/${cognitoId}`
+          `https://freshfinds-backend.vercel.app/api/users/cognito/${cognitoId}`
         );
         const userData = await response.json();
 

@@ -13,7 +13,7 @@ const DeleteProductModal = ({ isOpen, closeModal, productId }) => {
     try {
       // Makes the DELETE request to remove the product
       const response = await fetch(
-        `http://localhost:3000/api/products/delete/${productId}`,
+        `https://freshfinds-backend.vercel.app/api/products/delete/${productId}`,
         {
           method: "DELETE",
           headers: {
