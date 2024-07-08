@@ -1,4 +1,5 @@
 import ButtonBar from "../components/Home/ButtonBar";
+import CopyRight from "../components/Home/CopyRight";
 import HeroAnimation from "../components/Home/HeroAnimation";
 import HeroText from "../components/Home/HeroText";
 import HomeNavBar from "../components/Home/HomeNavBar";
@@ -20,6 +21,7 @@ const Home = () => {
         <HeroAnimation></HeroAnimation>
       </div>
     </div>
+    <CopyRight></CopyRight>
     </div>
   );
 };
