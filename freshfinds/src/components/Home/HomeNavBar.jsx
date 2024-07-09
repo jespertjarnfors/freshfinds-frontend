@@ -14,7 +14,7 @@ const HomeNavBar = () => {
   return (
     <div>
       <nav className="home-navbar relative">
-        <div className="px-6 py-4">
+        <div className="py-1 md:px-6 md:py-4">
           <div className="flex lg:items-center justify-center md:justify-between">
             <div className="flex items-center justify-center md:justify-between">
               <img className="h-16 md:h-24 lg:h-14 md:ml-2" src={Logo} alt="" onClick={handleHomeClick} />

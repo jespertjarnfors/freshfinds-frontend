@@ -96,10 +96,11 @@ const LeftNav = ({
   };
 
   return (
+    // Left Nav container, for desktop and mobile
     <div
       className={`absolute inset-x-0 z-20 w-full h-full px-6 py-4 transition-all duration-300 ease-in-out shadow-none md:shadow-xl ${
-        showLeftNav ? "block" : "hidden md:block"
-      } md:relative md:w-1/4 lg:w-1/6 md:transition-none rounded-xl md:ml-10 md:h-auto`}
+        showLeftNav ? "hidden md:block" : "block" 
+      } md:relative md:w-1/4 lg:w-1/6 md:transition-none rounded-xl md:ml-5 xl:ml-10 md:h-auto`}
       style={{ backgroundColor: "#FFEDC2" }}
     >
       <button

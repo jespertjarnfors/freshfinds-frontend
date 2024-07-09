@@ -5,7 +5,7 @@ const Map = () => {
     return (
         <div>
             <UserNavBar />
-            <div className='flex justify-center'>
+            <div className='flex xl:justify-center'>
             <MapContainer></MapContainer>
             </div>
         </div>
