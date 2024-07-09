@@ -35,7 +35,7 @@ const VerificationModal = () => {
           alert('Successfully verified!');
           console.log('call result: ' + result);
           // API call to create user in MongoDB
-          fetch('http://localhost:3000/api/users/create', {
+          fetch('https://freshfinds-backend.vercel.app/api/users/create', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

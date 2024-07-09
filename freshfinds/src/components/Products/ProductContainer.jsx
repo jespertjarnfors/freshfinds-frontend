@@ -205,7 +205,7 @@ const ProductContainer = () => {
         setResetSelections={setResetSelections}
       />
       <div
-        className="flex flex-col w-max md:w-4/5 mr-2 xl:mr-10 ml-2 xl:ml-5 p-5 xl:p-10 rounded-xl shadow-lg overflow-auto custom-scrollbar"
+        className="flex flex-col w-max md:w-4/5 mr-5 xl:mr-10 ml-5 md:ml-2 xl:ml-5 p-5 xl:p-10 rounded-xl shadow-lg overflow-auto custom-scrollbar"
         style={{ backgroundColor: "#FFEDC2", height: "85vh" }}
       >
         <div className="flex justify-start flex-col-reverse md:flex-row items-center mb-2 md:mb-4">
@@ -213,7 +213,7 @@ const ProductContainer = () => {
           <SearchBar value={searchTerm} onChange={handleSearchChange} />
           <button
             onClick={clearFilters}
-            className="text-medium font-semibold underline text-gray-600 ml-2 md:ml-4"
+            className="text-sm md:text-medium font-semibold underline text-gray-600 ml-2 md:ml-4"
           >
             Clear Filter
           </button>
@@ -237,7 +237,7 @@ const ProductContainer = () => {
           {/* "All Products / My Products toggle buttons (Conditionally rendered for producers) */}
           {user?.isProducer === "true" && (
             <div
-              className="ml-auto sm:ml-0 md:ml-auto mr-auto md:mr-2 mb-5 md:mb-0 2xl:mr-8 3xl:mr-12 flex items-center shadow-lg rounded-2xl font-semibold text-gray-700"
+              className="ml-auto sm:ml-0 md:ml-9 xl:ml-auto mr-auto md:mr-2 mb-5 md:mb-0 2xl:mr-8 3xl:mr-12 flex items-center shadow-lg rounded-2xl font-semibold text-gray-700"
               style={{ backgroundColor: "#FFF9EB" }}
             >
               <button

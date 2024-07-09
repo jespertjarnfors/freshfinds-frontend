@@ -36,7 +36,7 @@ const UserNavBar = () => {
                 onClick={() => handleNavigation("/home")}
               />
                 {/* Conditional Mobile Menu Cart and Sign out */}
-              <div className="ml-auto mr-2 flex flex-row lg:hidden mb-1 space-x-2">
+              <div className="ml-2 mr-0 md:ml-auto md:mr-2 flex flex-row lg:hidden md:mb-1 space-x-2">
               <button
                   onClick={handleSignOut}
                   className="mr-2 px-1.5 py-2 text-gray-700 font-bold bg-inherit rounded hover:text-red-600 underline-offset-2 underline"
