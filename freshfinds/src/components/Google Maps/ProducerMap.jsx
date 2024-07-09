@@ -3,10 +3,11 @@
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from "@react-google-maps/api";
 import { useState, useCallback, useEffect } from "react";
 import { useUser } from "../../hooks/useUser";
+import "./Mapstyles.css";
 
 const containerStyle = {
-  width: '1020px',
-  height: '500px'
+  width: 'max',
+  height: 'max'
 };
 
 const ProducerMap = () => {
@@ -61,8 +62,9 @@ const ProducerMap = () => {
     }, []);
 
     return isLoaded ? (
+        <div className="map-container justify-center">
         <GoogleMap
-            mapContainerStyle={containerStyle}
+            mapContainerStyle={{ width: '100%', height: '100%' }}
             center={userCenter}
             zoom={11}
             onLoad={onLoad}
@@ -91,6 +93,7 @@ const ProducerMap = () => {
                 </InfoWindow>
             )}
         </GoogleMap>
+        </div>
     ) : <></>;
 }
 

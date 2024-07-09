@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useUser } from "../../hooks/useUser";
 import { useProductsUpdated } from "../../contexts/ProductsUpdatedContext";
+import LoadingAnimation from "./LoadingAnimation";
 import ProductCard from "./ProductCard";
 import ProducerProductCard from "./ProducerProductCard";
 import SearchBar from "./SearchBar";
@@ -35,6 +36,7 @@ const ProductContainer = () => {
   const { productsUpdated, setProductsUpdated } = useProductsUpdated();
   const [showLeftNav, setShowLeftNav] = useState(true);
   const [resetSelections, setResetSelections] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const { user } = useUser();
 
@@ -66,6 +68,7 @@ const ProductContainer = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setLoading(true); // Set loading to true before starting the fetch
         // Check if latitude and longitude are defined
         if (user && user.latitude && user.longitude) {
           // Convert selectedDistance to a number (e.g., "25km" becomes 25)
@@ -108,6 +111,8 @@ const ProductContainer = () => {
         }
       } catch (error) {
         console.error("Error fetching products by distance:", error);
+      } finally {
+        setLoading(false); // Set loading to false after the fetch completes
       }
     };
 
@@ -124,7 +129,7 @@ const ProductContainer = () => {
   // Function to reset highlighted items in Mobile Menu/LeftNav
   const handleReset = () => {
     // Toggle the reset state to trigger the reset functionality
-    setResetSelections(prevState => !prevState);
+    setResetSelections((prevState) => !prevState);
   };
 
   // Function to clear all filters
@@ -178,17 +183,17 @@ const ProductContainer = () => {
 
   return (
     <div className="flex">
-       <div className="relative md:hidden">
-      {/* Filter Button */}
-      <button
-        className={`absolute top-1/2 z-10 px-2 py-5 border border-gray-300 rounded-r-3xl font-bold text-gray-900 shadow-xl ${
-          showLeftNav ? "rounded-b-none" : ""
-        }`}
-        style={{ backgroundColor: "#FFF9EB"}}
-        onClick={() => setShowLeftNav(!showLeftNav)}
-      >
-        Filter
-      </button>
+      <div className="relative md:hidden">
+        {/* Filter Button */}
+        <button
+          className={`absolute top-1/2 z-10 px-2 py-5 border border-gray-300 rounded-r-3xl font-bold text-gray-900 shadow-xl ${
+            showLeftNav ? "rounded-b-none" : ""
+          }`}
+          style={{ backgroundColor: "#FFF9EB" }}
+          onClick={() => setShowLeftNav(!showLeftNav)}
+        >
+          Filter
+        </button>
       </div>
       <LeftNav
         selectedCategory={selectedCategory}
@@ -210,28 +215,28 @@ const ProductContainer = () => {
       >
         <div className="flex justify-start flex-col-reverse md:flex-row items-center mb-2 md:mb-4">
           <div className="flex flex-row">
-          <SearchBar value={searchTerm} onChange={handleSearchChange} />
-          <button
-            onClick={clearFilters}
-            className="text-sm md:text-medium font-semibold underline text-gray-600 ml-2 md:ml-4"
-          >
-            Clear Filter
-          </button>
-          {selectedCategory && (
-            <div className="bg-gray-200 px-2 py-1 ml-2 rounded-lg hidden lg:block">
-              {selectedCategory}
-            </div>
-          )}
-          {selectedRating && (
-            <div className="bg-gray-200 px-2 py-1 ml-2 rounded-lg hidden lg:block">
-              Rating: {selectedRating}
-            </div>
-          )}
-          {selectedDeliveryMethod && (
-            <div className="bg-gray-200 px-2 py-1 ml-2 rounded-lg hidden lg:block">
-              Delivery: {selectedDeliveryMethod}
-            </div>
-          )}
+            <SearchBar value={searchTerm} onChange={handleSearchChange} />
+            <button
+              onClick={clearFilters}
+              className="text-sm md:text-medium font-semibold underline text-gray-600 ml-2 md:ml-4"
+            >
+              Clear Filter
+            </button>
+            {selectedCategory && (
+              <div className="bg-gray-200 px-2 py-1 ml-2 rounded-lg hidden lg:block">
+                {selectedCategory}
+              </div>
+            )}
+            {selectedRating && (
+              <div className="bg-gray-200 px-2 py-1 ml-2 rounded-lg hidden lg:block">
+                Rating: {selectedRating}
+              </div>
+            )}
+            {selectedDeliveryMethod && (
+              <div className="bg-gray-200 px-2 py-1 ml-2 rounded-lg hidden lg:block">
+                Delivery: {selectedDeliveryMethod}
+              </div>
+            )}
           </div>
 
           {/* "All Products / My Products toggle buttons (Conditionally rendered for producers) */}
@@ -265,23 +270,32 @@ const ProductContainer = () => {
             </div>
           )}
         </div>
-
+        {/* Main Product Container */}
         <div className="flex flex-row flex-wrap -mx-4 justify-center lg:justify-normal">
-          {/* Conditionally render ProductCard or ProducerProductCard based on showMyProducts */}
-          {filteredProducts.map((product) => (
-            <div key={product.key}>
-              {showMyProducts ? (
-                <ProducerProductCard
-                  product={product}
-                  productId={product.key}
-                  productsUpdated={productsUpdated}
-                  setProductsUpdated={setProductsUpdated}
-                />
-              ) : (
-                <ProductCard product={product} productId={product.key} />
-              )}
+          
+          {/* Show loading animation if products are not loaded */}
+          {loading ? (
+            <div className="mx-auto mt-24 md:mt-36 xl:mt-40">
+            <p className="text-lg text-center font-semibold text-gray-600" style={{
+            fontFamily: 'General Sans, sans-serif'
+        }}>Finding Products...</p> <LoadingAnimation></LoadingAnimation>
             </div>
-          ))}
+          ) : (
+            filteredProducts.map((product) => (
+              <div key={product.key}>
+                {showMyProducts ? (
+                  <ProducerProductCard
+                    product={product}
+                    productId={product.key}
+                    productsUpdated={productsUpdated}
+                    setProductsUpdated={setProductsUpdated}
+                  />
+                ) : (
+                  <ProductCard product={product} productId={product.key} />
+                )}
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>
